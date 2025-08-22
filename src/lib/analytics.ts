@@ -35,11 +35,11 @@ export const analytics = {
   },
 
   // Name generation
-  trackNameGeneration: (petTypes: string[], nameStyles: string[], genders: string[]) => {
+  trackNameGeneration: (petTypes: string[], nameStyles: string[], petCharacteristics: string[]) => {
     trackEvent('name_generation', 'engagement', 'generate_names', 1);
     trackEvent('preferences_used', 'engagement', 'pet_types', petTypes.length);
     trackEvent('preferences_used', 'engagement', 'name_styles', nameStyles.length);
-    trackEvent('preferences_used', 'engagement', 'genders', genders.length);
+    trackEvent('preferences_used', 'engagement', 'pet_characteristics', petCharacteristics.length);
   },
 
   // Name feedback

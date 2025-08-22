@@ -6,7 +6,7 @@ import { db } from '@/lib/firebaseAdmin';
 interface GenerateNamesRequest {
   petDescription?: string;
   petTypes?: string[];
-  genders?: string[] ;
+  petCharacteristics?: string[];
   nameStyles?: string[];
   uploadedImages?: string[];
 }
@@ -37,8 +37,9 @@ async function saveNamesToDatabase(names: PetName[], requestData: GenerateNamesR
         origin: name.origin,
         petDescription: requestData.petDescription,
         petTypes: requestData.petTypes || [],
-        genders: requestData.genders || [],
+        petCharacteristics: requestData.petCharacteristics || [],
         nameStyles: requestData.nameStyles || [],
+        numberOfImagesAttached: requestData.uploadedImages?.length,
         createdAt: new Date(),
         generatedBy: 'llm'
       });
@@ -86,9 +87,9 @@ async function generateNamesWithLLMGoogle(request: GenerateNamesRequest): Promis
 
   const prompt = `Generate ${process.env.NEXT_PUBLIC_TOP_NAMES || '5'} unique and meaningful pet names based on the following criteria:
 ${request.petDescription ? `Description: ${request.petDescription}` : ''}
-${request.petTypes?.length > 0 ? `Pet type: ${request.petTypes.join(', ')}` : ''}
-${request.genders?.length > 0 ? `Preferred gender: ${request.genders.join(', ')}` : ''}
-${request.nameStyles?.length ? `Name style: ${request.nameStyles.join(', ')}` : ''}
+${request.petTypes && request.petTypes.length > 0 ? `Pet type: ${request.petTypes.join(', ')}` : ''}
+${request.petCharacteristics && request.petCharacteristics.length > 0 ? `Pet characteristics: ${request.petCharacteristics.join(', ')}` : ''}
+${request.nameStyles && request.nameStyles.length > 0 ? `Name style: ${request.nameStyles.join(', ')}` : ''}
 
 For each name, provide:
 1. The name itself
@@ -198,9 +199,9 @@ async function generateNamesWithLLMNvidia(request: GenerateNamesRequest): Promis
 
 const prompt = `Generate ${process.env.NEXT_PUBLIC_TOP_NAMES || '5'} unique and meaningful pet names based on the following criteria:
 ${request.petDescription ? `Description: ${request.petDescription}` : ''}
-${request.petTypes?.length > 0 ? `Pet type: ${request.petTypes.join(', ')}` : ''}
-${request.genders?.length > 0 ? `Preferred gender: ${request.genders.join(', ')}` : ''}
-${request.nameStyles?.length ? `Name style: ${request.nameStyles.join(', ')}` : ''}
+${request.petTypes && request.petTypes.length > 0 ? `Pet type: ${request.petTypes.join(', ')}` : ''}
+${request.petCharacteristics && request.petCharacteristics.length > 0 ? `Pet characteristics: ${request.petCharacteristics.join(', ')}` : ''}
+${request.nameStyles && request.nameStyles.length > 0 ? `Name style: ${request.nameStyles.join(', ')}` : ''}
 
 For each name, provide:
 1. The name itself
@@ -289,17 +290,17 @@ export async function POST(request: NextRequest) {
 
     console.log('ℹ️ Received request');
     console.log('ℹ️ Pet Type : ' + JSON.stringify(body.petTypes));
-    console.log('ℹ️ Pet genders : ' + JSON.stringify(body.genders));
+    console.log('ℹ️ Pet characteristics : ' + JSON.stringify(body.petCharacteristics));
     console.log('ℹ️ Pet Description: ' + JSON.stringify(body.petDescription));
     console.log('ℹ️ Name Styles : ' + JSON.stringify(body.nameStyles));
     console.log('ℹ️ Uploaded files : ' + JSON.stringify(body.uploadedImages?.length || 0));
     
     // Validate required fields
     if (!body.petDescription || !body.petDescription.trim()) {
-      // If no description, use a default or generate names based on pet types only
-      body.petDescription = body.petTypes.length > 0 
-        ? `A ${body.petTypes.join(', ')} pet` 
-        : 'A wonderful pet';
+          // If no description, use a default or generate names based on pet types only
+    body.petDescription = body.petTypes && body.petTypes.length > 0 
+      ? `A ${body.petTypes.join(', ')} pet` 
+      : 'A wonderful pet';
     }
 
     // Determine whether to use mock data based on environment variables
@@ -352,11 +353,11 @@ export async function POST(request: NextRequest) {
 // Generate mock names based on predefined data
 function generateMockNames(request: {
   petDescription?: string;
-  petTypes: string[];
+  petTypes?: string[];
   nameStyles?: string[];
-  genders?: string[];
+  petCharacteristics?: string[];
 }): PetName[] {
-  const { petDescription, petTypes, nameStyles, genders } = request;
+  const { petDescription, petTypes = [], nameStyles = [], petCharacteristics = [] } = request;
 
   console.log('ℹ️ Generating mock names from local data');
 
@@ -373,8 +374,12 @@ function generateMockNames(request: {
     namePool = mockNamesByType.other;
   }
 
-  const maleKeywords = ['strength', 'power', 'bold', 'strong', 'king', 'leader', 'brave'];
-  const femaleKeywords = ['grace', 'beauty', 'elegant', 'gentle', 'queen', 'wise', 'light'];
+  const characteristicKeywords = {
+    'white': ['white', 'light', 'bright', 'pure', 'snow', 'cloud'],
+    'brown': ['brown', 'earth', 'wood', 'warm', 'coffee', 'chocolate'],
+    'small': ['small', 'tiny', 'little', 'mini', 'petite', 'delicate'],
+    'big': ['big', 'large', 'huge', 'giant', 'strong', 'mighty']
+  };
   const descLower = petDescription?.toLowerCase() || '';
   const stylesLower = (nameStyles || []).map(style => style.toLowerCase());
 
@@ -389,11 +394,12 @@ function generateMockNames(request: {
     // Match name styles
     if (stylesLower.some(style => text.includes(style))) score += 1;
 
-    // Match any of the genders
-    if (genders && genders.length > 0) {
-      if (genders.includes('male') && maleKeywords.some(k => text.includes(k))) score += 1;
-      if (genders.includes('female') && femaleKeywords.some(k => text.includes(k))) score += 1;
-      if (genders.includes('neutral')) score += 1; // give small bonus
+    // Match any of the pet characteristics
+    if (petCharacteristics && petCharacteristics.length > 0) {
+      petCharacteristics.forEach(characteristic => {
+        const keywords = characteristicKeywords[characteristic as keyof typeof characteristicKeywords] || [];
+        if (keywords.some(k => text.includes(k))) score += 1;
+      });
     }
 
     return { ...nameData, _score: score };

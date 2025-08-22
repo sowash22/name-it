@@ -22,7 +22,7 @@ Each name document in the `names` collection contains:
   "origin": "Greek Mythology",
   "petDescription": "User's pet description",
   "petTypes": ["dog", "cat"],
-  "genders": ["male"],
+  "petCharacteristics": ["white", "small"],
   "nameStyles": ["classic", "mythological"],
   "createdAt": "2024-01-01T00:00:00.000Z",
   "generatedBy": "llm" // or "mock" or "manual"

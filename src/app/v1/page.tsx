@@ -65,7 +65,7 @@ export default function Home() {
   const [petDescription, setPetDescription] = useState('');
   const [petTypes, setPetTypes] = useState<string[]>([]);
   const [nameStyles, setNameStyles] = useState<string[]>([]);
-  const [genders, setGenders] = useState<string[]>([]);
+  const [petCharacteristics, setPetCharacteristics] = useState<string[]>([]);
   const [uploadedImages, setUploadedImages] = useState<string[]>([]);
   const [generatedNames, setGeneratedNames] = useState<PetName[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -136,14 +136,14 @@ export default function Home() {
     
     // Track form submission and preferences
     analytics.trackFormSubmission('pet_names', !!petDescription.trim(), uploadedImages.length > 0);
-    analytics.trackNameGeneration(petTypes, nameStyles, genders);
+    analytics.trackNameGeneration(petTypes, nameStyles, petCharacteristics);
     
     try {
       const requestBody = {
         petDescription: petDescription.trim() || '',
         petTypes,
         nameStyles,
-        genders,
+        petCharacteristics,
         uploadedImages
       };
       
@@ -525,41 +525,41 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Gender */}
+                {/* Pet Characteristics */}
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      Gender preference? 💖
+                      Pet characteristics? 🎨
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-3">
-                    {(process.env.NEXT_PUBLIC_GENDERS || 'male:💙,female:💗,neutral:🌈').split(',').map((item) => {
-                      const [gender, icon] = item.split(':');
+                    {(process.env.NEXT_PUBLIC_PET_CHARACTERISTICS || 'white:⚪,brown:🟤,small:🔹,big:🔶').split(',').map((item) => {
+                      const [characteristic, icon] = item.split(':');
                       return (
                         <button
-                          key={gender}
+                          key={characteristic}
                           onClick={() => {
-                            if (genders.includes(gender)) {
-                              setGenders(genders.filter(g => g !== gender));
-                              analytics.trackButtonClick('remove_gender', gender);
-                              analytics.trackPageInteraction('remove_gender', gender);
+                            if (petCharacteristics.includes(characteristic)) {
+                              setPetCharacteristics(petCharacteristics.filter(c => c !== characteristic));
+                              analytics.trackButtonClick('remove_characteristic', characteristic);
+                              analytics.trackPageInteraction('remove_characteristic', characteristic);
                             } else {
-                              setGenders([...genders, gender]);
-                              analytics.trackButtonClick('add_gender', gender);
-                              analytics.trackPageInteraction('add_gender', gender);
+                              setPetCharacteristics([...petCharacteristics, characteristic]);
+                              analytics.trackButtonClick('add_characteristic', characteristic);
+                              analytics.trackPageInteraction('add_characteristic', characteristic);
                             }
                           }}
                           className={`px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg border ${
-                            genders.includes(gender)
+                            petCharacteristics.includes(characteristic)
                               ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-purple-500/30 border-purple-400/20'
                               : 'bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-700 dark:text-slate-300 hover:bg-purple-50 dark:hover:bg-purple-900/20 shadow-slate-500/10 border-white/20 dark:border-slate-700/50'
                           }`}
                         >
                           <span className="text-lg mr-2">{icon}</span>
-                          {gender.charAt(0).toUpperCase() + gender.slice(1)}
+                          {characteristic.charAt(0).toUpperCase() + characteristic.slice(1)}
                         </button>
                       );
                     })}
@@ -863,7 +863,7 @@ export default function Home() {
                       setPetDescription('');
                       setPetTypes([]);
                       setNameStyles([]);
-                      setGenders([]);
+                      setPetCharacteristics([]);
                       setUploadedImages([]);
                       analytics.trackButtonClick('restart', 'results');
                       analytics.trackPageInteraction('restart_form', 'results');
