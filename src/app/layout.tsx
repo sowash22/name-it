@@ -44,7 +44,7 @@ export default function RootLayout({
         </Script>
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme={process.env.NEXT_PUBLIC_DEFAULT_THEME || 'dark'} enableSystem>
           <div className="min-h-screen flex flex-col">
             <main className="flex-grow">
               {children}
