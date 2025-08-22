@@ -921,11 +921,11 @@ export default function Home() {
           <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-3xl p-8 w-full max-w-2xl mx-4 shadow-3xl border border-white/30 dark:border-slate-700/50 transform animate-in">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-pink-500 to-rose-500 text-white flex items-center justify-center text-2xl">
+                <div className=" text-white flex items-center justify-center text-2xl">
                   ❤️
                 </div>
                 <h2 className="text-3xl font-black text-slate-900 dark:text-white">
-                  Your Favorite Names
+                  Your shortlisted Names
                 </h2>
               </div>
               <button
