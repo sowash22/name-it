@@ -223,7 +223,7 @@ export default function Home() {
     setUploadedImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  const [activeTab, setActiveTab] = useState<'all' | 'shortlist'>('all');
+  const [activeTab] = useState<'all' | 'shortlist'>('all');
   
   const handleFeedback = (nameId: string, feedback: 'love' | 'like' | 'dislike') => {
     setGeneratedNames(prev => {
@@ -707,7 +707,7 @@ export default function Home() {
               ) : (
                 <span className="flex items-center justify-center gap-3 group-hover:gap-4 transition-all duration-300">
                   {/* <Sparkles className="w-6 h-6 group-hover:animate-pulse" /> */}
-                  Let's Find Purrfect Names!
+                  Let&apos;s Find Purrfect Names!
                   <Sparkles className="w-6 h-6 group-hover:animate-pulse" />
                 </span>
               )}

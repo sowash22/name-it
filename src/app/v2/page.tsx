@@ -209,7 +209,7 @@ export default function Home() {
     setUploadedImages(prev => prev.filter((_, i) => i !== index));
   };
 
-  const [activeTab, setActiveTab] = useState<'all' | 'shortlist'>('all');
+  const [activeTab] = useState<'all' | 'shortlist'>('all');
   
   const handleFeedback = (nameId: string, feedback: 'love' | 'like' | 'dislike') => {
     setGeneratedNames(prev => {
@@ -328,7 +328,7 @@ export default function Home() {
             Name My Pet
           </h1>
           <p className="text-sm text-slate-600 dark:text-slate-300 max-w-sm mx-auto leading-relaxed">
-            Let's find the perfect name for your beloved companion
+            Let&apos;s find the perfect name for your beloved companion
           </p>
         </div>
         {/* Minimal Mode: Only show button */}
@@ -576,7 +576,7 @@ export default function Home() {
                 </div>
               ) : (
                 <span className="flex items-center justify-center gap-2">
-                  Let's Name My Pet
+                  Let&apos;s Name My Pet
                 </span>
               )}
             </button>
