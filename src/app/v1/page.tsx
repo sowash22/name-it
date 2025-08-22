@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus } from 'lucide-react';
+import { analytics } from '@/lib/analytics';
 
 interface SpeechRecognitionEvent extends Event {
   results: {
@@ -84,6 +85,7 @@ export default function Home() {
       
       recognition.onstart = () => {
         setIsListening(true);
+        analytics.trackVoiceInput('start');
         // setToast({ message: 'Listening...', type: 'success' });
       };
       
@@ -96,12 +98,14 @@ export default function Home() {
       
       recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
         console.error('Speech recognition error:', event.error);
+        analytics.trackError('speech_recognition', event.error);
         setToast({ message: 'Error with speech recognition', type: 'error' });
         setIsListening(false);
       };
       
       recognition.onend = () => {
         setIsListening(false);
+        analytics.trackVoiceInput('stop');
         setToast(null);
       };
       
@@ -121,12 +125,18 @@ export default function Home() {
   };
 
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    analytics.trackThemeToggle(newTheme);
   };
 
   // API call to generate names
   const generateNames = async () => {
     setIsGenerating(true);
+    
+    // Track form submission and preferences
+    analytics.trackFormSubmission('pet_names', !!petDescription.trim(), uploadedImages.length > 0);
+    analytics.trackNameGeneration(petTypes, nameStyles, genders);
     
     try {
       const requestBody = {
@@ -173,10 +183,13 @@ export default function Home() {
           behavior: 'smooth',
           block: 'start'
         });
+        // Track when results are shown
+        analytics.trackPageInteraction('show_results', 'names_generated');
       }, 100);
       
     } catch (error) {
       console.error('Error generating names:', error);
+      analytics.trackError('name_generation', 'api_failure');
       setToast({ message: 'Failed to generate names. Please try again.', type: 'error' });
     } finally {
       setIsGenerating(false);
@@ -198,6 +211,7 @@ export default function Home() {
           newImages.push(e.target.result as string);
           if (newImages.length === maxImages) {
             setUploadedImages(prev => [...prev, ...newImages].slice(0, 3));
+            analytics.trackImageUpload(newImages.length);
           }
         }
       };
@@ -221,6 +235,12 @@ export default function Home() {
       return updated;
     });
 
+    // Track feedback
+    const name = generatedNames.find(n => n.id === nameId);
+    if (name) {
+      analytics.trackNameFeedback(feedback, name.name);
+    }
+
     // Manage shortlist
     if (feedback === 'love') {
       setGeneratedNames(prev => {
@@ -230,6 +250,7 @@ export default function Home() {
           setShortlistedNames(current => {
             const exists = current.some(n => n.id === name.id);
             if (!exists) {
+              analytics.trackShortlistAction('add', name.name);
               setToast({ 
                 message: 'Added to favorites ❤️', 
                 type: 'success' 
@@ -243,9 +264,13 @@ export default function Home() {
       });
     } else {
       // Remove from shortlist if exists
-      setShortlistedNames(current => 
-        current.filter(name => name.id !== nameId)
-      );
+      setShortlistedNames(current => {
+        const nameToRemove = current.find(n => n.id === nameId);
+        if (nameToRemove) {
+          analytics.trackShortlistAction('remove', nameToRemove.name);
+        }
+        return current.filter(name => name.id !== nameId);
+      });
     }
     
     setTimeout(() => setToast(null), 2000);
@@ -253,6 +278,7 @@ export default function Home() {
 
   const copyName = (name: string) => {
     navigator.clipboard.writeText(name);
+    analytics.trackNameCopy(name);
     setToast({ message: `"${name}" copied to clipboard!`, type: 'success' });
     setTimeout(() => setToast(null), 2000);
   };
@@ -272,6 +298,9 @@ export default function Home() {
         console.error('Error loading shortlisted names from localStorage:', error);
       }
     }
+    
+    // Track page load
+    analytics.trackPageInteraction('page_load', 'v1');
   }, []);
 
   // Update localStorage when shortlist changes
@@ -306,7 +335,15 @@ export default function Home() {
         {/* Theme and Shortlist Toggles */}
         <div className="absolute top-6 right-6 flex gap-3">
           <button
-            onClick={() => setShowShortlistModal(true)}
+            onClick={() => {
+              setShowShortlistModal(true);
+              analytics.trackShortlistAction('view');
+              analytics.trackPageInteraction('open_shortlist', 'modal');
+              analytics.trackButtonClick('open_shortlist', 'header');
+              analytics.trackButtonClick('open_shortlist', 'header');
+              analytics.trackButtonClick('open_shortlist', 'header');
+              analytics.trackButtonClick('open_shortlist', 'header');
+            }}
             className="relative p-4 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-rose-500 hover:bg-white dark:hover:bg-slate-800 transition-all duration-300 shadow-xl shadow-rose-500/10 hover:shadow-2xl hover:shadow-rose-500/20 transform hover:scale-110 border border-white/20 dark:border-slate-700/50"
             aria-label="Show shortlisted names"
           >
@@ -318,7 +355,13 @@ export default function Home() {
             )}
           </button>
           <button
-            onClick={toggleTheme}
+            onClick={() => {
+              toggleTheme();
+              analytics.trackButtonClick('toggle_theme', 'header');
+              analytics.trackButtonClick('toggle_theme', 'header');
+              analytics.trackButtonClick('toggle_theme', 'header');
+              analytics.trackButtonClick('toggle_theme', 'header');
+            }}
             className="p-4 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-amber-600 dark:text-amber-400 hover:bg-white dark:hover:bg-slate-800 transition-all duration-300 shadow-xl shadow-amber-500/10 hover:shadow-2xl hover:shadow-amber-500/20 transform hover:scale-110 border border-white/20 dark:border-slate-700/50"
             aria-label="Toggle theme"
           >
@@ -346,7 +389,15 @@ export default function Home() {
         {/* Minimal Mode: Only show button */}
         {minimalMode ? (
           <button
-            onClick={generateNames}
+            onClick={() => {
+              analytics.trackButtonClick('generate_names', 'minimal_mode');
+              analytics.trackPageInteraction('generate_names_minimal', 'minimal_mode');
+              analytics.trackButtonClick('generate_names_minimal', 'minimal_mode');
+              analytics.trackButtonClick('generate_names_minimal', 'minimal_mode');
+              analytics.trackButtonClick('generate_names_minimal', 'minimal_mode');
+              analytics.trackButtonClick('generate_names_minimal', 'minimal_mode');
+              generateNames();
+            }}
             disabled={isGenerating}
             className={`group w-full py-6 px-8 mt-6 rounded-3xl font-bold text-xl transition-all duration-500 transform hover:scale-105 ${
               isGenerating
@@ -383,13 +434,30 @@ export default function Home() {
                 <div className="relative group">
                   <textarea
                     value={petDescription}
-                    onChange={(e) => setPetDescription(e.target.value)}
+                    onChange={(e) => {
+                      setPetDescription(e.target.value);
+                      // Track when user starts typing (debounced)
+                      if (e.target.value.length === 1) {
+                        analytics.trackPageInteraction('start_typing', 'description');
+                      }
+                    }}
+                    onFocus={() => analytics.trackPageInteraction('focus_field', 'description')}
                     placeholder="Tell us about their personality, favorite activities, or what makes them special... 🐕"
                     className="w-full px-6 py-6 pb-16 border-0 rounded-3xl focus:ring-4 focus:ring-pink-500/20 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 resize-none min-h-[140px] text-base leading-relaxed transition-all duration-300 shadow-xl shadow-pink-500/5 hover:shadow-2xl hover:shadow-pink-500/10 group-focus-within:shadow-2xl group-focus-within:shadow-pink-500/15 border border-white/20 dark:border-slate-700/50"
                     rows={4}
                   />
                   <button
-                    onClick={isListening ? stopListening : startListening}
+                    onClick={() => {
+                      if (isListening) {
+                        analytics.trackButtonClick('stop_voice', 'description');
+                        analytics.trackPageInteraction('stop_voice', 'description');
+                        stopListening();
+                      } else {
+                        analytics.trackButtonClick('start_voice', 'description');
+                        analytics.trackPageInteraction('start_voice', 'description');
+                        startListening();
+                      }
+                    }}
                     className={`absolute right-4 bottom-4 p-3 rounded-2xl transition-all duration-300 shadow-lg transform hover:scale-110 ${
                       isListening
                         ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-purple-500/30 animate-pulse'
@@ -435,8 +503,12 @@ export default function Home() {
                           onClick={() => {
                             if (petTypes.includes(type)) {
                               setPetTypes(petTypes.filter(t => t !== type));
+                              analytics.trackButtonClick('remove_pet_type', type);
+                              analytics.trackPageInteraction('remove_pet_type', type);
                             } else {
                               setPetTypes([...petTypes, type]);
+                              analytics.trackButtonClick('add_pet_type', type);
+                              analytics.trackPageInteraction('add_pet_type', type);
                             }
                           }}
                           className={`px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg border ${
@@ -472,8 +544,12 @@ export default function Home() {
                           onClick={() => {
                             if (genders.includes(gender)) {
                               setGenders(genders.filter(g => g !== gender));
+                              analytics.trackButtonClick('remove_gender', gender);
+                              analytics.trackPageInteraction('remove_gender', gender);
                             } else {
                               setGenders([...genders, gender]);
+                              analytics.trackButtonClick('add_gender', gender);
+                              analytics.trackPageInteraction('add_gender', gender);
                             }
                           }}
                           className={`px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg border ${
@@ -509,11 +585,15 @@ export default function Home() {
                           onClick={() => {
                             if (nameStyles.includes(style)) {
                               setNameStyles(nameStyles.filter(s => s !== style));
+                              analytics.trackButtonClick('remove_name_style', style);
+                              analytics.trackPageInteraction('remove_name_style', style);
                             } else {
                               setNameStyles([...nameStyles, style]);
+                              analytics.trackButtonClick('add_name_style', style);
+                              analytics.trackPageInteraction('add_name_style', style);
                             }
                           }}
-                          className={`px-6 py-3 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg border ${
+                          className={`px-6 py-2 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg border ${
                             nameStyles.includes(style)
                               ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white shadow-amber-500/30 border-amber-400/20'
                               : 'bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-700 dark:text-slate-300 hover:bg-amber-50 dark:hover:bg-amber-900/20 shadow-slate-500/10 border-white/20 dark:border-slate-700/50'
@@ -537,11 +617,19 @@ export default function Home() {
                   accept={allowedFileTypes.length > 0 ? allowedFileTypes.map(t => `${t}/*`).join(',') : 'image/*'}
                   multiple
                   onChange={handleImageUpload}
+                  onClick={() => {
+                    analytics.trackPageInteraction('click_file_input', 'images');
+                    analytics.trackButtonClick('select_files', 'form');
+                  }}
                   className="hidden"
                   id="image-upload"
                 />
                 <label
                   htmlFor="image-upload"
+                  onClick={() => {
+                    analytics.trackPageInteraction('click_upload_area', 'images');
+                    analytics.trackButtonClick('upload_images', 'form');
+                  }}
                   className="group block w-full py-8 px-6 border-2 border-dashed border-pink-300/50 dark:border-pink-700/50 rounded-3xl text-center text-base text-slate-600 dark:text-slate-400 hover:border-pink-400 dark:hover:border-pink-500 hover:text-pink-600 dark:hover:text-pink-400 cursor-pointer transition-all duration-300 hover:bg-pink-50/50 dark:hover:bg-pink-900/10 bg-white/50 dark:bg-slate-800/50 backdrop-blur-md shadow-xl shadow-pink-500/5 hover:shadow-2xl hover:shadow-pink-500/10 transform hover:scale-105 border-white/20 dark:border-slate-700/50"
                 >
                   <div className="flex flex-col items-center gap-3">
@@ -576,7 +664,10 @@ export default function Home() {
                           />
                         </div>
                         <button
-                          onClick={() => removeImage(index)}
+                          onClick={() => {
+                            analytics.trackButtonClick('remove_image', 'upload');
+                            removeImage(index);
+                          }}
                           className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-pink-500 text-white rounded-full w-7 h-7 flex items-center justify-center text-lg opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-xl hover:scale-110 font-bold"
                         >
                           ×
@@ -590,7 +681,15 @@ export default function Home() {
             
             {/* Generate Button */}
             <button
-              onClick={generateNames}
+              onClick={() => {
+                analytics.trackButtonClick('generate_names', 'full_mode');
+                analytics.trackPageInteraction('generate_names_full', 'full_mode');
+                analytics.trackButtonClick('generate_names_full', 'full_mode');
+                analytics.trackButtonClick('generate_names_full', 'full_mode');
+                analytics.trackButtonClick('generate_names_full', 'full_mode');
+                analytics.trackButtonClick('generate_names_full', 'full_mode');
+                generateNames();
+              }}
               disabled={isGenerating}
               className={`group w-full py-6 px-8 rounded-3xl font-bold text-xl transition-all duration-500 transform hover:scale-105 ${
                 isGenerating
@@ -659,18 +758,34 @@ export default function Home() {
                             
                             <div className="flex gap-2 shrink-0">
                               <button
-                                onClick={() => copyName(petName.name)}
+                                onClick={() => {
+                                  analytics.trackButtonClick('copy_name', 'results');
+                                  analytics.trackPageInteraction('copy_name_results', 'results');
+                                  analytics.trackButtonClick('copy_name_results', 'results');
+                                  analytics.trackButtonClick('copy_name_results', 'results');
+                                  analytics.trackButtonClick('copy_name_results', 'results');
+                                  analytics.trackButtonClick('copy_name_results', 'results');
+                                  copyName(petName.name);
+                                }}
                                 className="group/btn inline-flex items-center px-4 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
                               >
                                 <Copy className="w-4 h-4 mr-2 group-hover/btn:animate-pulse" />
                                 Copy
                               </button>
                               <button
-                                onClick={() => handleFeedback(petName.id, 'love')}
+                                onClick={() => {
+                                  analytics.trackButtonClick('shortlist_name', 'results');
+                                  analytics.trackPageInteraction('shortlist_name_results', 'results');
+                                  analytics.trackButtonClick('shortlist_name_results', 'results');
+                                  analytics.trackButtonClick('shortlist_name_results', 'results');
+                                  analytics.trackButtonClick('shortlist_name_results', 'results');
+                                  analytics.trackButtonClick('shortlist_name_results', 'results');
+                                  handleFeedback(petName.id, 'love');
+                                }}
                                 className={`group/btn inline-flex items-center px-4 py-2 text-sm font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 ${
                                   petName.feedback === 'love'
                                     ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-pink-500/30'
-                                    : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-pink-100 dark:hover:bg-pink-900/30 hover:text-pink-600 dark:hover:text-pink-400'
+                                    : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-pink-500/30 hover:text-pink-600 dark:hover:text-pink-400'
                                 }`}
                               >
                                 <Heart className={`w-4 h-4 mr-2 group-hover/btn:animate-pulse ${petName.feedback === 'love' ? 'fill-current' : ''}`} />
@@ -700,7 +815,15 @@ export default function Home() {
                         {/* Feedback Buttons */}
                         <div className="flex gap-3">
                           <button
-                            onClick={() => handleFeedback(petName.id, 'like')}
+                            onClick={() => {
+                              analytics.trackButtonClick('like_name', 'results');
+                              analytics.trackPageInteraction('like_name_results', 'results');
+                              analytics.trackButtonClick('like_name_results', 'results');
+                              analytics.trackButtonClick('like_name_results', 'results');
+                              analytics.trackButtonClick('like_name_results', 'results');
+                              analytics.trackButtonClick('like_name_results', 'results');
+                              handleFeedback(petName.id, 'like');
+                            }}
                             className={`flex-1 py-1 px-1 rounded-xl text-base font-bold transition-all duration-300 transform hover:scale-105 shadow-lg ${
                               petName.feedback === 'like'
                                 ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-emerald-500/30'
@@ -710,7 +833,15 @@ export default function Home() {
                             <span className="text-lg mr-2">👍</span> I Like This
                           </button>
                           <button
-                            onClick={() => handleFeedback(petName.id, 'dislike')}
+                            onClick={() => {
+                              analytics.trackButtonClick('dislike_name', 'results');
+                              analytics.trackPageInteraction('dislike_name_results', 'results');
+                              analytics.trackButtonClick('dislike_name_results', 'results');
+                              analytics.trackButtonClick('dislike_name_results', 'results');
+                              analytics.trackButtonClick('dislike_name_results', 'results');
+                              analytics.trackButtonClick('dislike_name_results', 'results');
+                              handleFeedback(petName.id, 'dislike');
+                            }}
                             className={`flex-1 py-1 px-1 rounded-xl text-base font-bold transition-all duration-300 transform hover:scale-105 shadow-lg ${
                               petName.feedback === 'dislike'
                                 ? 'bg-gradient-to-r from-slate-500 to-gray-500 text-white shadow-slate-500/30'
@@ -734,6 +865,12 @@ export default function Home() {
                       setNameStyles([]);
                       setGenders([]);
                       setUploadedImages([]);
+                      analytics.trackButtonClick('restart', 'results');
+                      analytics.trackPageInteraction('restart_form', 'results');
+                      analytics.trackButtonClick('restart_form', 'results');
+                      analytics.trackButtonClick('restart_form', 'results');
+                      analytics.trackButtonClick('restart_form', 'results');
+                      analytics.trackButtonClick('restart_form', 'results');
                     }}
                     className="group px-8 py-4 bg-gradient-to-r from-slate-500 to-gray-500 text-white rounded-2xl transition-all duration-500 transform hover:scale-105 font-bold shadow-2xl shadow-slate-500/30 hover:shadow-3xl hover:shadow-slate-500/40 border border-white/20"
                   >
@@ -743,7 +880,15 @@ export default function Home() {
                     </span>
                   </button>
                   <button
-                    onClick={generateNames}
+                    onClick={() => {
+                      analytics.trackButtonClick('show_more_names', 'results');
+                      analytics.trackPageInteraction('request_more_names', 'results');
+                      analytics.trackButtonClick('request_more_names', 'results');
+                      analytics.trackButtonClick('request_more_names', 'results');
+                      analytics.trackButtonClick('request_more_names', 'results');
+                      analytics.trackButtonClick('request_more_names', 'results');
+                      generateNames();
+                    }}
                     disabled={isGenerating}
                     className={`group px-8 py-4 rounded-2xl font-bold transition-all duration-500 transform hover:scale-105 ${
                       isGenerating
@@ -784,7 +929,15 @@ export default function Home() {
                 </h2>
               </div>
               <button
-                onClick={() => setShowShortlistModal(false)}
+                onClick={() => {
+                  analytics.trackButtonClick('close_shortlist', 'modal');
+                  analytics.trackPageInteraction('close_shortlist', 'modal');
+                  analytics.trackButtonClick('close_shortlist', 'modal');
+                  analytics.trackButtonClick('close_shortlist', 'modal');
+                  analytics.trackButtonClick('close_shortlist', 'modal');
+                  analytics.trackButtonClick('close_shortlist', 'modal');
+                  setShowShortlistModal(false);
+                }}
                 className="p-3 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-2xl transition-all duration-300 transform hover:scale-110"
               >
                 <span className="text-3xl text-slate-400 dark:text-slate-500">×</span>
@@ -823,14 +976,30 @@ export default function Home() {
                       </div>
                       <div className="flex gap-2">
                         <button
-                          onClick={() => copyName(name.name)}
+                          onClick={() => {
+                            analytics.trackButtonClick('copy_name', 'shortlist');
+                            analytics.trackPageInteraction('copy_name_shortlist', 'modal');
+                            analytics.trackButtonClick('copy_name_shortlist', 'modal');
+                            analytics.trackButtonClick('copy_name_shortlist', 'modal');
+                            analytics.trackButtonClick('copy_name_shortlist', 'modal');
+                            analytics.trackButtonClick('copy_name_shortlist', 'modal');
+                            copyName(name.name);
+                          }}
                           className="px-4 py-2 text-sm font-bold bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 group-hover:animate-pulse"
                         >
                           <Copy className="w-4 h-4 mr-2 inline" />
                           Copy
                         </button>
                         <button
-                          onClick={() => handleFeedback(name.id, 'dislike')}
+                          onClick={() => {
+                            analytics.trackButtonClick('remove_from_shortlist', 'shortlist');
+                            analytics.trackPageInteraction('remove_name_shortlist', 'modal');
+                            analytics.trackButtonClick('remove_name_shortlist', 'modal');
+                            analytics.trackButtonClick('remove_name_shortlist', 'modal');
+                            analytics.trackButtonClick('remove_name_shortlist', 'modal');
+                            analytics.trackButtonClick('remove_name_shortlist', 'modal');
+                            handleFeedback(name.id, 'dislike');
+                          }}
                           className="px-4 py-2 text-sm font-bold bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
                         >
                           <span className="mr-2">🗑️</span>
