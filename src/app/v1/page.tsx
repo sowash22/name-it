@@ -701,13 +701,13 @@ export default function Home() {
               {isGenerating ? (
                 <div className="flex items-center justify-center gap-3">
                   <span className="text-2xl animate-bounce">🐕</span>
-                  <span className="text-white/90">Sniffing out perfect names...</span>
+                  <span className="text-white/90">Sniffing out purrfect names...</span>
                   {/* <span className="text-xl animate-pulse">💕</span> */}
                 </div>
               ) : (
                 <span className="flex items-center justify-center gap-3 group-hover:gap-4 transition-all duration-300">
                   {/* <Sparkles className="w-6 h-6 group-hover:animate-pulse" /> */}
-                  Let's Find Perfect Names!
+                  Let's Find Purrfect Names!
                   <Sparkles className="w-6 h-6 group-hover:animate-pulse" />
                 </span>
               )}

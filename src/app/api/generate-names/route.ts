@@ -1,6 +1,6 @@
 import { MockNameData, mockNamesByType } from '@/lib/mock';
 import { NextRequest, NextResponse } from 'next/server';
-import OpenAI from 'openai';
+
 import { GoogleGenAI } from '@google/genai';
 import { db } from '@/lib/firebaseAdmin';
 interface GenerateNamesRequest {
@@ -11,11 +11,7 @@ interface GenerateNamesRequest {
   uploadedImages?: string[];
 }
 
-// Initialize OpenAI client if API key is available
-const openai = process.env.NVIDIA_API_KEY ? new OpenAI({
-  apiKey: process.env.NVIDIA_API_KEY,
-  baseURL: process.env.NVIDIA_API_URL || 'https://integrate.api.nvidia.com/v1',
-}) : null;
+
 
 interface PetName {
   id: string;
@@ -48,8 +44,59 @@ async function saveNamesToDatabase(names: PetName[], requestData: GenerateNamesR
     await batch.commit();
     console.log(`✅ Successfully saved ${names.length} names to database`);
   } catch (error) {
-    console.error('❌ Failed to save names to database:', error);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('❌ Failed to save names to database:', errorMessage);
     // Don't throw error here - we still want to return names to user
+  }
+}
+
+// Function to read names from Firebase database
+async function readNamesFromDatabase(requestData: GenerateNamesRequest): Promise<PetName[]> {
+  try {
+    console.log('ℹ️ Reading names from database...');
+    
+    let query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData> = db.collection('names');
+    
+    // Build query based on request criteria
+    if (requestData.petTypes && requestData.petTypes.length > 0) {
+      query = query.where('petTypes', 'array-contains-any', requestData.petTypes);
+    }
+    
+    if (requestData.petCharacteristics && requestData.petCharacteristics.length > 0) {
+      query = query.where('petCharacteristics', 'array-contains-any', requestData.petCharacteristics);
+    }
+    
+    if (requestData.nameStyles && requestData.nameStyles.length > 0) {
+      query = query.where('nameStyles', 'array-contains-any', requestData.nameStyles);
+    }
+    
+    // Add limit and order by creation date (most recent first)
+    query = query.orderBy('createdAt', 'desc').limit(parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10));
+    
+    const snapshot = await query.get();
+    
+    if (snapshot.empty) {
+      console.log('ℹ️ No matching names in database');
+      return [];
+    }
+    
+    const names: PetName[] = snapshot.docs.map((doc: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
+      const data = doc.data();
+      return {
+        id: doc.id,
+        name: data.name,
+        meaning: data.meaning || '',
+        origin: data.origin || ''
+      };
+    });
+    
+    console.log(`✅ Found ${names.length} names in database`);
+    return names;
+    
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.error('❌ Failed to read names from database:', errorMessage);
+    return [];
   }
 }
 
@@ -179,7 +226,7 @@ Ensure each name:
       console.log(`✅ Generated ${names.length} names from Gemini API`);
       return names;
 
-    } catch (parseError) {
+    } catch {
       console.log('❌ Failed to parse Gemini API response - invalid JSON structure');
       throw new Error('Failed to parse structured JSON response from Gemini');
     }
@@ -192,97 +239,7 @@ Ensure each name:
 
 
 
-async function generateNamesWithLLMNvidia(request: GenerateNamesRequest): Promise<PetName[]> {
-  if (!openai) {
-    throw new Error('OpenAI client is not initialized. Check your API_KEY and API_URL environment variables.');
-  }
 
-const prompt = `Generate ${process.env.NEXT_PUBLIC_TOP_NAMES || '5'} unique and meaningful pet names based on the following criteria:
-${request.petDescription ? `Description: ${request.petDescription}` : ''}
-${request.petTypes && request.petTypes.length > 0 ? `Pet type: ${request.petTypes.join(', ')}` : ''}
-${request.petCharacteristics && request.petCharacteristics.length > 0 ? `Pet characteristics: ${request.petCharacteristics.join(', ')}` : ''}
-${request.nameStyles && request.nameStyles.length > 0 ? `Name style: ${request.nameStyles.join(', ')}` : ''}
-
-For each name, provide:
-1. The name itself
-2. Its cultural or linguistic origin
-3. The meaning
-
-Format your response as JSON:
-{
-  "names": [
-    {
-      "name": "Luna",
-      "origin": "Latin",
-      "meaning": "Moon - representing mystery and grace",
-    }
-  ]
-}
-
-Ensure each name:
-- Is memorable and unique
-- Has cultural or historical significance
-- Reflects the pet's characteristics
-- Is easy to pronounce
-- Has a positive meaning or association`;
-
-  try {
-    console.log('ℹ️ Calling NVIDIA API for name generation');
-    const completion = await openai.chat.completions.create({
-      model: 'nvidia/llama-3.3-nemotron-super-49b-v1.5' || process.env.NVIDIA_MODEL || "nvidia/nvidia-nemotron-nano-9b-v2",
-      messages: [
-        { role: "system", content: "You are a creative pet name generator that responds with detailed, meaningful name suggestions in JSON format. Each name should include its cultural origin and meaning. Always format your response as a JSON object with a 'names' array." },
-        { role: "user", content: prompt }
-      ],
-      temperature: 0.7,
-      max_tokens: 256,
-      stream: false,
-      response_format: {
-        type: 'json_object'
-      }
-    });
-
-    // Parse the response into an array of names
-    const response = completion.choices[0]?.message?.content || '';
-    let parsedNames;
-    try {
-      // Clean up the response to ensure valid JSON
-      const cleanResponse = response.replace(/```json\n?|\n?```/g, '').trim();
-      const parsedResponse = JSON.parse(cleanResponse);
-      parsedNames = Array.isArray(parsedResponse) ? parsedResponse : parsedResponse.names;
-      
-      // Validate the structure of the parsed names
-      if (!Array.isArray(parsedNames) || 
-          !parsedNames.every(name => 
-            name && 
-            typeof name.name === 'string' && 
-            typeof name.origin === 'string' && 
-            typeof name.meaning === 'string' &&
-            (!name.personalizedReason || typeof name.personalizedReason === 'string'))) {
-        console.log('❌ Invalid name data structure from NVIDIA API');
-        throw new Error('Invalid name data structure');
-      }
-    } catch (error) {
-      console.log('❌ Failed to parse NVIDIA API response - falling back to mock data');
-      throw new Error('Invalid response format from LLM');
-    }
-
-    const names = parsedNames
-      .slice(0, parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10))
-      .map((nameData, index) => ({
-        id: `name-${Date.now()}-${index}`,
-        name: nameData.name,
-        meaning: `${nameData.meaning}. ${nameData.personalizedReason || ''}`.trim(),
-        origin: nameData.origin
-      }));
-
-    console.log(`✅ Generated ${names.length} names from NVIDIA API`);
-    return names;
-  } catch (error) {
-    console.log(`❌ NVIDIA API call failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    throw error;
-  }
-}
 
 export async function POST(request: NextRequest) {
   try {
@@ -310,11 +267,20 @@ export async function POST(request: NextRequest) {
 
     if (useMock) {
       console.log('ℹ️ Using mock data (configured via MOCK=true)');
-      names = generateMockNames(body);
-      // Save mock names to database as well
-      await saveNamesToDatabase(names, body);
-      // Simulate API processing time
-      // await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Try to read from database first
+      names = await readNamesFromDatabase(body);
+      
+      // If no names found in database, fall back to mock data
+      if (names.length === 0) {
+        console.log('ℹ️ No names found in database, using mock data');
+        names = generateMockNames(body);
+        wasFallback = true;
+      } else {
+        console.log('ℹ️ Using names from database');
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, 1000));
     } else {
       try {
         console.log('ℹ️ Using LLM to generate names');
@@ -323,7 +289,7 @@ export async function POST(request: NextRequest) {
         // Save names to database
         await saveNamesToDatabase(names, body);
 
-      } catch (error) {
+      } catch {
         console.log('ℹ️ LLM generation failed - falling back to mock data');
         names = generateMockNames(body);
         wasFallback = true;
@@ -337,12 +303,14 @@ export async function POST(request: NextRequest) {
       count: names.length,
       timestamp: new Date().toISOString(),
       mock: useMock || wasFallback,
-      model: (useMock || wasFallback) ? 'mock' : (process.env.NVIDIA_MODEL || 'nvidia/nvidia-nemotron-nano-9b-v2'),
-      fallback: wasFallback
+      model: (useMock || wasFallback) ? 'mock' : 'gemini-2.0-flash-exp',
+      fallback: wasFallback,
+      source: useMock ? (names.length > 0 && !wasFallback ? 'database' : 'mock') : 'llm'
     });
 
   } catch (error) {
-    console.log(`❌ Fatal error in name generation: ${error.message}`);
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    console.log(`❌ Fatal error in name generation: ${errorMessage}`);
     return NextResponse.json(
       { error: 'Failed to generate names' },
       { status: 500 }
@@ -385,7 +353,7 @@ function generateMockNames(request: {
 
   // Score each name by how many filters it matches
   const scored = namePool.map(nameData => {
-    const text = `${nameData.name} ${nameData.meaning} ${nameData.personalizedReason}`.toLowerCase();
+    const text = `${nameData.name} ${nameData.meaning}`.toLowerCase();
     let score = 0;
 
     // Match petDescription
@@ -413,7 +381,7 @@ function generateMockNames(request: {
   return scored.slice(0, topNames).map((nameData, index) => ({
     id: `name-${Date.now()}-${index}`,
     name: nameData.name,
-    meaning: `${nameData.meaning}. ${nameData.personalizedReason}`,
+    meaning: nameData.meaning,
     origin: nameData.origin
   }));
 }

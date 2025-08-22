@@ -59,12 +59,12 @@ export default function RootLayout({
                   </span>
                 </div> */}
                 
-                <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-md mx-auto">
+                {/* <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed max-w-md mx-auto">
                   A passion project helping you discover the perfect name for your beloved furry friend with the help of AI
-                </p>
+                </p> */}
                 
                 <div className="mt-4 text-xs text-slate-500 dark:text-slate-500">
-                  Made with ❤️ for pet lovers everywhere
+                  Passion project made with ❤️ for pet lovers everywhere
                 </div>
               </div>
             </footer>
