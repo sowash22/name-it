@@ -2,6 +2,7 @@ import { MockNameData, mockNamesByType } from '@/lib/mock';
 import { NextRequest, NextResponse } from 'next/server';
 import OpenAI from 'openai';
 import { GoogleGenAI } from '@google/genai';
+import { db } from '@/lib/firebaseAdmin';
 interface GenerateNamesRequest {
   petDescription?: string;
   petTypes?: string[];
@@ -21,6 +22,34 @@ interface PetName {
   name: string;
   meaning?: string;
   origin?: string;
+}
+
+// Function to save names to Firebase database
+async function saveNamesToDatabase(names: PetName[], requestData: GenerateNamesRequest): Promise<void> {
+  try {
+    const batch = db.batch();
+    
+    names.forEach((name) => {
+      const docRef = db.collection('names').doc();
+      batch.set(docRef, {
+        name: name.name,
+        meaning: name.meaning,
+        origin: name.origin,
+        petDescription: requestData.petDescription,
+        petTypes: requestData.petTypes || [],
+        genders: requestData.genders || [],
+        nameStyles: requestData.nameStyles || [],
+        createdAt: new Date(),
+        generatedBy: 'llm'
+      });
+    });
+    
+    await batch.commit();
+    console.log(`✅ Successfully saved ${names.length} names to database`);
+  } catch (error) {
+    console.error('❌ Failed to save names to database:', error);
+    // Don't throw error here - we still want to return names to user
+  }
 }
 
 const geminiApiKey = process.env.GEMINI_API_KEY;
@@ -57,8 +86,8 @@ async function generateNamesWithLLMGoogle(request: GenerateNamesRequest): Promis
 
   const prompt = `Generate ${process.env.NEXT_PUBLIC_TOP_NAMES || '5'} unique and meaningful pet names based on the following criteria:
 ${request.petDescription ? `Description: ${request.petDescription}` : ''}
-${request.petTypes.length > 0 ? `Pet type: ${request.petTypes.join(', ')}` : ''}
-${request.gender ? `Preferred gender: ${request.gender}` : ''}
+${request.petTypes?.length > 0 ? `Pet type: ${request.petTypes.join(', ')}` : ''}
+${request.genders?.length > 0 ? `Preferred gender: ${request.genders.join(', ')}` : ''}
 ${request.nameStyles?.length ? `Name style: ${request.nameStyles.join(', ')}` : ''}
 
 For each name, provide:
@@ -105,12 +134,12 @@ Ensure each name:
       contents
     });
     
-    const response = result?.candidates[0]?.content?.parts[0]?.text;
-    
-    if (!response) {
+    if (!result?.candidates?.[0]?.content?.parts?.[0]?.text) {
       console.log('❌ No response received from Gemini API');
       throw new Error('No response text received from Gemini API');
     }
+    
+    const response = result.candidates[0].content.parts[0].text;
 
     try {
       // Clean up the response to remove markdown code blocks
@@ -155,7 +184,7 @@ Ensure each name:
     }
 
   } catch (error) {
-    console.log(`❌ Gemini API call failed: ${error.message}`);
+    console.log(`❌ Gemini API call failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     throw error;
   }
 }
@@ -169,8 +198,8 @@ async function generateNamesWithLLMNvidia(request: GenerateNamesRequest): Promis
 
 const prompt = `Generate ${process.env.NEXT_PUBLIC_TOP_NAMES || '5'} unique and meaningful pet names based on the following criteria:
 ${request.petDescription ? `Description: ${request.petDescription}` : ''}
-${request.petTypes.length > 0 ? `Pet type: ${request.petTypes.join(', ')}` : ''}
-${request.gender ? `Preferred gender: ${request.gender}` : ''}
+${request.petTypes?.length > 0 ? `Pet type: ${request.petTypes.join(', ')}` : ''}
+${request.genders?.length > 0 ? `Preferred gender: ${request.genders.join(', ')}` : ''}
 ${request.nameStyles?.length ? `Name style: ${request.nameStyles.join(', ')}` : ''}
 
 For each name, provide:
@@ -249,7 +278,7 @@ Ensure each name:
     console.log(`✅ Generated ${names.length} names from NVIDIA API`);
     return names;
   } catch (error) {
-    console.log(`❌ NVIDIA API call failed: ${error.message}`);
+    console.log(`❌ NVIDIA API call failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
     throw error;
   }
 }
@@ -281,12 +310,18 @@ export async function POST(request: NextRequest) {
     if (useMock) {
       console.log('ℹ️ Using mock data (configured via MOCK=true)');
       names = generateMockNames(body);
+      // Save mock names to database as well
+      await saveNamesToDatabase(names, body);
       // Simulate API processing time
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // await new Promise(resolve => setTimeout(resolve, 1000));
     } else {
       try {
         console.log('ℹ️ Using LLM to generate names');
         names = await generateNamesWithLLMGoogle(body);
+
+        // Save names to database
+        await saveNamesToDatabase(names, body);
+
       } catch (error) {
         console.log('ℹ️ LLM generation failed - falling back to mock data');
         names = generateMockNames(body);
@@ -295,7 +330,6 @@ export async function POST(request: NextRequest) {
     }
 
     console.log(`✅ Returning ${names.length} names to client`);
-    
     return NextResponse.json({
       success: true,
       names: names,
