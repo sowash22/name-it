@@ -4,6 +4,7 @@ import { v4 as uuidv4 } from 'uuid'; // make sure to install uuid package
 
 import { GoogleGenAI } from '@google/genai';
 import { db } from '@/lib/firebaseAdmin';
+import { error } from 'console';
 
 interface GenerateNamesRequest {
   petDescription?: string;
@@ -326,8 +327,10 @@ export async function POST(request: NextRequest) {
     let names;
     let wasFallback = false;
     let finalSource = ''
+    let finalError = ''
 
 
+    // use DB if env var is set
     if (useDBData) {
       console.log('ℹ️ Using DBdata (configured via USE_DB_DATA=true)');
 
@@ -353,19 +356,24 @@ export async function POST(request: NextRequest) {
 
       finalSource = 'db'
       await new Promise(resolve => setTimeout(resolve, 1000));
-    } else {
+    } 
+    
+    // use llm/agent
+    else {
       try {
         console.log('ℹ️ Using LLM to generate names');
         names = await generateNamesWithLLMGoogle(body);
+
         // Save names to database
         await saveNamesToDatabase(names, body);
         finalSource = 'agent'
 
       } catch(error) {
-        console.log('ℹ️ Name generation failed - falling back to local mock data', error);
-        names = generateNamesFromLocalData(body);
-        wasFallback = true;
+        console.log('ℹ️ Name generation failed - falling back to local mock data', error instanceof Error ? error.message : JSON.stringify(error));
+        names = generateNamesFromLocalData(body)
+        wasFallback = true
         finalSource = 'local'
+        finalError = error instanceof Error ? error.message : JSON.stringify(error)
       }
     }
 
@@ -378,7 +386,8 @@ export async function POST(request: NextRequest) {
       useDB: useDBData || wasFallback,
       // model: finalSource === 'agent' ? process.env.GOOGLE_MODEL : 'none',
       fallback: wasFallback,
-      source: finalSource
+      source: finalSource,
+      error: finalError
     }
     return NextResponse.json(response);
 

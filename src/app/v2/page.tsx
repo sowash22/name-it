@@ -371,7 +371,7 @@ export default function Home() {
                     value={petDescription}
                     onChange={(e) => setPetDescription(e.target.value)}
                     placeholder="Describe their personality, appearance, or what makes them special..."
-                    className="w-full px-4 py-4 pb-12 border-2 border-slate-200 dark:border-slate-600 rounded-2xl focus:border-indigo-500 dark:focus:border-indigo-400 bg-white/50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 resize-vertical min-h-[120px] text-base leading-relaxed transition-all duration-200 focus:ring-4 focus:ring-indigo-100 dark:focus:ring-indigo-900/20"
+                    className="w-full px-4 py-4 pb-12 border-2 outline-none border-slate-200 dark:border-slate-600 rounded-2xl focus:border-indigo-500 dark:focus:border-indigo-400 bg-white/50 dark:bg-slate-700/50 text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 resize-vertical min-h-[120px] text-base leading-relaxed transition-all duration-200 focus:ring-4 focus:ring-indigo-100 dark:focus:ring-indigo-900/20"
                     rows={3}
                   />
                   <button
