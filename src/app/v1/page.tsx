@@ -403,7 +403,7 @@ export default function Home() {
             Name My Pet
           </h1>
           <p className="text-lg text-slate-600/80 dark:text-slate-300/80 max-w-md mx-auto leading-relaxed font-medium">
-            Discover the perfect name for your beloved companion ✨
+            Let’s discover a name that’s full of heart and meaning
           </p>
         </div>
         
@@ -446,7 +446,7 @@ export default function Home() {
               <div className="mb-10">
                 <div className="flex items-center gap-3 mb-4">
                   <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                    Tell us about your friend
+                    Tell us what makes them special
                   </label>
                   <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                     Optional
@@ -509,7 +509,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      What kind of pet? 🐾
+                      Who’s the star? 🐾
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
@@ -550,7 +550,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      Pet characteristics? 🎨
+                      What are they like? 🎨
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
@@ -591,7 +591,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      Name style? ✨
+                      Pick their vibe ✨
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
@@ -720,15 +720,15 @@ export default function Home() {
             >
               {/* Option 1: Wagging tail */}
               {isGenerating ? (
-                <div className="flex items-center justify-center gap-3">
-                  <span className="text-2xl animate-bounce">🐕</span>
-                  <span className="text-white/90">Sniffing out purrfect names...</span>
+                <div className="flex items-center justify-center gap-1">
+                  <span className="text-xl animate-bounce">🐕</span>
+                  <span className="text-white/90">Sniffing out purrfect names..</span>
                   {/* <span className="text-xl animate-pulse">💕</span> */}
                 </div>
               ) : (
-                <span className="flex items-center justify-center gap-3 group-hover:gap-4 transition-all duration-300">
+                <span className="flex items-center justify-center gap-1 group-hover:gap-4 transition-all duration-300">
                   {/* <Sparkles className="w-6 h-6 group-hover:animate-pulse" /> */}
-                  Let&apos;s Find Purrfect Names!
+                   Let&apos;s Find Purrfect Names
                   <Sparkles className="w-6 h-6 group-hover:animate-pulse" />
                 </span>
               )}
@@ -742,11 +742,11 @@ export default function Home() {
                     <span className="text-2xl">🎉</span>
                   </div>
                   <h2 className="text-4xl font-black bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 dark:from-emerald-300 dark:via-teal-300 dark:to-cyan-300 bg-clip-text text-transparent mb-4">
-                    Perfect Names Found!
+                    We’ve got some great names for your little one
                   </h2>
-                  <p className="text-lg text-slate-600 dark:text-slate-300 font-medium">
-                    Here are {process.env.NEXT_PUBLIC_TOP_NAMES || 5} lovely names for your friend ✨
-                  </p>
+                  {/* <p className="text-lg text-slate-600 dark:text-slate-300 font-medium">
+                    Here are {process.env.NEXT_PUBLIC_TOP_NAMES || 5} lovely names for your buddy ✨
+                  </p> */}
                 </div>
                 
                 <div className="space-y-6">
