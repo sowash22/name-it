@@ -71,10 +71,12 @@ export default function RootLayout({
             gtag('config', 'G-FPFPF023ER');
           `}
         </Script>
-        {/* ✅ Explicit Favicon Links */}
-        <link rel="icon" href="/pets.png" sizes="any" />
-        <link rel="shortcut icon" href="/pets.png" />
+        {/* Explicit Favicons */}
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/pets.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/pets.png" />
         <link rel="apple-touch-icon" href="/pets.png" />
+        <link rel="shortcut icon" href="/favicon.ico" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme={process.env.NEXT_PUBLIC_DEFAULT_THEME || 'dark'} enableSystem>
