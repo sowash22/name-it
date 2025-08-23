@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid'; // make sure to install uuid package
 
 import { GoogleGenAI } from '@google/genai';
 import { db } from '@/lib/firebaseAdmin';
-import { error } from 'console';
 
 interface GenerateNamesRequest {
   petDescription?: string;
