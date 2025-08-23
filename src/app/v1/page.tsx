@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus } from 'lucide-react';
+import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus, MessageSquare, Edit } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
+import FeedbackModal from '@/components/FeedbackModal';
 
 interface SpeechRecognitionEvent extends Event {
   results: {
@@ -194,6 +195,9 @@ export default function Home() {
       console.error('Error generating names:', error);
       analytics.trackError('name_generation', 'api_failure');
       setToast({ message: 'Failed to generate names. Please try again.', type: 'error' });
+      setTimeout(() => {
+        setToast(null)
+      }, 1000);
     } finally {
       setIsGenerating(false);
     }
@@ -228,7 +232,7 @@ export default function Home() {
 
   const [activeTab] = useState<'all' | 'shortlist'>('all');
   
-  const handleFeedback = (nameId: string, feedback: 'love' | 'like' | 'dislike') => {
+  const handleShortlist = (nameId: string, feedback: 'love' | 'like' | 'dislike') => {
     setGeneratedNames(prev => {
       const updated = prev.map(name => 
         name.id === nameId 
@@ -289,6 +293,9 @@ export default function Home() {
   // State for shortlist modal
   const [showShortlistModal, setShowShortlistModal] = useState(false);
   const [shortlistedNames, setShortlistedNames] = useState<PetName[]>([]);
+  
+  // State for feedback modal
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   // Load shortlisted names from localStorage on mount
   useEffect(() => {
@@ -335,8 +342,19 @@ export default function Home() {
       )}
       
       <div className="max-w-lg mx-auto px-6 py-12 relative z-10">
-        {/* Theme and Shortlist Toggles */}
+        {/* Theme, Shortlist, and Feedback Toggles */}
         <div className="absolute top-6 right-6 flex gap-3">
+          {/* feedback button */}
+          {/* <button
+            onClick={() => {
+              setShowFeedbackModal(true);
+              analytics.trackFeedbackModal('open');
+            }}
+            className="p-4 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-blue-600 dark:text-blue-400 hover:bg-white dark:hover:bg-slate-800 transition-all duration-300 shadow-xl shadow-blue-500/10 hover:shadow-2xl hover:shadow-blue-500/20 transform hover:scale-110 border border-white/20 dark:border-slate-700/50"
+            aria-label="Share feedback"
+          >
+            <MessageSquare className="w-5 h-5" />
+          </button> */}
           <button
             onClick={() => {
               setShowShortlistModal(true);
@@ -760,7 +778,7 @@ export default function Home() {
                             </div>
                             
                             <div className="flex gap-2 shrink-0">
-                              <button
+                              {/* <button
                                 onClick={() => {
                                   analytics.trackButtonClick('copy_name', 'results');
                                   analytics.trackPageInteraction('copy_name_results', 'results');
@@ -793,7 +811,7 @@ export default function Home() {
                               >
                                 <Heart className={`w-4 h-4 mr-2 group-hover/btn:animate-pulse ${petName.feedback === 'love' ? 'fill-current' : ''}`} />
                                 {petName.feedback === 'love' ? 'Added' : 'Shortlist'}
-                              </button>
+                              </button> */}
                             </div>
                           </div>
                         </div>
@@ -816,8 +834,8 @@ export default function Home() {
                         )}
 
                         {/* Feedback Buttons */}
-                        <div className="flex gap-3">
-                          <button
+                        <div className="flex gap-3 items-end justify-end">
+                          {/* <button
                             onClick={() => {
                               analytics.trackButtonClick('like_name', 'results');
                               analytics.trackPageInteraction('like_name_results', 'results');
@@ -834,8 +852,93 @@ export default function Home() {
                             }`}
                           >
                             <span className="text-lg mr-2">👍</span> I Like This
+                          </button> */}
+                          {/* <button
+                            onClick={() => {
+                              analytics.trackButtonClick('dislike_name', 'results');
+                              analytics.trackPageInteraction('dislike_name_results', 'results');
+                              analytics.trackButtonClick('dislike_name_results', 'results');
+                              analytics.trackButtonClick('dislike_name_results', 'results');
+                              analytics.trackButtonClick('dislike_name_results', 'results');
+                              analytics.trackButtonClick('dislike_name_results', 'results');
+                              handleFeedback(petName.id, 'dislike');
+                            }}
+                            className={`flex-1 py-1 px-1 rounded-xl text-base font-bold transition-all duration-300 transform hover:scale-105 shadow-lg ${
+                              petName.feedback === 'dislike'
+                                ? 'bg-gradient-to-r from-slate-500 to-gray-500 text-white shadow-slate-500/30'
+                                : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-600 hover:text-slate-800 dark:hover:text-slate-100 border-2 border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500'
+                            }`}
+                          >
+                            <span className="text-lg mr-2">👎</span> Not for Me
+                          </button> */}
+
+                          <button
+                              onClick={() => {
+                                analytics.trackButtonClick('copy_name', 'results');
+                                analytics.trackPageInteraction('copy_name_results', 'results');
+                                analytics.trackButtonClick('copy_name_results', 'results');
+                                analytics.trackButtonClick('copy_name_results', 'results');
+                                analytics.trackButtonClick('copy_name_results', 'results');
+                                analytics.trackButtonClick('copy_name_results', 'results');
+                                copyName(petName.name);
+                              }}
+                              className="group/btn inline-flex items-center px-4 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
+                            >
+                              <Copy className="w-4 h-4 mr-2 group-hover/btn:animate-pulse" />
+                              Copy
                           </button>
                           <button
+                              onClick={() => {
+                                analytics.trackButtonClick('feedback', 'results');
+                                analytics.trackPageInteraction('feedback', 'results');
+                                sessionStorage.setItem('nameId', petName.id)
+                                setShowFeedbackModal(true);
+                                analytics.trackFeedbackModal('open');
+                              }}
+                              className="group/btn inline-flex items-center px-4 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
+                            >
+                              <Edit className="w-4 h-4 mr-2 group-hover/btn:animate-pulse" />
+                              Feedback
+                          </button>
+                          <button
+                            onClick={() => {
+                              analytics.trackButtonClick('shortlist_name', 'results');
+                              analytics.trackPageInteraction('shortlist_name_results', 'results');
+                              analytics.trackButtonClick('shortlist_name_results', 'results');
+                              analytics.trackButtonClick('shortlist_name_results', 'results');
+                              analytics.trackButtonClick('shortlist_name_results', 'results');
+                              analytics.trackButtonClick('shortlist_name_results', 'results');
+                              handleShortlist(petName.id, 'love');
+                            }}
+                            className={`group/btn inline-flex items-center px-4 py-2 text-sm font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 ${
+                              petName.feedback === 'love'
+                                ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-pink-500/30'
+                                : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-pink-500/30 hover:text-pink-600 dark:hover:text-pink-400'
+                            }`}
+                          >
+                            <Heart className={`w-4 h-4 mr-2 group-hover/btn:animate-pulse ${petName.feedback === 'love' ? 'fill-current' : ''}`} />
+                            {petName.feedback === 'love' ? 'Added' : 'Shortlist'}
+                          </button>                          
+                        </div>
+                          {/* <button
+                            onClick={() => {
+                              analytics.trackButtonClick('like_name', 'results');
+                              analytics.trackPageInteraction('like_name_results', 'results');
+                              analytics.trackButtonClick('like_name_results', 'results');
+                              analytics.trackButtonClick('like_name_results', 'results');
+                              analytics.trackButtonClick('like_name_results', 'results');
+                              analytics.trackButtonClick('like_name_results', 'results');
+                              handleFeedback(petName.id, 'like');
+                            }}
+                            className={`flex-1 py-1 px-1 rounded-xl text-base font-bold transition-all duration-300 transform hover:scale-105 shadow-lg ${
+                              petName.feedback === 'like'
+                                ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-emerald-500/30'
+                                : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 dark:hover:text-emerald-400 border-2 border-slate-200 dark:border-slate-600 hover:border-emerald-200 dark:hover:border-emerald-700'
+                            }`}
+                          >
+                            <span className="text-lg mr-2">👍</span> I Like This
+                          </button> */}
+                          {/* <button
                             onClick={() => {
                               analytics.trackButtonClick('dislike_name', 'results');
                               analytics.trackPageInteraction('dislike_name_results', 'results');
@@ -852,8 +955,7 @@ export default function Home() {
                             }`}
                           >
                             <span className="text-lg mr-2">👎</span> Not for Me
-                          </button>
-                        </div>
+                          </button> */}
                       </div>
                     );
                   })}
@@ -1001,7 +1103,7 @@ export default function Home() {
                             analytics.trackButtonClick('remove_name_shortlist', 'modal');
                             analytics.trackButtonClick('remove_name_shortlist', 'modal');
                             analytics.trackButtonClick('remove_name_shortlist', 'modal');
-                            handleFeedback(name.id, 'dislike');
+                            handleShortlist(name.id, 'dislike');
                           }}
                           className="px-4 py-2 text-sm font-bold bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
                         >
@@ -1024,6 +1126,19 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Feedback Modal */}
+      <FeedbackModal 
+        isOpen={showFeedbackModal} 
+        onClose={() => {
+          setShowFeedbackModal(false)
+          setToast({ 
+            message: 'Thanks for the feedback ❤️', 
+            type: 'success' 
+          })
+          setTimeout(() => setToast(null), 2000);
+        }} 
+      />
     </div>
   );
 }

@@ -1,8 +1,10 @@
 import { MockNameData, mockNamesByType } from '@/lib/mock';
 import { NextRequest, NextResponse } from 'next/server';
+import { v4 as uuidv4 } from 'uuid'; // make sure to install uuid package
 
 import { GoogleGenAI } from '@google/genai';
 import { db } from '@/lib/firebaseAdmin';
+
 interface GenerateNamesRequest {
   petDescription?: string;
   petTypes?: string[];
@@ -27,6 +29,7 @@ async function saveNamesToDatabase(names: PetName[], requestData: GenerateNamesR
     names.forEach((name) => {
       const docRef = db.collection('names').doc();
       batch.set(docRef, {
+        nameId: name.id || '',
         name: name.name,
         meaning: name.meaning,
         origin: name.origin,
@@ -276,8 +279,8 @@ ${request.previosulyGeneratedNames && request.previosulyGeneratedNames.length > 
 
       const names = validNames
         .slice(0, parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10))
-        .map((nameData, index) => ({
-          id: `name-${Date.now()}-${index}`,
+        .map((nameData) => ({
+          id: uuidv4(), // new field`,
           name: nameData.name,
           meaning: nameData.meaning,
           origin: nameData.origin
@@ -353,12 +356,11 @@ export async function POST(request: NextRequest) {
       try {
         console.log('ℹ️ Using LLM to generate names');
         names = await generateNamesWithLLMGoogle(body);
-
         // Save names to database
         await saveNamesToDatabase(names, body);
 
-      } catch {
-        console.log('ℹ️ Name generation failed - falling back to local mock data');
+      } catch(error) {
+        console.log('ℹ️ Name generation failed - falling back to local mock data', error);
         names = generateNamesFromLocalData(body);
         wasFallback = true;
       }

@@ -81,5 +81,30 @@ export const analytics = {
   // Error tracking
   trackError: (errorType: string, context?: string) => {
     trackEvent('error', 'error', `${errorType}${context ? `_${context}` : ''}`, 1);
+  },
+
+  // Feedback tracking
+  trackFeedbackSubmission: (hasText: boolean, selectedOptions: string[], textLength?: number, positiveOptions?: string[], negativeOptions?: string[]) => {
+    trackEvent('feedback_submit', 'engagement', 'app_feedback', 1);
+    trackEvent('feedback_options_selected', 'engagement', selectedOptions.join(','), selectedOptions.length);
+    
+    if (positiveOptions && positiveOptions.length > 0) {
+      trackEvent('feedback_positive_options', 'engagement', positiveOptions.join(','), positiveOptions.length);
+    }
+    
+    if (negativeOptions && negativeOptions.length > 0) {
+      trackEvent('feedback_negative_options', 'engagement', negativeOptions.join(','), negativeOptions.length);
+    }
+    
+    if (hasText && textLength) {
+      trackEvent('feedback_text_length', 'engagement', 'text_feedback', textLength);
+    }
+
+
+  },
+
+  // Feedback modal interactions
+  trackFeedbackModal: (action: 'open' | 'close') => {
+    trackEvent('feedback_modal', 'engagement', action, 1);
   }
 };
