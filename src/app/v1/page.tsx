@@ -372,16 +372,26 @@ export default function Home() {
 
       {/* Toast Notification */}
       {toast && (
-        <div className={`fixed top-8 left-1/2 transform -translate-x-1/2 z-50 px-6 py-4 rounded-2xl text-sm font-medium shadow-2xl backdrop-blur-md transition-all duration-500 border ${
-          toast.type === 'success' 
-            ? 'bg-emerald-500/90 text-white border-emerald-400/20 shadow-emerald-500/25' 
+        <div
+        className={`fixed top-8 left-1/2 transform -translate-x-1/2 z-50 px-6 py-4 rounded-2xl text-sm font-medium shadow-2xl backdrop-blur-md transition-all duration-500 border ${
+          toast.type === 'success'
+            ? 'bg-emerald-500/90 text-white border-emerald-400/20 shadow-emerald-500/25'
             : 'bg-red-500/90 text-white border-red-400/20 shadow-red-500/25'
-        }`}>
-          <div className="flex items-center gap-2">
-            <span>{toast.type === 'success' ? '✨' : '⚠️'}</span>
-            {toast.message}
+        }`}
+        >
+          <div className="flex items-center justify-between gap-2">
+            <div className="flex items-center gap-2">
+              <span>{toast.type === 'success' ? '✨' : '⚠️'}</span>
+              <span>{toast.message}</span>
+            </div>
+            <button
+              onClick={() => setToast(null)}
+              className="ml-4 font-bold hover:text-gray-200"
+            >
+              ✕
+            </button>
           </div>
-        </div>
+        </div>      
       )}
       
       <div className="max-w-lg mx-auto px-6 py-12 relative z-10">
@@ -507,7 +517,7 @@ export default function Home() {
                     }}
                     onFocus={() => analytics.trackPageInteraction('focus_field', 'description')}
                     placeholder="Tell us about their personality, favorite activities, or what makes them special... 🐕"
-                    className="w-full px-6 py-6 pb-16 border-0 rounded-3xl focus:ring-4 focus:ring-pink-500/20 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 resize-none min-h-[140px] text-base leading-relaxed transition-all duration-300 shadow-xl shadow-pink-500/5 hover:shadow-2xl hover:shadow-pink-500/10 group-focus-within:shadow-2xl group-focus-within:shadow-pink-500/15 border border-white/20 dark:border-slate-700/50"
+                    className="w-full px-6 py-6 pb-16 border-0 rounded-3xl outline-none focus:ring-4 focus:ring-pink-500/20 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 resize-none min-h-[140px] text-base leading-relaxed transition-all duration-300 shadow-xl shadow-pink-500/5 hover:shadow-2xl hover:shadow-pink-500/10 group-focus-within:shadow-2xl group-focus-within:shadow-pink-500/15 border border-white/20 dark:border-slate-700/50"
                     rows={4}
                   />
                   <button
@@ -1050,16 +1060,19 @@ export default function Home() {
       )}
 
       {/* Feedback Modal */}
-      <FeedbackModal 
-        isOpen={showFeedbackModal} 
-        onClose={() => {
-          setShowFeedbackModal(false)
-          setToast({ 
-            message: 'Thanks for the feedback ❤️', 
-            type: 'success' 
-          })
-          setTimeout(() => setToast(null), 2000);
-        }} 
+      <FeedbackModal
+        isOpen={showFeedbackModal}
+        onClose={({ feedbackSubmitted = true }: { feedbackSubmitted?: boolean } = {}) => {
+          setShowFeedbackModal(false);
+
+          if (feedbackSubmitted) {
+            setToast({
+              message: 'Thanks for the feedback ❤️',
+              type: 'success',
+            });
+            setTimeout(() => setToast(null), 2000);
+          }
+        }}
       />
     </div>
   );

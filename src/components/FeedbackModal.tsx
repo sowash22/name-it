@@ -7,10 +7,9 @@ import { getSessionId } from '@/lib/utils';
 
 interface FeedbackModalProps {
   isOpen: boolean;
-  onClose: () => void;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onClose: (data?: Record<string, any>) => void;
 }
-
-
 
 export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   const [feedbackText, setFeedbackText] = useState('');
@@ -77,7 +76,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
     setFeedbackText('');
     setSelectedPositiveOptions([]);
     setSelectedNegativeOptions([]);
-    onClose();
+    onClose({feedbackSubmitted: true});
    
 
     // Show success message (you can implement a toast here)
@@ -121,7 +120,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           <button
             onClick={() => {
               analytics.trackFeedbackModal('close');
-              onClose();
+              onClose({feedbackSubmitted: false});
             }}
             className="p-3 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-2xl transition-all duration-300 transform hover:scale-110"
           >
@@ -143,7 +142,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
             value={feedbackText}
             onChange={(e) => setFeedbackText(e.target.value)}
             placeholder="Share any thoughts, ideas, or issues to help us improve your experience."
-            className="w-full px-6 py-6 border-0 rounded-3xl focus:ring-4 focus:ring-blue-500/20 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 resize-none min-h-[120px] text-base leading-relaxed transition-all duration-300 shadow-xl shadow-blue-500/5 hover:shadow-2xl hover:shadow-blue-500/10 focus:shadow-2xl focus:shadow-blue-500/15 border border-white/20 dark:border-slate-700/50"
+            className="w-full px-6 py-6 border-0 outline-none rounded-3xl focus:ring-4 focus:ring-blue-500/20 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 resize-none min-h-[120px] text-base leading-relaxed transition-all duration-300 shadow-xl shadow-blue-500/5 hover:shadow-2xl hover:shadow-blue-500/10 focus:shadow-2xl focus:shadow-blue-500/15 border border-white/20 dark:border-slate-700/50"
             rows={4}
           />
         </div>
