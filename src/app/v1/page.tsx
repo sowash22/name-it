@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus, Edit } from 'lucide-react';
+import Confetti from 'react-confetti';
+import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus, Edit, X } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import FeedbackModal from '@/components/FeedbackModal';
 
@@ -75,6 +76,24 @@ export default function Home() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({ 
+        width: window.innerWidth, 
+        height: window.innerHeight 
+      });
+    };
+    
+    // Set initial size immediately
+    if (typeof window !== 'undefined') {
+      handleResize(); // Call immediately
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
   
   // Speech recognition setup
   const startListening = () => {
@@ -180,6 +199,18 @@ export default function Home() {
       }));
       
       setGeneratedNames(selectedNames);
+
+      const confettiEnabled = process.env.NEXT_PUBLIC_SHOW_CONFETTI === 'true'
+      const confettiShown = sessionStorage.getItem('confetti_shown') === 'true'
+
+      if( confettiEnabled && !confettiShown) {
+        setShowConfetti(true);
+        sessionStorage.setItem('confetti_shown', 'true')
+        setTimeout(() => {
+          setShowConfetti(false);
+        }, 5000);
+      }
+      
       
       // Scroll to results after a short delay to ensure the content is rendered
       setTimeout(() => {
@@ -320,6 +351,18 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-rose-50/30 via-orange-50/20 to-amber-50/40 dark:from-slate-900 dark:via-indigo-950 dark:to-purple-950">
+      {showConfetti && windowSize.width > 0 && windowSize.height > 0 && (
+        <div className="fixed inset-0 pointer-events-none z-50">
+          <Confetti
+            width={windowSize.width}
+            height={windowSize.height}
+            numberOfPieces={200}
+            recycle={false}
+            gravity={0.3}
+            colors={['#ff69b4', '#ff1493', '#ffc0cb', '#ff6347', '#ffa500', '#9370db']}
+          />
+        </div>
+      )}
       {/* Floating orbs for visual appeal */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-300/10 to-rose-300/10 dark:from-pink-500/5 dark:to-rose-500/5 rounded-full blur-3xl"></div>
@@ -403,7 +446,7 @@ export default function Home() {
             Name My Pet
           </h1>
           <p className="text-lg text-slate-600/80 dark:text-slate-300/80 max-w-md mx-auto leading-relaxed font-medium">
-            Discover the perfect name for your beloved companion ✨
+            Let’s discover a name that’s full of heart and meaning
           </p>
         </div>
         
@@ -446,7 +489,7 @@ export default function Home() {
               <div className="mb-10">
                 <div className="flex items-center gap-3 mb-4">
                   <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                    Tell us about your friend
+                    Tell us what makes them special
                   </label>
                   <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                     Optional
@@ -509,7 +552,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      What kind of pet? 🐾
+                      Who’s the star? 🐾
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
@@ -550,7 +593,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      Pet characteristics? 🎨
+                      What are they like? 🎨
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
@@ -591,7 +634,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      Name style? ✨
+                      Pick their vibe ✨
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
@@ -720,33 +763,35 @@ export default function Home() {
             >
               {/* Option 1: Wagging tail */}
               {isGenerating ? (
-                <div className="flex items-center justify-center gap-3">
-                  <span className="text-2xl animate-bounce">🐕</span>
-                  <span className="text-white/90">Sniffing out purrfect names...</span>
+                <div className="flex items-center justify-center gap-1">
+                  <span className="text-xl animate-bounce">🐕</span>
+                  <span className="text-white/90">Sniffing out purrfect names..</span>
                   {/* <span className="text-xl animate-pulse">💕</span> */}
                 </div>
               ) : (
-                <span className="flex items-center justify-center gap-3 group-hover:gap-4 transition-all duration-300">
+                <span className="flex items-center justify-center gap-1 group-hover:gap-4 transition-all duration-300">
                   {/* <Sparkles className="w-6 h-6 group-hover:animate-pulse" /> */}
-                  Let&apos;s Find Purrfect Names!
+                   Let&apos;s Find Purrfect Names
                   <Sparkles className="w-6 h-6 group-hover:animate-pulse" />
                 </span>
               )}
             </button>
+
+            <div ref={resultsRef} className=''></div>
             
             {/* Results */}
             {generatedNames.length > 0 && (
-              <div ref={resultsRef} className="space-y-10 mt-16">
+              <div className="space-y-10 mt-16">
                 <div className="text-center space-y-6">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-3xl shadow-2xl shadow-emerald-500/25 mb-4 animate-bounce">
                     <span className="text-2xl">🎉</span>
                   </div>
                   <h2 className="text-4xl font-black bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 dark:from-emerald-300 dark:via-teal-300 dark:to-cyan-300 bg-clip-text text-transparent mb-4">
-                    Perfect Names Found!
+                    We’ve got some great names for your loved one
                   </h2>
-                  <p className="text-lg text-slate-600 dark:text-slate-300 font-medium">
-                    Here are {process.env.NEXT_PUBLIC_TOP_NAMES || 5} lovely names for your friend ✨
-                  </p>
+                  {/* <p className="text-lg text-slate-600 dark:text-slate-300 font-medium">
+                    Here are {process.env.NEXT_PUBLIC_TOP_NAMES || 5} lovely names for your buddy ✨
+                  </p> */}
                 </div>
                 
                 <div className="space-y-6">
@@ -776,43 +821,6 @@ export default function Home() {
                                 </div>
                               )}
                             </div>
-                            
-                            <div className="flex gap-2 shrink-0">
-                              {/* <button
-                                onClick={() => {
-                                  analytics.trackButtonClick('copy_name', 'results');
-                                  analytics.trackPageInteraction('copy_name_results', 'results');
-                                  analytics.trackButtonClick('copy_name_results', 'results');
-                                  analytics.trackButtonClick('copy_name_results', 'results');
-                                  analytics.trackButtonClick('copy_name_results', 'results');
-                                  analytics.trackButtonClick('copy_name_results', 'results');
-                                  copyName(petName.name);
-                                }}
-                                className="group/btn inline-flex items-center px-4 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
-                              >
-                                <Copy className="w-4 h-4 mr-2 group-hover/btn:animate-pulse" />
-                                Copy
-                              </button>
-                              <button
-                                onClick={() => {
-                                  analytics.trackButtonClick('shortlist_name', 'results');
-                                  analytics.trackPageInteraction('shortlist_name_results', 'results');
-                                  analytics.trackButtonClick('shortlist_name_results', 'results');
-                                  analytics.trackButtonClick('shortlist_name_results', 'results');
-                                  analytics.trackButtonClick('shortlist_name_results', 'results');
-                                  analytics.trackButtonClick('shortlist_name_results', 'results');
-                                  handleFeedback(petName.id, 'love');
-                                }}
-                                className={`group/btn inline-flex items-center px-4 py-2 text-sm font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 ${
-                                  petName.feedback === 'love'
-                                    ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-pink-500/30'
-                                    : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-pink-500/30 hover:text-pink-600 dark:hover:text-pink-400'
-                                }`}
-                              >
-                                <Heart className={`w-4 h-4 mr-2 group-hover/btn:animate-pulse ${petName.feedback === 'love' ? 'fill-current' : ''}`} />
-                                {petName.feedback === 'love' ? 'Added' : 'Shortlist'}
-                              </button> */}
-                            </div>
                           </div>
                         </div>
 
@@ -833,45 +841,8 @@ export default function Home() {
                           </div>
                         )}
 
-                        {/* Feedback Buttons */}
-                        <div className="flex gap-3 items-end justify-end">
-                          {/* <button
-                            onClick={() => {
-                              analytics.trackButtonClick('like_name', 'results');
-                              analytics.trackPageInteraction('like_name_results', 'results');
-                              analytics.trackButtonClick('like_name_results', 'results');
-                              analytics.trackButtonClick('like_name_results', 'results');
-                              analytics.trackButtonClick('like_name_results', 'results');
-                              analytics.trackButtonClick('like_name_results', 'results');
-                              handleFeedback(petName.id, 'like');
-                            }}
-                            className={`flex-1 py-1 px-1 rounded-xl text-base font-bold transition-all duration-300 transform hover:scale-105 shadow-lg ${
-                              petName.feedback === 'like'
-                                ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-emerald-500/30'
-                                : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 dark:hover:text-emerald-400 border-2 border-slate-200 dark:border-slate-600 hover:border-emerald-200 dark:hover:border-emerald-700'
-                            }`}
-                          >
-                            <span className="text-lg mr-2">👍</span> I Like This
-                          </button> */}
-                          {/* <button
-                            onClick={() => {
-                              analytics.trackButtonClick('dislike_name', 'results');
-                              analytics.trackPageInteraction('dislike_name_results', 'results');
-                              analytics.trackButtonClick('dislike_name_results', 'results');
-                              analytics.trackButtonClick('dislike_name_results', 'results');
-                              analytics.trackButtonClick('dislike_name_results', 'results');
-                              analytics.trackButtonClick('dislike_name_results', 'results');
-                              handleFeedback(petName.id, 'dislike');
-                            }}
-                            className={`flex-1 py-1 px-1 rounded-xl text-base font-bold transition-all duration-300 transform hover:scale-105 shadow-lg ${
-                              petName.feedback === 'dislike'
-                                ? 'bg-gradient-to-r from-slate-500 to-gray-500 text-white shadow-slate-500/30'
-                                : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-600 hover:text-slate-800 dark:hover:text-slate-100 border-2 border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500'
-                            }`}
-                          >
-                            <span className="text-lg mr-2">👎</span> Not for Me
-                          </button> */}
-
+                        {/* Action Buttons */}
+                        <div className="flex gap-3 justify-center shrink-0">
                           <button
                               onClick={() => {
                                 analytics.trackButtonClick('copy_name', 'results');
@@ -882,7 +853,7 @@ export default function Home() {
                                 analytics.trackButtonClick('copy_name_results', 'results');
                                 copyName(petName.name);
                               }}
-                              className="group/btn inline-flex items-center px-4 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
+                              className="group/btn inline-flex items-center px-3 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
                             >
                               <Copy className="w-4 h-4 mr-2 group-hover/btn:animate-pulse" />
                               Copy
@@ -895,7 +866,7 @@ export default function Home() {
                                 setShowFeedbackModal(true);
                                 analytics.trackFeedbackModal('open');
                               }}
-                              className="group/btn inline-flex items-center px-4 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
+                              className="group/btn inline-flex items-center px-3 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
                             >
                               <Edit className="w-4 h-4 mr-2 group-hover/btn:animate-pulse" />
                               Feedback
@@ -910,7 +881,7 @@ export default function Home() {
                               analytics.trackButtonClick('shortlist_name_results', 'results');
                               handleShortlist(petName.id, 'love');
                             }}
-                            className={`group/btn inline-flex items-center px-4 py-2 text-sm font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 ${
+                            className={`group/btn inline-flex items-center px-3 py-2 text-sm font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 ${
                               petName.feedback === 'love'
                                 ? 'bg-gradient-to-r from-pink-500 to-rose-500 text-white shadow-pink-500/30'
                                 : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-pink-500/30 hover:text-pink-600 dark:hover:text-pink-400'
@@ -920,42 +891,6 @@ export default function Home() {
                             {petName.feedback === 'love' ? 'Added' : 'Shortlist'}
                           </button>                          
                         </div>
-                          {/* <button
-                            onClick={() => {
-                              analytics.trackButtonClick('like_name', 'results');
-                              analytics.trackPageInteraction('like_name_results', 'results');
-                              analytics.trackButtonClick('like_name_results', 'results');
-                              analytics.trackButtonClick('like_name_results', 'results');
-                              analytics.trackButtonClick('like_name_results', 'results');
-                              analytics.trackButtonClick('like_name_results', 'results');
-                              handleFeedback(petName.id, 'like');
-                            }}
-                            className={`flex-1 py-1 px-1 rounded-xl text-base font-bold transition-all duration-300 transform hover:scale-105 shadow-lg ${
-                              petName.feedback === 'like'
-                                ? 'bg-gradient-to-r from-emerald-500 to-green-500 text-white shadow-emerald-500/30'
-                                : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20 hover:text-emerald-600 dark:hover:text-emerald-400 border-2 border-slate-200 dark:border-slate-600 hover:border-emerald-200 dark:hover:border-emerald-700'
-                            }`}
-                          >
-                            <span className="text-lg mr-2">👍</span> I Like This
-                          </button> */}
-                          {/* <button
-                            onClick={() => {
-                              analytics.trackButtonClick('dislike_name', 'results');
-                              analytics.trackPageInteraction('dislike_name_results', 'results');
-                              analytics.trackButtonClick('dislike_name_results', 'results');
-                              analytics.trackButtonClick('dislike_name_results', 'results');
-                              analytics.trackButtonClick('dislike_name_results', 'results');
-                              analytics.trackButtonClick('dislike_name_results', 'results');
-                              handleFeedback(petName.id, 'dislike');
-                            }}
-                            className={`flex-1 py-1 px-1 rounded-xl text-base font-bold transition-all duration-300 transform hover:scale-105 shadow-lg ${
-                              petName.feedback === 'dislike'
-                                ? 'bg-gradient-to-r from-slate-500 to-gray-500 text-white shadow-slate-500/30'
-                                : 'bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-600 hover:text-slate-800 dark:hover:text-slate-100 border-2 border-slate-200 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500'
-                            }`}
-                          >
-                            <span className="text-lg mr-2">👎</span> Not for Me
-                          </button> */}
                       </div>
                     );
                   })}
@@ -1023,98 +958,85 @@ export default function Home() {
       {/* Shortlist Modal */}
       {showShortlistModal && (
         <div className="fixed inset-0 bg-black/60 backdrop-blur-lg z-50 flex items-center justify-center p-4">
-          <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-3xl p-8 w-full max-w-2xl mx-4 shadow-3xl border border-white/30 dark:border-slate-700/50 transform animate-in">
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-4">
-                <div className=" text-white flex items-center justify-center text-2xl">
-                  ❤️
-                </div>
-                <h2 className="text-3xl font-black text-slate-900 dark:text-white">
-                  Your shortlisted Names
-                </h2>
+          <div className="relative bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-3xl p-6 sm:p-8 w-full max-w-3xl sm:max-w-2xl mx-2 sm:mx-4 shadow-3xl border border-white/30 dark:border-slate-700/50 transform animate-in overflow-hidden">
+        
+            {/* Close Button */}
+            {/* <button
+              onClick={() => setShowShortlistModal(false)}
+              className="absolute top-4 right-4 p-2 sm:p-3 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-lg transition-all duration-300 transform hover:scale-100 z-50"
+            >
+              <span className="text-2xl sm:text-3xl text-slate-400 dark:text-slate-500">×</span>
+            </button> */}
+
+            <button
+              onClick={() => setShowShortlistModal(false)}
+              className="absolute top-4 right-4 p-3 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-2xl transition-all duration-300 transform hover:scale-110"
+            >
+              <X className="w-6 h-6 text-slate-400 dark:text-slate-500" />
+            </button>
+        
+            {/* Header */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
+              <div className="text-white flex items-center justify-center text-3xl sm:text-4xl">
+                ❤️
               </div>
-              <button
-                onClick={() => {
-                  analytics.trackButtonClick('close_shortlist', 'modal');
-                  analytics.trackPageInteraction('close_shortlist', 'modal');
-                  analytics.trackButtonClick('close_shortlist', 'modal');
-                  analytics.trackButtonClick('close_shortlist', 'modal');
-                  analytics.trackButtonClick('close_shortlist', 'modal');
-                  analytics.trackButtonClick('close_shortlist', 'modal');
-                  setShowShortlistModal(false);
-                }}
-                className="p-3 hover:bg-slate-100 dark:hover:bg-slate-700 rounded-2xl transition-all duration-300 transform hover:scale-110"
-              >
-                <span className="text-3xl text-slate-400 dark:text-slate-500">×</span>
-              </button>
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white text-center sm:text-left">
+                Your shortlisted Names
+              </h2>
             </div>
-            
+        
+            {/* Empty state */}
             {shortlistedNames.length === 0 ? (
-              <div className="text-center py-16">
-                <div className="w-20 h-20 rounded-3xl bg-gradient-to-r from-gray-200 to-slate-300 dark:from-gray-700 dark:to-slate-600 text-gray-400 dark:text-gray-500 flex items-center justify-center text-4xl mb-6 mx-auto">
+              <div className="text-center py-12 sm:py-16">
+                <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-r from-gray-200 to-slate-300 dark:from-gray-700 dark:to-slate-600 text-gray-400 dark:text-gray-500 flex items-center justify-center text-3xl sm:text-4xl mb-4 sm:mb-6 mx-auto">
                   💔
                 </div>
-                <h3 className="text-xl font-bold text-slate-600 dark:text-slate-300 mb-4">
+                <h3 className="text-lg sm:text-xl font-bold text-slate-600 dark:text-slate-300 mb-2 sm:mb-4">
                   No favorites yet!
                 </h3>
-                <p className="text-slate-500 dark:text-slate-400 max-w-sm mx-auto leading-relaxed">
+                <p className="text-sm sm:text-base text-slate-500 dark:text-slate-400 max-w-xs sm:max-w-sm mx-auto leading-relaxed">
                   Click the ❤️ button on any name to add it to your favorites collection.
                 </p>
               </div>
             ) : (
-              <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-4">
+              <div className="space-y-4 max-h-[60vh] sm:max-h-[70vh] overflow-y-auto pr-2 sm:pr-4">
                 {shortlistedNames.map((name) => (
                   <div
                     key={name.id}
-                    className="group bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 rounded-3xl p-6 shadow-lg border border-pink-100 dark:border-pink-800/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                    className="group bg-gradient-to-r from-pink-50 to-rose-50 dark:from-pink-900/20 dark:to-rose-900/20 rounded-3xl p-4 sm:p-6 shadow-lg border border-pink-100 dark:border-pink-800/30 hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                   >
-                    <div className="flex items-start justify-between gap-4 mb-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 mb-3 sm:mb-4">
                       <div className="flex-1">
-                        <h3 className="text-3xl font-black text-slate-900 dark:text-white mb-2">
+                        <h3 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mb-1 sm:mb-2">
                           {name.name}
                         </h3>
                         {name.origin && (
-                          <span className="inline-flex items-center px-3 py-1 rounded-2xl text-xs font-bold bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/40 dark:to-purple-900/40 text-indigo-700 dark:text-indigo-300 border border-indigo-200/50 dark:border-indigo-700/30">
+                          <span className="inline-flex items-center px-2 sm:px-3 py-0.5 sm:py-1 rounded-2xl text-xs sm:text-sm font-bold bg-gradient-to-r from-indigo-100 to-purple-100 dark:from-indigo-900/40 dark:to-purple-900/40 text-indigo-700 dark:text-indigo-300 border border-indigo-200/50 dark:border-indigo-700/30">
                             <span className="mr-1">🌍</span> {name.origin}
                           </span>
                         )}
                       </div>
-                      <div className="flex gap-2">
+        
+                      <div className="flex gap-2 mt-2 sm:mt-0 flex-shrink-0">
                         <button
-                          onClick={() => {
-                            analytics.trackButtonClick('copy_name', 'shortlist');
-                            analytics.trackPageInteraction('copy_name_shortlist', 'modal');
-                            analytics.trackButtonClick('copy_name_shortlist', 'modal');
-                            analytics.trackButtonClick('copy_name_shortlist', 'modal');
-                            analytics.trackButtonClick('copy_name_shortlist', 'modal');
-                            analytics.trackButtonClick('copy_name_shortlist', 'modal');
-                            copyName(name.name);
-                          }}
-                          className="px-4 py-2 text-sm font-bold bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 group-hover:animate-pulse"
+                          onClick={() => copyName(name.name)}
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-bold bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 group-hover:animate-pulse flex items-center gap-1"
                         >
-                          <Copy className="w-4 h-4 mr-2 inline" />
+                          <Copy className="w-4 h-4 inline" />
                           Copy
                         </button>
                         <button
-                          onClick={() => {
-                            analytics.trackButtonClick('remove_from_shortlist', 'shortlist');
-                            analytics.trackPageInteraction('remove_name_shortlist', 'modal');
-                            analytics.trackButtonClick('remove_name_shortlist', 'modal');
-                            analytics.trackButtonClick('remove_name_shortlist', 'modal');
-                            analytics.trackButtonClick('remove_name_shortlist', 'modal');
-                            analytics.trackButtonClick('remove_name_shortlist', 'modal');
-                            handleShortlist(name.id, 'dislike');
-                          }}
-                          className="px-4 py-2 text-sm font-bold bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
+                          onClick={() => handleShortlist(name.id, 'dislike')}
+                          className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-bold bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 flex items-center gap-1"
                         >
-                          <span className="mr-2">🗑️</span>
-                          Remove
+                          <span>🗑️</span> Remove
                         </button>
                       </div>
                     </div>
+        
                     {name.meaning && (
-                      <div className="p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl border border-white/50 dark:border-slate-700/50">
-                        <p className="text-slate-700 dark:text-slate-300 leading-relaxed font-medium italic">
+                      <div className="p-3 sm:p-4 bg-white/60 dark:bg-slate-800/60 rounded-2xl border border-white/50 dark:border-slate-700/50">
+                        <p className="text-sm sm:text-base text-slate-700 dark:text-slate-300 leading-relaxed font-medium italic">
                           {name.meaning}
                         </p>
                       </div>
