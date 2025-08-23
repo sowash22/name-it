@@ -16,7 +16,6 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   const [feedbackText, setFeedbackText] = useState('');
   const [selectedPositiveOptions, setSelectedPositiveOptions] = useState<string[]>([]);
   const [selectedNegativeOptions, setSelectedNegativeOptions] = useState<string[]>([]);
-  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
 
 
   // Get positive feedback options from environment variables

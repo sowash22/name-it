@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus, MessageSquare, Edit } from 'lucide-react';
+import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus, Edit } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import FeedbackModal from '@/components/FeedbackModal';
 
