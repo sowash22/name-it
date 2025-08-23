@@ -325,6 +325,7 @@ export async function POST(request: NextRequest) {
     const useDBData = process.env.USE_DB_DATA === 'true';
     let names;
     let wasFallback = false;
+    let finalSource = ''
 
 
     if (useDBData) {
@@ -332,9 +333,7 @@ export async function POST(request: NextRequest) {
 
       try {
         // Try to read from database first 
-      // Todo randomize it based user preferences
-      names = await readNamesFromDatabase(body);
-
+        names = await readNamesFromDatabase(body)
       }
       catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -347,10 +346,12 @@ export async function POST(request: NextRequest) {
         console.log('ℹ️ No names found in database, using local data');
         names = generateNamesFromLocalData(body);
         wasFallback = true;
+        finalSource = 'local'
       } else {
         console.log('ℹ️ Using names from database');
       }
-      
+
+      finalSource = 'db'
       await new Promise(resolve => setTimeout(resolve, 1000));
     } else {
       try {
@@ -358,25 +359,28 @@ export async function POST(request: NextRequest) {
         names = await generateNamesWithLLMGoogle(body);
         // Save names to database
         await saveNamesToDatabase(names, body);
+        finalSource = 'agent'
 
       } catch(error) {
         console.log('ℹ️ Name generation failed - falling back to local mock data', error);
         names = generateNamesFromLocalData(body);
         wasFallback = true;
+        finalSource = 'local'
       }
     }
 
     console.log(`✅ Returning ${names.length} names to client`);
-    return NextResponse.json({
+    const response = {
       success: true,
       names: names,
       count: names.length,
       timestamp: new Date().toISOString(),
       useDB: useDBData || wasFallback,
-      model: (useDBData || wasFallback) ? 'db' : process.env.GOOGLE_MODEL,
+      // model: finalSource === 'agent' ? process.env.GOOGLE_MODEL : 'none',
       fallback: wasFallback,
-      source: useDBData ? (names.length > 0 && !wasFallback ? 'database' : 'localdata') : 'agent'
-    });
+      source: finalSource
+    }
+    return NextResponse.json(response);
 
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
