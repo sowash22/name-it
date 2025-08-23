@@ -3,16 +3,21 @@
 import { useState } from 'react';
 import { X, Send, MessageSquare } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
+import { getSessionId } from '@/lib/utils';
 
 interface FeedbackModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
+
+
 export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
   const [feedbackText, setFeedbackText] = useState('');
   const [selectedPositiveOptions, setSelectedPositiveOptions] = useState<string[]>([]);
   const [selectedNegativeOptions, setSelectedNegativeOptions] = useState<string[]>([]);
+  const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
 
   // Get positive feedback options from environment variables
   const positiveFeedbackOptions = (process.env.NEXT_PUBLIC_POSITIVE_FEEDBACK || 'like,love,unique,random,good,perfect,easy,fun,creative')
@@ -42,9 +47,22 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
     );
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (nameId : '') => {
+
     // Track feedback submission using the new analytics function
     const allSelectedOptions = [...selectedPositiveOptions, ...selectedNegativeOptions];
+
+    const feedback = {
+      description: !!feedbackText.trim() || '',
+      positives: selectedPositiveOptions,
+      negatives: selectedNegativeOptions,
+      nameId,
+      sessionId: getSessionId(),
+      userAgent: navigator.userAgent,
+      screenSize: `${window.innerWidth}x${window.innerHeight}`,
+      locale: navigator.language || 'en-US',
+    }
+
     analytics.trackFeedbackSubmission(
       !!feedbackText.trim(), 
       allSelectedOptions, 
@@ -54,27 +72,42 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
     );
 
     // Here you could send the feedback to your backend or analytics service
-    console.log('Feedback submitted:', {
-      text: feedbackText,
-      positiveOptions: selectedPositiveOptions,
-      negativeOptions: selectedNegativeOptions,
-      timestamp: new Date().toISOString()
-    });
+    console.log('Feedback submitted:', feedback);
 
     // Reset form and close modal
     setFeedbackText('');
     setSelectedPositiveOptions([]);
     setSelectedNegativeOptions([]);
     onClose();
+   
 
     // Show success message (you can implement a toast here)
     analytics.trackPageInteraction('feedback_success', 'modal');
+
+    // call api to persist to db
+    try {
+      const res = await fetch('/api/feedback', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(feedback),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        console.log('Feedback saved:', data);
+      } else {
+        console.error('Error saving feedback:', data.error);
+      }
+    } catch (err) {
+      console.error('❌ Failed to submit feedback:', err);
+    }
+
   };
 
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-lg z-50 flex items-center justify-center p-4">
+
       <div className="bg-white/95 dark:bg-slate-800/95 backdrop-blur-xl rounded-3xl p-8 w-full max-w-2xl mx-4 shadow-3xl border border-white/30 dark:border-slate-700/50 transform animate-in">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -154,7 +187,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
         {/* Submit Button */}
         <div className="flex justify-end">
           <button
-            onClick={handleSubmit}
+            onClick={() => handleSubmit('')}
             disabled={!feedbackText.trim() && selectedPositiveOptions.length === 0 && selectedNegativeOptions.length === 0}
             className={`group px-8 py-4 rounded-2xl font-bold transition-all duration-500 transform hover:scale-105 ${
               !feedbackText.trim() && selectedPositiveOptions.length === 0 && selectedNegativeOptions.length === 0

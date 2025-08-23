@@ -99,6 +99,8 @@ export const analytics = {
     if (hasText && textLength) {
       trackEvent('feedback_text_length', 'engagement', 'text_feedback', textLength);
     }
+
+
   },
 
   // Feedback modal interactions

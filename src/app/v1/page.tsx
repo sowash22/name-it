@@ -229,7 +229,7 @@ export default function Home() {
 
   const [activeTab] = useState<'all' | 'shortlist'>('all');
   
-  const handleFeedback = (nameId: string, feedback: 'love' | 'like' | 'dislike') => {
+  const handleShortlist = (nameId: string, feedback: 'love' | 'like' | 'dislike') => {
     setGeneratedNames(prev => {
       const updated = prev.map(name => 
         name.id === nameId 
@@ -891,7 +891,7 @@ export default function Home() {
                               analytics.trackButtonClick('shortlist_name_results', 'results');
                               analytics.trackButtonClick('shortlist_name_results', 'results');
                               analytics.trackButtonClick('shortlist_name_results', 'results');
-                              handleFeedback(petName.id, 'love');
+                              handleShortlist(petName.id, 'love');
                             }}
                             className={`group/btn inline-flex items-center px-4 py-2 text-sm font-bold rounded-2xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110 ${
                               petName.feedback === 'love'
@@ -1086,7 +1086,7 @@ export default function Home() {
                             analytics.trackButtonClick('remove_name_shortlist', 'modal');
                             analytics.trackButtonClick('remove_name_shortlist', 'modal');
                             analytics.trackButtonClick('remove_name_shortlist', 'modal');
-                            handleFeedback(name.id, 'dislike');
+                            handleShortlist(name.id, 'dislike');
                           }}
                           className="px-4 py-2 text-sm font-bold bg-white dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-red-100 dark:hover:bg-red-900/30 hover:text-red-600 dark:hover:text-red-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
                         >
@@ -1113,7 +1113,14 @@ export default function Home() {
       {/* Feedback Modal */}
       <FeedbackModal 
         isOpen={showFeedbackModal} 
-        onClose={() => setShowFeedbackModal(false)} 
+        onClose={() => {
+          setShowFeedbackModal(false)
+          setToast({ 
+            message: 'Thanks for the feedback ❤️', 
+            type: 'success' 
+          })
+          setTimeout(() => setToast(null), 2000);
+        }} 
       />
     </div>
   );
