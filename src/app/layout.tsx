@@ -21,8 +21,9 @@ export const metadata: Metadata = {
     "Find the perfect name for your beloved companion with our AI-powered pet naming assistant. Simple, fast, and delightful pet name suggestions.",
   keywords: ["pet names", "AI pet name generator", "dog names", "cat names", "pet naming"],
   icons: {
-    icon: "/pets.png", // your PNG favicon
-    shortcut: "/pets.png", // optional
+    icon: "/pets.png",
+    shortcut: "/pets.png",
+    apple: "/pets.png",
   },
   authors: [{ name: "Sowndarya Shanmugam", url: "https://namemypet.app" }],
   // openGraph: {
@@ -70,6 +71,10 @@ export default function RootLayout({
             gtag('config', 'G-FPFPF023ER');
           `}
         </Script>
+        {/* ✅ Explicit Favicon Links */}
+        <link rel="icon" href="/pets.png" sizes="any" />
+        <link rel="shortcut icon" href="/pets.png" />
+        <link rel="apple-touch-icon" href="/pets.png" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme={process.env.NEXT_PUBLIC_DEFAULT_THEME || 'dark'} enableSystem>
