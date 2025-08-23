@@ -111,7 +111,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-400 to-indigo-500 text-white flex items-center justify-center">
+          <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-blue-400 to-indigo-500 text-white flex items-center justify-center hidden md:flex">
               <MessageSquare className="w-6 h-6" />
             </div>
             <h2 className="text-3xl font-black text-slate-900 dark:text-white">
@@ -133,7 +133,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
             <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-              Tell us what you think! 💭
+              Tell us what you think
             </label>
             <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
               Optional
@@ -142,7 +142,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
           <textarea
             value={feedbackText}
             onChange={(e) => setFeedbackText(e.target.value)}
-            placeholder="Share your thoughts, suggestions, or any issues you encountered..."
+            placeholder="Share any thoughts, ideas, or issues to help us improve your experience."
             className="w-full px-6 py-6 border-0 rounded-3xl focus:ring-4 focus:ring-blue-500/20 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 resize-none min-h-[120px] text-base leading-relaxed transition-all duration-300 shadow-xl shadow-blue-500/5 hover:shadow-2xl hover:shadow-blue-500/10 focus:shadow-2xl focus:shadow-blue-500/15 border border-white/20 dark:border-slate-700/50"
             rows={4}
           />
@@ -151,37 +151,51 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
         {/* Feedback Options */}
         <div className="mb-8">
           <div className="flex flex-wrap gap-3">
-            {/* Positive options (first 5) */}
-            {positiveFeedbackOptions.slice(0, 5).map((option) => (
-              <button
-                key={`positive-${option}`}
-                onClick={() => handlePositiveOptionToggle(option)}
-                className={`px-4 py-3 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg border ${
-                  selectedPositiveOptions.includes(option)
-                    ? 'bg-gradient-to-r from-blue-500 to-indigo-500 text-white shadow-blue-500/30 border-blue-400/20'
-                    : 'bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-700 dark:text-slate-300 hover:bg-blue-50 dark:hover:bg-blue-900/20 shadow-slate-500/10 border-white/20 dark:border-slate-700/50'
-                }`}
-              >
-                {option}
-              </button>
-            ))}
-            
-            {/* Negative options (first 5) */}
-            {negativeFeedbackOptions.slice(0, 5).map((option) => (
-              <button
-                key={`negative-${option}`}
-                onClick={() => handleNegativeOptionToggle(option)}
-                className={`px-4 py-3 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg border ${
-                  selectedNegativeOptions.includes(option)
-                    ? 'bg-gradient-to-r from-red-500 to-pink-500 text-white shadow-red-500/30 border-red-400/20'
-                    : 'bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-700 dark:text-slate-300 hover:bg-red-50 dark:hover:bg-red-900/20 shadow-slate-500/10 border-white/20 dark:border-slate-700/50'
-                }`}
-              >
-                {option}
-              </button>
-            ))}
+            {/* Positive options */}
+            {positiveFeedbackOptions.slice(0, 5).map((item) => {
+              const [emoji, label] = item.split(':');
+              const isSelected = selectedPositiveOptions.includes(label);
+
+              return (
+                <button
+                  key={`positive-${label}`}
+                  onClick={() => handlePositiveOptionToggle(label)}
+                  className={`px-4 py-3 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg border ${
+                    isSelected
+                      ? 'bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-blue-500/30 border-blue-400/20'
+                      : 'bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-700 dark:text-slate-300 shadow-slate-500/10 border-white/20 dark:border-slate-700/50'
+                  }`}
+                >
+                  <span className="text-lg mr-2">{emoji}</span>
+                  {label.charAt(0).toUpperCase() + label.slice(1)}
+                </button>
+              );
+            })}
+
+            {/* Negative options */}
+            {negativeFeedbackOptions.slice(0, 5).map((item) => {
+              const [emoji, label] = item.split(':');
+              const isSelected = selectedNegativeOptions.includes(label);
+
+              return (
+                <button
+                  key={`negative-${label}`}
+                  onClick={() => handleNegativeOptionToggle(label)}
+                  className={`px-4 py-3 rounded-2xl text-sm font-bold transition-all duration-300 transform hover:scale-105 shadow-lg border ${
+                    isSelected
+                      ? 'bg-gradient-to-r from-red-400 to-pink-500 text-white shadow-red-500/30 border-red-400/20'
+                      : 'bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-700 dark:text-slate-300 shadow-slate-500/10 border-white/20 dark:border-slate-700/50'
+                  }`}
+                >
+                  <span className="text-lg mr-2">{emoji}</span>
+                  {label.charAt(0).toUpperCase() + label.slice(1)}
+                </button>
+              );
+            })}
           </div>
         </div>
+
+
 
         {/* Submit Button */}
         <div className="flex justify-end">
