@@ -562,7 +562,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      Who’s the star? 🐾
+                      Pick Your Pals 🐾
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
@@ -644,7 +644,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      Pick their vibe ✨
+                      What’s Their Vibe? ✨
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
