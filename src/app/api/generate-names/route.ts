@@ -9,9 +9,8 @@ interface GenerateNamesRequest {
   petCharacteristics?: string[];
   nameStyles?: string[];
   uploadedImages?: string[];
+  previosulyGeneratedNames?: string[];
 }
-
-
 
 interface PetName {
   id: string;
@@ -151,7 +150,12 @@ Ensure each name:
 - Has cultural or historical significance
 - Reflects the pet's characteristics
 - Is easy to pronounce
-- Has a positive meaning or association`;
+- Has a positive meaning or association
+
+
+
+${request.previosulyGeneratedNames && request.previosulyGeneratedNames.length > 0 ? `These are already generated for the user so dont repeat them in any case. Previously generated names: ${request.previosulyGeneratedNames.join(', ')}` : ''}
+`;
 
   try {    
     const config = {
@@ -177,7 +181,7 @@ Ensure each name:
 
     console.log('ℹ️ Calling Gemini API for name generation');
     const result = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: process.env.GOOGLE_MODEL || 'gemini-2.0-flash-exp',
       config,
       contents
     });
@@ -238,9 +242,6 @@ Ensure each name:
 }
 
 
-
-
-
 export async function POST(request: NextRequest) {
   try {
     const body: GenerateNamesRequest = await request.json();
@@ -251,6 +252,7 @@ export async function POST(request: NextRequest) {
     console.log('ℹ️ Pet Description: ' + JSON.stringify(body.petDescription));
     console.log('ℹ️ Name Styles : ' + JSON.stringify(body.nameStyles));
     console.log('ℹ️ Uploaded files : ' + JSON.stringify(body.uploadedImages?.length || 0));
+    console.log('ℹ️ Previously generated names : ' + body.previosulyGeneratedNames);
     
     // Validate required fields
     if (!body.petDescription || !body.petDescription.trim()) {
@@ -261,20 +263,29 @@ export async function POST(request: NextRequest) {
     }
 
     // Determine whether to use mock data based on environment variables
-    const useMock = process.env.MOCK === 'true';
+    const useDBData = process.env.USE_DB_DATA === 'true';
     let names;
     let wasFallback = false;
 
-    if (useMock) {
-      console.log('ℹ️ Using mock data (configured via MOCK=true)');
 
-      // Try to read from database first
+    if (useDBData) {
+      console.log('ℹ️ Using DBdata (configured via USE_DB_DATA=true)');
+
+      try {
+        // Try to read from database first 
+      // Todo randomize it based user preferences
       names = await readNamesFromDatabase(body);
+
+      }
+      catch (error) {
+        console.log('ℹ️ Using DB to generate names failed - falling back to local data', error?.message);
+        throw new Error('ℹ️ Using DB to generate names failed - falling back to local data', error?.message)
+      }
       
       // If no names found in database, fall back to mock data
       if (names.length === 0) {
-        console.log('ℹ️ No names found in database, using mock data');
-        names = generateMockNames(body);
+        console.log('ℹ️ No names found in database, using local data');
+        names = generateNamesFromLocalData(body);
         wasFallback = true;
       } else {
         console.log('ℹ️ Using names from database');
@@ -290,8 +301,8 @@ export async function POST(request: NextRequest) {
         await saveNamesToDatabase(names, body);
 
       } catch {
-        console.log('ℹ️ LLM generation failed - falling back to mock data');
-        names = generateMockNames(body);
+        console.log('ℹ️ Name generation failed - falling back to local mock data');
+        names = generateNamesFromLocalData(body);
         wasFallback = true;
       }
     }
@@ -302,10 +313,10 @@ export async function POST(request: NextRequest) {
       names: names,
       count: names.length,
       timestamp: new Date().toISOString(),
-      mock: useMock || wasFallback,
-      model: (useMock || wasFallback) ? 'mock' : 'gemini-2.0-flash-exp',
+      useDB: useDBData || wasFallback,
+      model: (useDBData || wasFallback) ? 'db' : process.env.GOOGLE_MODEL,
       fallback: wasFallback,
-      source: useMock ? (names.length > 0 && !wasFallback ? 'database' : 'mock') : 'llm'
+      source: useDBData ? (names.length > 0 && !wasFallback ? 'database' : 'localdata') : 'agent'
     });
 
   } catch (error) {
@@ -319,7 +330,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Generate mock names based on predefined data
-function generateMockNames(request: {
+function generateNamesFromLocalData(request: {
   petDescription?: string;
   petTypes?: string[];
   nameStyles?: string[];

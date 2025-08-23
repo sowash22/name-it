@@ -144,7 +144,10 @@ export default function Home() {
         petTypes,
         nameStyles,
         petCharacteristics,
-        uploadedImages
+        uploadedImages,
+        previosulyGeneratedNames: generatedNames.map((name) => {
+          return name?.name || ''
+        })
       };
       
       const response = await fetch('/api/generate-names', {
