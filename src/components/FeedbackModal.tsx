@@ -51,7 +51,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
     const allSelectedOptions = [...selectedPositiveOptions, ...selectedNegativeOptions];
 
     const feedback = {
-      description: !!feedbackText.trim() || '',
+      description: feedbackText?.trim() || '',
       positives: selectedPositiveOptions,
       negatives: selectedNegativeOptions,
       petNameId: nameId || sessionStorage.getItem('nameId'),
@@ -70,7 +70,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
     );
 
     // Here you could send the feedback to your backend or analytics service
-    console.log('Feedback submitted:', feedback);
+    // console.log('Feedback submitted:', feedback);
 
     // Reset form and close modal
     setFeedbackText('');
@@ -91,7 +91,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       });
       const data = await res.json();
       if (res.ok) {
-        console.log('Feedback saved:', data);
+        // console.log('Feedback saved:', data);
       } else {
         console.error('Error saving feedback:', data.error);
       }
