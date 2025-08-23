@@ -385,8 +385,8 @@ export async function POST(request: NextRequest) {
       useDB: useDBData || wasFallback,
       // model: finalSource === 'agent' ? process.env.GOOGLE_MODEL : 'none',
       fallback: wasFallback,
-      source: finalSource,
-      error: finalError
+      source: process.env.NODE_ENV === 'production' ? '' :  finalSource,
+      error: process.env.NODE_ENV === 'production' ? '' : finalError
     }
     return NextResponse.json(response);
 
