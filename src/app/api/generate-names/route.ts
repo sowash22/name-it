@@ -9,9 +9,8 @@ interface GenerateNamesRequest {
   petCharacteristics?: string[];
   nameStyles?: string[];
   uploadedImages?: string[];
+  previosulyGeneratedNames?: string[];
 }
-
-
 
 interface PetName {
   id: string;
@@ -57,21 +56,32 @@ async function readNamesFromDatabase(requestData: GenerateNamesRequest): Promise
     
     let query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData> = db.collection('names');
     
-    // Build query based on request criteria
+    // Firestore only allows one ARRAY_CONTAINS filter per query
+    // We'll use the most specific filter first, then filter results in memory
+    let primaryFilter: string | null = null;
+    let primaryValues: string[] = [];
+    
+    // Determine which filter to use as the primary Firestore query
     if (requestData.petTypes && requestData.petTypes.length > 0) {
-      query = query.where('petTypes', 'array-contains-any', requestData.petTypes);
+      primaryFilter = 'petTypes';
+      primaryValues = requestData.petTypes;
+    } else if (requestData.nameStyles && requestData.nameStyles.length > 0) {
+      primaryFilter = 'nameStyles';
+      primaryValues = requestData.nameStyles;
+    } else if (requestData.petCharacteristics && requestData.petCharacteristics.length > 0) {
+      primaryFilter = 'petCharacteristics';
+      primaryValues = requestData.petCharacteristics;
     }
     
-    if (requestData.petCharacteristics && requestData.petCharacteristics.length > 0) {
-      query = query.where('petCharacteristics', 'array-contains-any', requestData.petCharacteristics);
-    }
-    
-    if (requestData.nameStyles && requestData.nameStyles.length > 0) {
-      query = query.where('nameStyles', 'array-contains-any', requestData.nameStyles);
+    // Apply the primary filter if we have one
+    if (primaryFilter && primaryValues.length > 0) {
+      query = query.where(primaryFilter, 'array-contains-any', primaryValues);
     }
     
     // Add limit and order by creation date (most recent first)
-    query = query.orderBy('createdAt', 'desc').limit(parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10));
+    // Increase limit since we'll filter more in memory
+    const baseLimit = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
+    query = query.orderBy('createdAt', 'desc').limit(baseLimit * 3); // Get more results to filter from
     
     const snapshot = await query.get();
     
@@ -80,18 +90,63 @@ async function readNamesFromDatabase(requestData: GenerateNamesRequest): Promise
       return [];
     }
     
-    const names: PetName[] = snapshot.docs.map((doc: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
+    // Filter results in memory based on all criteria
+    let filteredNames: PetName[] = [];
+    
+    snapshot.docs.forEach((doc: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
       const data = doc.data();
-      return {
-        id: doc.id,
-        name: data.name,
-        meaning: data.meaning || '',
-        origin: data.origin || ''
-      };
+      
+      // Check if this document matches all our criteria
+      let matches = true;
+      
+      // Check petTypes (if not already filtered by Firestore)
+      if (requestData.petTypes && requestData.petTypes.length > 0 && primaryFilter !== 'petTypes') {
+        const docPetTypes = data.petTypes || [];
+        if (!requestData.petTypes.some(type => docPetTypes.includes(type))) {
+          matches = false;
+        }
+      }
+      
+      // Check petCharacteristics (if not already filtered by Firestore)
+      if (matches && requestData.petCharacteristics && requestData.petCharacteristics.length > 0 && primaryFilter !== 'petCharacteristics') {
+        const docCharacteristics = data.petCharacteristics || [];
+        if (!requestData.petCharacteristics.some(char => docCharacteristics.includes(char))) {
+          matches = false;
+        }
+      }
+      
+      // Check nameStyles (if not already filtered by Firestore)
+      if (matches && requestData.nameStyles && requestData.nameStyles.length > 0 && primaryFilter !== 'nameStyles') {
+        const docStyles = data.nameStyles || [];
+        if (!requestData.nameStyles.some(style => docStyles.includes(style))) {
+          matches = false;
+        }
+      }
+      
+      if (matches) {
+        filteredNames.push({
+          id: doc.id,
+          name: data.name,
+          meaning: data.meaning || '',
+          origin: data.origin || ''
+        });
+      }
     });
     
-    console.log(`✅ Found ${names.length} names in database`);
-    return names;
+    // Sort by creation date and limit to requested amount
+    filteredNames.sort((a, b) => {
+      const aDoc = snapshot.docs.find(doc => doc.id === a.id);
+      const bDoc = snapshot.docs.find(doc => doc.id === b.id);
+      if (aDoc && bDoc) {
+        return bDoc.data().createdAt?.toDate?.() - aDoc.data().createdAt?.toDate?.() || 0;
+      }
+      return 0;
+    });
+    
+    filteredNames = filteredNames.slice(0, baseLimit);
+    
+    console.log(`✅ Found ${filteredNames.length} names in database after filtering`);
+    return filteredNames;
     
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
@@ -151,7 +206,12 @@ Ensure each name:
 - Has cultural or historical significance
 - Reflects the pet's characteristics
 - Is easy to pronounce
-- Has a positive meaning or association`;
+- Has a positive meaning or association
+
+
+
+${request.previosulyGeneratedNames && request.previosulyGeneratedNames.length > 0 ? `These are already generated for the user so dont repeat them in any case. Previously generated names: ${request.previosulyGeneratedNames.join(', ')}` : ''}
+`;
 
   try {    
     const config = {
@@ -177,7 +237,7 @@ Ensure each name:
 
     console.log('ℹ️ Calling Gemini API for name generation');
     const result = await ai.models.generateContent({
-      model: 'gemini-2.0-flash-exp',
+      model: process.env.GOOGLE_MODEL || 'gemini-2.0-flash-exp',
       config,
       contents
     });
@@ -238,9 +298,6 @@ Ensure each name:
 }
 
 
-
-
-
 export async function POST(request: NextRequest) {
   try {
     const body: GenerateNamesRequest = await request.json();
@@ -251,6 +308,7 @@ export async function POST(request: NextRequest) {
     console.log('ℹ️ Pet Description: ' + JSON.stringify(body.petDescription));
     console.log('ℹ️ Name Styles : ' + JSON.stringify(body.nameStyles));
     console.log('ℹ️ Uploaded files : ' + JSON.stringify(body.uploadedImages?.length || 0));
+    console.log('ℹ️ Previously generated names : ' + body.previosulyGeneratedNames);
     
     // Validate required fields
     if (!body.petDescription || !body.petDescription.trim()) {
@@ -261,20 +319,29 @@ export async function POST(request: NextRequest) {
     }
 
     // Determine whether to use mock data based on environment variables
-    const useMock = process.env.MOCK === 'true';
+    const useDBData = process.env.USE_DB_DATA === 'true';
     let names;
     let wasFallback = false;
 
-    if (useMock) {
-      console.log('ℹ️ Using mock data (configured via MOCK=true)');
 
-      // Try to read from database first
+    if (useDBData) {
+      console.log('ℹ️ Using DBdata (configured via USE_DB_DATA=true)');
+
+      try {
+        // Try to read from database first 
+      // Todo randomize it based user preferences
       names = await readNamesFromDatabase(body);
+
+      }
+      catch (error) {
+        console.log('ℹ️ Using DB to generate names failed - falling back to local data', error?.message);
+        throw new Error('ℹ️ Using DB to generate names failed - falling back to local data', error?.message)
+      }
       
       // If no names found in database, fall back to mock data
       if (names.length === 0) {
-        console.log('ℹ️ No names found in database, using mock data');
-        names = generateMockNames(body);
+        console.log('ℹ️ No names found in database, using local data');
+        names = generateNamesFromLocalData(body);
         wasFallback = true;
       } else {
         console.log('ℹ️ Using names from database');
@@ -290,8 +357,8 @@ export async function POST(request: NextRequest) {
         await saveNamesToDatabase(names, body);
 
       } catch {
-        console.log('ℹ️ LLM generation failed - falling back to mock data');
-        names = generateMockNames(body);
+        console.log('ℹ️ Name generation failed - falling back to local mock data');
+        names = generateNamesFromLocalData(body);
         wasFallback = true;
       }
     }
@@ -302,10 +369,10 @@ export async function POST(request: NextRequest) {
       names: names,
       count: names.length,
       timestamp: new Date().toISOString(),
-      mock: useMock || wasFallback,
-      model: (useMock || wasFallback) ? 'mock' : 'gemini-2.0-flash-exp',
+      useDB: useDBData || wasFallback,
+      model: (useDBData || wasFallback) ? 'db' : process.env.GOOGLE_MODEL,
       fallback: wasFallback,
-      source: useMock ? (names.length > 0 && !wasFallback ? 'database' : 'mock') : 'llm'
+      source: useDBData ? (names.length > 0 && !wasFallback ? 'database' : 'localdata') : 'agent'
     });
 
   } catch (error) {
@@ -319,7 +386,7 @@ export async function POST(request: NextRequest) {
 }
 
 // Generate mock names based on predefined data
-function generateMockNames(request: {
+function generateNamesFromLocalData(request: {
   petDescription?: string;
   petTypes?: string[];
   nameStyles?: string[];
