@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
+import Confetti from 'react-confetti';
 import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus, Edit, X } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import FeedbackModal from '@/components/FeedbackModal';
@@ -75,6 +76,24 @@ export default function Home() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
+  const [windowSize, setWindowSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({ 
+        width: window.innerWidth, 
+        height: window.innerHeight 
+      });
+    };
+    
+    // Set initial size immediately
+    if (typeof window !== 'undefined') {
+      handleResize(); // Call immediately
+      window.addEventListener('resize', handleResize);
+      return () => window.removeEventListener('resize', handleResize);
+    }
+  }, []);
   
   // Speech recognition setup
   const startListening = () => {
@@ -180,6 +199,18 @@ export default function Home() {
       }));
       
       setGeneratedNames(selectedNames);
+
+      const confettiEnabled = process.env.NEXT_PUBLIC_SHOW_CONFETTI === 'true'
+      const confettiShown = sessionStorage.getItem('confetti_shown') === 'true'
+
+      if( confettiEnabled && !confettiShown) {
+        setShowConfetti(true);
+        sessionStorage.setItem('confetti_shown', 'true')
+        setTimeout(() => {
+          setShowConfetti(false);
+        }, 5000);
+      }
+      
       
       // Scroll to results after a short delay to ensure the content is rendered
       setTimeout(() => {
@@ -320,6 +351,18 @@ export default function Home() {
 
   return (
     <div className="relative min-h-screen bg-gradient-to-br from-rose-50/30 via-orange-50/20 to-amber-50/40 dark:from-slate-900 dark:via-indigo-950 dark:to-purple-950">
+      {showConfetti && windowSize.width > 0 && windowSize.height > 0 && (
+        <div className="fixed inset-0 pointer-events-none z-50">
+          <Confetti
+            width={windowSize.width}
+            height={windowSize.height}
+            numberOfPieces={200}
+            recycle={false}
+            gravity={0.3}
+            colors={['#ff69b4', '#ff1493', '#ffc0cb', '#ff6347', '#ffa500', '#9370db']}
+          />
+        </div>
+      )}
       {/* Floating orbs for visual appeal */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-gradient-to-r from-pink-300/10 to-rose-300/10 dark:from-pink-500/5 dark:to-rose-500/5 rounded-full blur-3xl"></div>
@@ -744,7 +787,7 @@ export default function Home() {
                     <span className="text-2xl">🎉</span>
                   </div>
                   <h2 className="text-4xl font-black bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 dark:from-emerald-300 dark:via-teal-300 dark:to-cyan-300 bg-clip-text text-transparent mb-4">
-                    We’ve got some great names for your little one
+                    We’ve got some great names for your loved one
                   </h2>
                   {/* <p className="text-lg text-slate-600 dark:text-slate-300 font-medium">
                     Here are {process.env.NEXT_PUBLIC_TOP_NAMES || 5} lovely names for your buddy ✨
