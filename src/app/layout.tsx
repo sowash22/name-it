@@ -19,6 +19,34 @@ export const metadata: Metadata = {
   title: "Name My Pet - AI Pet Naming Assistant",
   description:
     "Find the perfect name for your beloved companion with our AI-powered pet naming assistant. Simple, fast, and delightful pet name suggestions.",
+  keywords: ["pet names", "AI pet name generator", "dog names", "cat names", "pet naming"],
+  icons: {
+    icon: "/pets.png", // your PNG favicon
+    shortcut: "/pets.png", // optional
+  },
+  authors: [{ name: "Sowndarya Shanmugam", url: "https://namemypet.app" }],
+  openGraph: {
+    title: "Name My Pet - AI Pet Naming Assistant",
+    description: "Find the perfect name for your beloved companion with AI!",
+    url: "https://namemypet.app",
+    siteName: "Name My Pet",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "AI Pet Naming Assistant",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Name My Pet - AI Pet Naming Assistant",
+    description: "Find the perfect name for your beloved companion with AI!",
+    images: ["/og-image.png"],
+  },
 };
 
 export default function RootLayout({
@@ -64,8 +92,14 @@ export default function RootLayout({
                   A passion project helping you discover the perfect name for your beloved furry friend with the help of AI
                 </p> */}
                 
-                <div className="mt-4 text-xs text-slate-500 dark:text-slate-500">
-                  Passion project made with ❤️ for pet lovers everywhere
+                <div className="mt-4 text-xs text-slate-500 dark:text-slate-400">
+                  Passion project made with ❤️ and AI for pet lovers everywhere.{' '}
+                  <a
+                    href="mailto:sowndarya.ashok22@gmail.com"
+                    className="font-semibold text-blue-600 dark:text-blue-400 hover:underline hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
+                  >
+                    Drop me a note!
+                  </a>
                 </div>
               </div>
             </footer>
