@@ -733,10 +733,12 @@ export default function Home() {
                 </span>
               )}
             </button>
+
+            <div ref={resultsRef} className=''></div>
             
             {/* Results */}
             {generatedNames.length > 0 && (
-              <div ref={resultsRef} className="space-y-10 mt-16">
+              <div className="space-y-10 mt-16">
                 <div className="text-center space-y-6">
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-emerald-400 to-teal-500 rounded-3xl shadow-2xl shadow-emerald-500/25 mb-4 animate-bounce">
                     <span className="text-2xl">🎉</span>
