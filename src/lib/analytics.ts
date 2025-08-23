@@ -24,7 +24,14 @@ export const trackEvent = (
 export const analytics = {
   // Button click events
   trackButtonClick: (buttonName: string, context?: string) => {
-    trackEvent('button_click', 'engagement', `${buttonName}${context ? `_${context}` : ''}`);
+    const label = context ? `${buttonName}_${context}` : buttonName;
+  
+    // Keep generic button_click
+    trackEvent('button_click', 'engagement', label);
+  
+    // New dynamic event for this specific button
+    const buttonEventName = `${buttonName}_clicked`;
+    trackEvent(buttonEventName, 'engagement', label);
   },
 
   // Form interactions
