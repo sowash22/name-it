@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus } from 'lucide-react';
+import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus, MessageSquare } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
+import FeedbackModal from '@/components/FeedbackModal';
 
 interface SpeechRecognitionEvent extends Event {
   results: {
@@ -289,6 +290,9 @@ export default function Home() {
   // State for shortlist modal
   const [showShortlistModal, setShowShortlistModal] = useState(false);
   const [shortlistedNames, setShortlistedNames] = useState<PetName[]>([]);
+  
+  // State for feedback modal
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
 
   // Load shortlisted names from localStorage on mount
   useEffect(() => {
@@ -335,8 +339,18 @@ export default function Home() {
       )}
       
       <div className="max-w-lg mx-auto px-6 py-12 relative z-10">
-        {/* Theme and Shortlist Toggles */}
+        {/* Theme, Shortlist, and Feedback Toggles */}
         <div className="absolute top-6 right-6 flex gap-3">
+          <button
+            onClick={() => {
+              setShowFeedbackModal(true);
+              analytics.trackFeedbackModal('open');
+            }}
+            className="p-4 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-blue-600 dark:text-blue-400 hover:bg-white dark:hover:bg-slate-800 transition-all duration-300 shadow-xl shadow-blue-500/10 hover:shadow-2xl hover:shadow-blue-500/20 transform hover:scale-110 border border-white/20 dark:border-slate-700/50"
+            aria-label="Share feedback"
+          >
+            <MessageSquare className="w-5 h-5" />
+          </button>
           <button
             onClick={() => {
               setShowShortlistModal(true);
@@ -1095,6 +1109,12 @@ export default function Home() {
           </div>
         </div>
       )}
+
+      {/* Feedback Modal */}
+      <FeedbackModal 
+        isOpen={showFeedbackModal} 
+        onClose={() => setShowFeedbackModal(false)} 
+      />
     </div>
   );
 }
