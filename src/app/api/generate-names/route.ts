@@ -56,21 +56,32 @@ async function readNamesFromDatabase(requestData: GenerateNamesRequest): Promise
     
     let query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData> = db.collection('names');
     
-    // Build query based on request criteria
+    // Firestore only allows one ARRAY_CONTAINS filter per query
+    // We'll use the most specific filter first, then filter results in memory
+    let primaryFilter: string | null = null;
+    let primaryValues: string[] = [];
+    
+    // Determine which filter to use as the primary Firestore query
     if (requestData.petTypes && requestData.petTypes.length > 0) {
-      query = query.where('petTypes', 'array-contains-any', requestData.petTypes);
+      primaryFilter = 'petTypes';
+      primaryValues = requestData.petTypes;
+    } else if (requestData.nameStyles && requestData.nameStyles.length > 0) {
+      primaryFilter = 'nameStyles';
+      primaryValues = requestData.nameStyles;
+    } else if (requestData.petCharacteristics && requestData.petCharacteristics.length > 0) {
+      primaryFilter = 'petCharacteristics';
+      primaryValues = requestData.petCharacteristics;
     }
     
-    if (requestData.petCharacteristics && requestData.petCharacteristics.length > 0) {
-      query = query.where('petCharacteristics', 'array-contains-any', requestData.petCharacteristics);
-    }
-    
-    if (requestData.nameStyles && requestData.nameStyles.length > 0) {
-      query = query.where('nameStyles', 'array-contains-any', requestData.nameStyles);
+    // Apply the primary filter if we have one
+    if (primaryFilter && primaryValues.length > 0) {
+      query = query.where(primaryFilter, 'array-contains-any', primaryValues);
     }
     
     // Add limit and order by creation date (most recent first)
-    query = query.orderBy('createdAt', 'desc').limit(parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10));
+    // Increase limit since we'll filter more in memory
+    const baseLimit = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
+    query = query.orderBy('createdAt', 'desc').limit(baseLimit * 3); // Get more results to filter from
     
     const snapshot = await query.get();
     
@@ -79,18 +90,63 @@ async function readNamesFromDatabase(requestData: GenerateNamesRequest): Promise
       return [];
     }
     
-    const names: PetName[] = snapshot.docs.map((doc: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
+    // Filter results in memory based on all criteria
+    let filteredNames: PetName[] = [];
+    
+    snapshot.docs.forEach((doc: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
       const data = doc.data();
-      return {
-        id: doc.id,
-        name: data.name,
-        meaning: data.meaning || '',
-        origin: data.origin || ''
-      };
+      
+      // Check if this document matches all our criteria
+      let matches = true;
+      
+      // Check petTypes (if not already filtered by Firestore)
+      if (requestData.petTypes && requestData.petTypes.length > 0 && primaryFilter !== 'petTypes') {
+        const docPetTypes = data.petTypes || [];
+        if (!requestData.petTypes.some(type => docPetTypes.includes(type))) {
+          matches = false;
+        }
+      }
+      
+      // Check petCharacteristics (if not already filtered by Firestore)
+      if (matches && requestData.petCharacteristics && requestData.petCharacteristics.length > 0 && primaryFilter !== 'petCharacteristics') {
+        const docCharacteristics = data.petCharacteristics || [];
+        if (!requestData.petCharacteristics.some(char => docCharacteristics.includes(char))) {
+          matches = false;
+        }
+      }
+      
+      // Check nameStyles (if not already filtered by Firestore)
+      if (matches && requestData.nameStyles && requestData.nameStyles.length > 0 && primaryFilter !== 'nameStyles') {
+        const docStyles = data.nameStyles || [];
+        if (!requestData.nameStyles.some(style => docStyles.includes(style))) {
+          matches = false;
+        }
+      }
+      
+      if (matches) {
+        filteredNames.push({
+          id: doc.id,
+          name: data.name,
+          meaning: data.meaning || '',
+          origin: data.origin || ''
+        });
+      }
     });
     
-    console.log(`✅ Found ${names.length} names in database`);
-    return names;
+    // Sort by creation date and limit to requested amount
+    filteredNames.sort((a, b) => {
+      const aDoc = snapshot.docs.find(doc => doc.id === a.id);
+      const bDoc = snapshot.docs.find(doc => doc.id === b.id);
+      if (aDoc && bDoc) {
+        return bDoc.data().createdAt?.toDate?.() - aDoc.data().createdAt?.toDate?.() || 0;
+      }
+      return 0;
+    });
+    
+    filteredNames = filteredNames.slice(0, baseLimit);
+    
+    console.log(`✅ Found ${filteredNames.length} names in database after filtering`);
+    return filteredNames;
     
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
