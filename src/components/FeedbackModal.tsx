@@ -56,7 +56,7 @@ export default function FeedbackModal({ isOpen, onClose }: FeedbackModalProps) {
       description: !!feedbackText.trim() || '',
       positives: selectedPositiveOptions,
       negatives: selectedNegativeOptions,
-      nameId,
+      petNameId: nameId || sessionStorage.getItem('nameId'),
       sessionId: getSessionId(),
       userAgent: navigator.userAgent,
       screenSize: `${window.innerWidth}x${window.innerHeight}`,

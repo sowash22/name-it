@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
-import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus, MessageSquare } from 'lucide-react';
+import { Moon, Sun, Mic, Heart, Copy, Sparkles, RotateCcw, Plus, MessageSquare, Edit } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import FeedbackModal from '@/components/FeedbackModal';
 
@@ -195,6 +195,9 @@ export default function Home() {
       console.error('Error generating names:', error);
       analytics.trackError('name_generation', 'api_failure');
       setToast({ message: 'Failed to generate names. Please try again.', type: 'error' });
+      setTimeout(() => {
+        setToast(null)
+      }, 1000);
     } finally {
       setIsGenerating(false);
     }
@@ -341,7 +344,8 @@ export default function Home() {
       <div className="max-w-lg mx-auto px-6 py-12 relative z-10">
         {/* Theme, Shortlist, and Feedback Toggles */}
         <div className="absolute top-6 right-6 flex gap-3">
-          <button
+          {/* feedback button */}
+          {/* <button
             onClick={() => {
               setShowFeedbackModal(true);
               analytics.trackFeedbackModal('open');
@@ -350,7 +354,7 @@ export default function Home() {
             aria-label="Share feedback"
           >
             <MessageSquare className="w-5 h-5" />
-          </button>
+          </button> */}
           <button
             onClick={() => {
               setShowShortlistModal(true);
@@ -882,6 +886,19 @@ export default function Home() {
                             >
                               <Copy className="w-4 h-4 mr-2 group-hover/btn:animate-pulse" />
                               Copy
+                          </button>
+                          <button
+                              onClick={() => {
+                                analytics.trackButtonClick('feedback', 'results');
+                                analytics.trackPageInteraction('feedback', 'results');
+                                sessionStorage.setItem('nameId', petName.id)
+                                setShowFeedbackModal(true);
+                                analytics.trackFeedbackModal('open');
+                              }}
+                              className="group/btn inline-flex items-center px-4 py-2 text-sm font-bold bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-2xl hover:bg-indigo-100 dark:hover:bg-indigo-900/30 hover:text-indigo-600 dark:hover:text-indigo-400 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-110"
+                            >
+                              <Edit className="w-4 h-4 mr-2 group-hover/btn:animate-pulse" />
+                              Feedback
                           </button>
                           <button
                             onClick={() => {
