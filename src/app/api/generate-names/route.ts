@@ -334,8 +334,9 @@ export async function POST(request: NextRequest) {
 
       }
       catch (error) {
-        console.log('ℹ️ Using DB to generate names failed - falling back to local data', error?.message);
-        throw new Error('ℹ️ Using DB to generate names failed - falling back to local data', error?.message)
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        console.log('ℹ️ Using DB to generate names failed - falling back to local data', errorMessage);
+        throw new Error('ℹ️ Using DB to generate names failed - falling back to local data');
       }
       
       // If no names found in database, fall back to mock data
