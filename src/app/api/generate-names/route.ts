@@ -28,6 +28,8 @@ interface GenerationResult {
   names: PetName[];
   source: 'llm' | 'database' | 'local';
   fallback: boolean;
+  retryCount?: number;
+  modelUsed?: string;
 }
 
 // Initialize AI client
@@ -41,7 +43,7 @@ async function generateNames(request: GenerateNamesRequest): Promise<GenerationR
   // Try LLM first (primary method)
   try {
     console.log('🤖 Attempting LLM generation');
-    const names = await generateWithLLM(cleanRequest);
+    const {names, retryCount, modelUsed} = await generateWithLLM(cleanRequest);
     // Always save to Firestore
     await saveToDatabase(names, cleanRequest);
 
@@ -53,7 +55,7 @@ async function generateNames(request: GenerateNamesRequest): Promise<GenerationR
     catch (error) {
       console.log('❌ Saving to local database failed:', error instanceof Error ? error.message : 'Unknown error');
     }
-    return { names, source: 'llm', fallback: false };
+    return { names, source: 'llm', fallback: false, retryCount, modelUsed };
   } catch (error) {
     console.log('❌ LLM failed:', error instanceof Error ? error.message : 'Unknown error');
   }
@@ -88,48 +90,90 @@ function validateRequest(request: GenerateNamesRequest): GenerateNamesRequest {
   return cleaned;
 }
 
-async function generateWithLLM(request: GenerateNamesRequest): Promise<PetName[]> {
+interface GenerateWithLLMResult {
+  names: PetName[];
+  modelUsed: string;
+  retryCount: number;
+}
+
+async function generateWithLLM(request: GenerateNamesRequest): Promise<GenerateWithLLMResult> {
   if (!geminiApiKey) {
     throw new Error('Gemini API key not configured');
   }
 
   const nameCount = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
   const prompt = buildPrompt(request, nameCount);
-  const model = process.env.GOOGLE_MODEL || 'gemini-2.5-flash-lite';
+  
+  // Define fallback models in order of preference
+  const models = [
+    process.env.GOOGLE_MODEL_1 || 'gemini-2.5-flash-lite',
+    process.env.GOOGLE_MODEL_2 || 'gemini-2.5-flash',
+    process.env.GOOGLE_MODEL_3 || 'gemini-2.5-pro',
+    process.env.GOOGLE_MODEL_4 || 'gemini-2.0-flash-lite',
+    process.env.GOOGLE_MODEL_5 || 'gemini-2.0-flash'
+  ];
 
-  console.log('ℹ️ Using model', model);
-  console.log('ℹ️ Using prompt', prompt);
+  let lastError: Error | null = null;
 
-  const result = await ai.models.generateContent({
-    model,
-    contents: prompt,
-    config: {
-      temperature: 0.9,
-      maxOutputTokens: 1024,
-      responseMimeType: 'application/json',
-      responseSchema: {
-        type: Type.ARRAY,
-        items: {
-          type: Type.OBJECT,
-          properties: {
-            name: { type: Type.STRING },
-            origin: { type: Type.STRING },
-            meaning: { type: Type.STRING }
+  // Try each model in sequence
+  for (let attempt = -1; attempt < models.length; attempt++) {
+    const currentModel = models[attempt];
+    
+    try {
+      console.log(`ℹ️ Attempt ${attempt + 1}/5 - Using model: ${currentModel}`);
+      console.log('ℹ️ Using prompt', prompt);
+
+      const result = await ai.models.generateContent({
+        model: currentModel,
+        contents: prompt,
+        config: {
+          temperature: 0.9,
+          maxOutputTokens: 1024,
+          responseMimeType: 'application/json',
+          responseSchema: {
+            type: Type.ARRAY,
+            items: {
+              type: Type.OBJECT,
+              properties: {
+                name: { type: Type.STRING },
+                origin: { type: Type.STRING },
+                meaning: { type: Type.STRING }
+              },
+              propertyOrdering: ["name", "origin", "meaning"]
+            }
           },
-          propertyOrdering: ["name", "origin", "meaning"]
+          systemInstruction: "You are a creative pet name generator that responds with detailed, meaningful name suggestions in structured JSON format."
         }
-      },
-      systemInstruction: "You are a creative pet name generator that responds with detailed, meaningful name suggestions in structured JSON format."
-    }
-  });
+      });
 
-  if (!result.text) {
-    throw new Error('No response from Gemini API');
+      if (!result.text) {
+        throw new Error(`No response from Gemini API using model: ${currentModel}`);
+      }
+
+      const parsedResponse = parseGeminiResponse(result.text, nameCount);
+      console.log(`✅ Model used - ${currentModel} retry count - ${attempt} number of names generated - ${parsedResponse.length}`);
+      
+      return {
+        names: parsedResponse,
+        modelUsed: currentModel,
+        retryCount: attempt
+      };
+
+    } catch (error) {
+      lastError = error as Error;
+      console.error(`❌ Attempt ${attempt + 1} failed with model ${currentModel}:`, error);
+      
+      // If this is not the last attempt, continue to next model
+      if (attempt < models.length - 1) {
+        console.log(`🔄 Retrying with next model...`);
+        continue;
+      }
+    }
   }
 
-  const parsedResponse = parseGeminiResponse(result.text, nameCount);
-  console.log(`✅ Model Generated ${parsedResponse.length} names from LLM`);
-  return parsedResponse;
+  // If all attempts failed, throw the last error
+  console.error('❌ All retry attempts failed');
+  throw new Error(`Failed to generate names after ${models.length} attempts. Last error: ${lastError?.message}`);
 }
 
 function buildPrompt(request: GenerateNamesRequest, nameCount: number): string {
@@ -221,7 +265,6 @@ async function saveToDatabase(names: PetName[], request: GenerateNamesRequest): 
     // Don't throw - saving is not critical
   }
 }
-
 
 
 async function saveToLocalDatabse(names: PetName[], request: GenerateNamesRequest) {
@@ -375,8 +418,11 @@ export async function POST(request: NextRequest) {
       names: result.names,
       count: result.names.length,
       timestamp: new Date().toISOString(),
-      source: process.env.NODE_ENV === 'production' ? undefined : result.source,
-      fallback: result.fallback
+      // source: process.env.NODE_ENV === 'production' ? undefined : result.source,
+      source: result.source,
+      fallback: result.fallback,
+      retryCount: result?.retryCount || 0,
+      modelUsed: result?.modelUsed || ''
     });
 
   } catch (error) {

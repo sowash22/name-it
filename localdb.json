@@ -46,6 +46,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "0HRZSTwWWQIQwdghQtHW",
+    "nameId": "6c0d024a-0b4e-44e4-b724-6d7145451627",
+    "name": "Rosalind",
+    "meaning": "Beautiful rose; a romantic name suggesting grace, beauty, and a delicate nature, reminiscent of a classic bloom.",
+    "origin": "Latin",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756066661,
+      "_nanoseconds": 488000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "0LaUttKc0Dywwdl6ISS3",
     "nameId": "799c5602-2a0b-4b2e-a270-2b7e1366db1b",
     "name": "Luna",
@@ -103,6 +126,29 @@
     "createdAt": {
       "_seconds": 1756016679,
       "_nanoseconds": 43000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "0jyM1MsZ8dejwE6wYdEm",
+    "nameId": "9b03258e-e235-4315-bef2-954d9a8e3de3",
+    "name": "Max",
+    "meaning": "Greatest, a popular name that signifies strength and importance, often associated with powerful and beloved dogs.",
+    "origin": "Latin",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069377,
+      "_nanoseconds": 503000000
     },
     "generatedBy": "llm"
   },
@@ -412,6 +458,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "1eRarkgxlPnkuuQGkyZA",
+    "nameId": "897bed87-5fe2-4a92-91ce-6f2fac980208",
+    "name": "Alice",
+    "meaning": "Means 'noble'. Famously associated with Alice in Wonderland, a character known for her boundless curiosity and adventures down the rabbit hole.",
+    "origin": "Germanic",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069765,
+      "_nanoseconds": 82000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "1rmCgUii4IxxLPPtVwn4",
     "nameId": "51eaeaf3-fa74-4827-914e-7760d1ac5fc7",
     "name": "Elara",
@@ -615,6 +684,31 @@
     "generatedBy": "llm"
   },
   {
+    "id": "2xZzxY9KzfQEVVYbxe3R",
+    "nameId": "f02c2a4d-8719-4680-a6a8-a1dbe764822f",
+    "name": "Pip",
+    "meaning": "A small seed or a small, lively person or animal. It perfectly captures the small, energetic nature of a curious guinea pig.",
+    "origin": "English",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050136,
+      "_nanoseconds": 445000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "330R6ssFQ7cwIvhu0uab",
     "name": "Trueno",
     "meaning": "Means 'thunder'. Suggests a powerful and energetic presence, fitting for a dog with a boisterous and playful personality.",
@@ -661,6 +755,31 @@
     "generatedBy": "llm"
   },
   {
+    "id": "3eVeENCNfB3NxJI9WDqf",
+    "nameId": "f9ff85b6-6660-43b1-9f61-0e59469483e3",
+    "name": "Caspian",
+    "meaning": "Named after the Caspian Sea, evoking vastness and adventure. It suggests a curious spirit ready to explore its surroundings.",
+    "origin": "English/Geographic",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050148,
+      "_nanoseconds": 305000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "3fXnwj8vrxn8Avu3j9PK",
     "name": "Noisette",
     "meaning": "Means 'hazelnut' in French. A charming name for a cat with a brown or golden coat. Evokes warmth, sweetness, and a nutty, playful personality.",
@@ -679,6 +798,29 @@
     "createdAt": {
       "_seconds": 1755876547,
       "_nanoseconds": 588000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "3qekYn8cMYZqCsxZyhzh",
+    "nameId": "d8370799-03bc-4c10-9caf-dc9eb8a0bbd7",
+    "name": "Arthur",
+    "meaning": "Meaning 'bear man' or 'king', associated with strength, nobility, and loyalty, evoking a regal yet approachable presence for a rabbit.",
+    "origin": "Welsh",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050073,
+      "_nanoseconds": 450000000
     },
     "generatedBy": "llm"
   },
@@ -841,6 +983,52 @@
     "createdAt": {
       "_seconds": 1755921964,
       "_nanoseconds": 562000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "4cFn6NK5xG6MEi2EAL4u",
+    "nameId": "f1d70f4b-3933-4b5b-8515-65bc83a252c3",
+    "name": "Buddy",
+    "meaning": "A term of endearment signifying a close friend or companion, perfectly capturing the loyal and affectionate nature of a Golden Retriever.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "golden_Retriever"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019096,
+      "_nanoseconds": 372000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "4vVmY5luKQAsrKAzq90W",
+    "nameId": "e8ba873c-86fb-4e6d-ab7a-ecd078674e9b",
+    "name": "Theodora",
+    "meaning": "Gift of God. A classic and elegant name, implying the cat is a cherished and precious addition to the family.",
+    "origin": "Greek",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756066674,
+      "_nanoseconds": 460000000
     },
     "generatedBy": "llm"
   },
@@ -1047,6 +1235,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "5zNZMpbvxLq1Xvr132ML",
+    "nameId": "c39256f3-480d-4c37-86fb-31159794ac31",
+    "name": "August",
+    "meaning": "Majestic, venerable; named after the Roman emperor Augustus, suggesting a noble and dignified, yet approachable, personality for a beloved pet.",
+    "origin": "Latin",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050087,
+      "_nanoseconds": 992000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "69ErjjMKcxN7Vhy3gloK",
     "nameId": "a31ee74b-47b1-4319-a9e0-5b16e2d6f787",
     "name": "Charlie",
@@ -1118,6 +1329,46 @@
     "generatedBy": "llm"
   },
   {
+    "id": "6N9BcBBUgAoIlbPEmJ7g",
+    "nameId": "5706eea3-3fd9-4201-a35f-cbfcfe29e6fd",
+    "name": "Bodhi",
+    "meaning": "Awakening, enlightenment. Symbolizes a pet that brings joy and wisdom.",
+    "origin": "Sanskrit",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021483,
+      "_nanoseconds": 107000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "6R3iecMFYrJaY885QHoD",
+    "nameId": "47d487fd-ba41-4c85-b10e-62fd5c24c3c9",
+    "name": "Bartholomew",
+    "meaning": "Son of Talmai, a biblical name suggesting a strong, reliable companion, fitting for a friendly rabbit.",
+    "origin": "Aramaic",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050073,
+      "_nanoseconds": 450000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "6aTfnS3Bu5yQdi6XG9Kv",
     "nameId": "b341c889-0b73-4384-9ef2-7d07a1678c34",
     "name": "Barnaby",
@@ -1137,6 +1388,29 @@
     "createdAt": {
       "_seconds": 1755989062,
       "_nanoseconds": 168000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "6dOSVIRg0Z9irH6OVSiI",
+    "nameId": "568df9cf-994c-4e64-8e03-4f281b7054c7",
+    "name": "Sunny",
+    "meaning": "Resembles the sun, bright, cheerful, and warm, reflecting the golden coat and happy disposition of a Golden Retriever.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "golden_Retriever"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019096,
+      "_nanoseconds": 371000000
     },
     "generatedBy": "llm"
   },
@@ -1177,6 +1451,29 @@
     "createdAt": {
       "_seconds": 1755990309,
       "_nanoseconds": 128000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "6v7TrKfXyoRfsrwYdUEN",
+    "nameId": "b4340d5a-887e-46e1-955a-6efc917d9132",
+    "name": "Jasper",
+    "meaning": "Treasurer; also associated with the gemstone of the same name, known for its protective and grounding properties. It implies a precious and cherished companion.",
+    "origin": "Persian",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756066661,
+      "_nanoseconds": 488000000
     },
     "generatedBy": "llm"
   },
@@ -1307,6 +1604,54 @@
     "generatedBy": "llm"
   },
   {
+    "id": "7skVdHbUOyPfcevybtNK",
+    "nameId": "abb563ea-91b7-4660-b14d-f5ce21c86224",
+    "name": "Gus",
+    "meaning": "A shortened form of Gusav, meaning 'king's guest' or 'staff of the gods'. It's a classic, friendly name that suits a companionable, curious pet.",
+    "origin": "German",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050160,
+      "_nanoseconds": 439000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "7vWXzViyjWt4RM7xKdx5",
+    "nameId": "7fb0726b-3778-46a2-ad4c-1b63b6da1a53",
+    "name": "Rico",
+    "meaning": "Rich, powerful. A name that conveys a sense of abundance and good fortune.",
+    "origin": "Spanish",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "mexican"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019352,
+      "_nanoseconds": 435000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "81zEOVaiPCd0t4PNvwQb",
     "name": "Lluvia",
     "meaning": "Means 'Rain'. In Mexican culture, rain is often seen as a blessing, bringing life and freshness. Lluvia as a name for a guinea pig suggests a refreshing and lively presence.",
@@ -1350,6 +1695,29 @@
     "createdAt": {
       "_seconds": 1755978077,
       "_nanoseconds": 222000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "8ACvfyroI99NNIuWVv8a",
+    "nameId": "98649e94-9ab6-4e01-9f97-5d8e5c509d40",
+    "name": "Winston",
+    "meaning": "From a surname meaning 'town in the west'. It evokes a sense of British heritage and a dignified, perhaps slightly stout, character, fitting for a bulldog.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "bulldog"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067997,
+      "_nanoseconds": 562000000
     },
     "generatedBy": "llm"
   },
@@ -1479,6 +1847,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "8iN2XorlmrYanQ2BhjZw",
+    "nameId": "ce205031-a789-4085-8473-97014438ec58",
+    "name": "Clover",
+    "meaning": "Named after the plant known for its association with good luck and fortune. For a rabbit, it evokes images of their natural diet and a sense of gentle, pastoral charm, fitting for a friendly creature.",
+    "origin": "English",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050048,
+      "_nanoseconds": 787000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "8rgqKGargTg7z4RS8uMw",
     "nameId": "2443670d-55db-4822-96ac-6c02c4b5e4df",
     "name": "Zelig",
@@ -1492,6 +1883,30 @@
     "createdAt": {
       "_seconds": 1755982983,
       "_nanoseconds": 182000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "8xYtcu604mDaBJ1jl98p",
+    "nameId": "dedbfb26-c5f3-4e85-9c2d-d1ba8e9a381b",
+    "name": "Willow",
+    "meaning": "Graceful tree known for its flexibility and resilience, often associated with peace and tranquility.",
+    "origin": "English",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [
+      "playful",
+      "loyal",
+      "friendly"
+    ],
+    "nameStyles": [
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067478,
+      "_nanoseconds": 721000000
     },
     "generatedBy": "llm"
   },
@@ -1531,6 +1946,23 @@
     "createdAt": {
       "_seconds": 1755989162,
       "_nanoseconds": 257000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "9Fy5QqYjlkpc12Tfv9WW",
+    "nameId": "19be334b-437a-4463-93ac-805919177140",
+    "name": "Calliope",
+    "meaning": "Beautiful voice. In Greek mythology, Calliope is the muse of epic poetry, signifying a pet with a melodious presence and inspiring nature.",
+    "origin": "Greek",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050585,
+      "_nanoseconds": 982000000
     },
     "generatedBy": "llm"
   },
@@ -1616,6 +2048,27 @@
     "generatedBy": "llm"
   },
   {
+    "id": "9sLoyWilajiMicm0BAoV",
+    "nameId": "b5a033b7-ccba-43ac-b953-b12f30565e0f",
+    "name": "Zephyr",
+    "meaning": "A gentle, mild breeze. This name evokes a sense of lightheartedness and quick movement, fitting for a playful dog.",
+    "origin": "Greek",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "playful"
+    ],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756045617,
+      "_nanoseconds": 792000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "A7nBvOiXMIJ15vGV0hZD",
     "nameId": "fb4d0d9a-6c3f-47e7-b68b-88fe7849ade9",
     "name": "Faelan",
@@ -1629,6 +2082,30 @@
     "createdAt": {
       "_seconds": 1755934486,
       "_nanoseconds": 172000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "AJcbwEIVmYyRwxAxWltY",
+    "nameId": "131c0751-b729-49b0-be8e-585fb96939f8",
+    "name": "Jasper",
+    "meaning": "Treasure bearer; a popular gemstone known for its vibrant colors, symbolizing protection and grounding.",
+    "origin": "Persian",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [
+      "playful",
+      "loyal",
+      "friendly"
+    ],
+    "nameStyles": [
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067478,
+      "_nanoseconds": 721000000
     },
     "generatedBy": "llm"
   },
@@ -1672,6 +2149,29 @@
     "createdAt": {
       "_seconds": 1755876536,
       "_nanoseconds": 790000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "AWjQNOnXWKkHA0hyddD8",
+    "nameId": "6cb7ce2b-deca-4711-bd60-e488a3391443",
+    "name": "Leo",
+    "meaning": "Lion. This name is popular and often associated with strength and a playful, kingly demeanor, fitting for an active and confident dog.",
+    "origin": "Latin",
+    "petDescription": "He is active and always hungry",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "playful"
+    ],
+    "nameStyles": [
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021428,
+      "_nanoseconds": 648000000
     },
     "generatedBy": "llm"
   },
@@ -1744,6 +2244,29 @@
     "createdAt": {
       "_seconds": 1756018296,
       "_nanoseconds": 329000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "AuUzeoAeEOBu2oHX9kVa",
+    "nameId": "4e059747-8ff5-46ff-a0f0-fb1e7bba0e0c",
+    "name": "Buddy",
+    "meaning": "A close friend or companion, reflecting the loyal and friendly nature of Labradors.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069377,
+      "_nanoseconds": 502000000
     },
     "generatedBy": "llm"
   },
@@ -1841,6 +2364,31 @@
     "generatedBy": "llm"
   },
   {
+    "id": "BHT19E5wfSzabqznqu3M",
+    "nameId": "63bb5c00-a03e-4882-8669-79f1a774cb8c",
+    "name": "Silas",
+    "meaning": "Meaning 'forest' or 'woods'. It suggests a connection to nature and a quiet, observant curiosity, suitable for a guinea pig who enjoys exploring their surroundings.",
+    "origin": "Latin",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050136,
+      "_nanoseconds": 445000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "BL1iSRohkKSKOiXJgDqc",
     "name": "Chispa",
     "meaning": "Means 'spark' or 'sparkle'. Represents the dog's energetic and playful nature, full of life and enthusiasm.",
@@ -1888,6 +2436,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "BPC8FYGfwudQOdOHdWZO",
+    "nameId": "7ea9bb59-8dfd-4738-bd31-c8a87b819155",
+    "name": "Cleo",
+    "meaning": "Short for Cleopatra, meaning 'glory of the father'. Evokes regality and a sharp, inquisitive mind often associated with ancient Egyptian rulers.",
+    "origin": "Egyptian",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069827,
+      "_nanoseconds": 321000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "BPWzGItQmPHyc4C8oo54",
     "name": "Citlali",
     "meaning": "Means \"star\". This name would suit a cat with bright eyes or a radiant personality. It carries a sense of wonder and celestial beauty.",
@@ -1930,6 +2501,29 @@
     "createdAt": {
       "_seconds": 1755987827,
       "_nanoseconds": 309000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "BTSkWfFUFnpktQnSm9YR",
+    "nameId": "11b0710b-ab05-4512-9cd5-dd765308ab95",
+    "name": "Cooper",
+    "meaning": "Barrel maker. A popular occupational surname that evokes a sense of reliability and a hearty, perhaps even hungry, disposition.",
+    "origin": "English",
+    "petDescription": "He is active and always hungry",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "playful"
+    ],
+    "nameStyles": [
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021428,
+      "_nanoseconds": 649000000
     },
     "generatedBy": "llm"
   },
@@ -2360,6 +2954,27 @@
     "generatedBy": "llm"
   },
   {
+    "id": "DgVCBAzHpaot2HcgUSyl",
+    "nameId": "5b2e0f15-de28-4e42-8d08-cd4e87052c5f",
+    "name": "Lumi",
+    "meaning": "Meaning 'snow.' It evokes purity and a bright, often playful, pristine quality, like fresh snowfall.",
+    "origin": "Finnish",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "playful"
+    ],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756045617,
+      "_nanoseconds": 793000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "DqvxrPuIE1Wc5vvYJRMe",
     "name": "Fleur",
     "meaning": "Means 'flower' in French. Represents beauty, delicacy, and the blossoming nature of a cat. Evokes images of grace and elegance.",
@@ -2441,6 +3056,30 @@
     "createdAt": {
       "_seconds": 1755978026,
       "_nanoseconds": 935000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "DzE7DExGRzU4RROfSZCu",
+    "nameId": "bd0b410b-1e10-4fce-bf6a-2b2540c5c938",
+    "name": "Lyra",
+    "meaning": "Lyre, a musical instrument. Associated with harmony and beauty, fitting for a pet that brings joy and music to your life.",
+    "origin": "Greek",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [
+      "playful",
+      "loyal",
+      "friendly"
+    ],
+    "nameStyles": [
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067493,
+      "_nanoseconds": 861000000
     },
     "generatedBy": "llm"
   },
@@ -2533,6 +3172,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "EDFdVAEI0RFUPaG5KQKm",
+    "nameId": "0909eaba-549e-4e89-b2d2-25667ec1a24a",
+    "name": "Winston",
+    "meaning": "Meaning 'joy stone' or 'friendly stone', it conveys a dignified yet warm personality, suitable for a loyal companion.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067271,
+      "_nanoseconds": 593000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "ENbA1aMYekNmY2xiHUXA",
     "nameId": "5f06cea6-9b52-44de-bdc7-7e6b0f2775ad",
     "name": "Mehar",
@@ -2550,6 +3212,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "EVHf0rgszH9Gs36moQvY",
+    "nameId": "e0d5bb0c-1fc8-45dc-97ec-5f8ed2fad605",
+    "name": "Brutus",
+    "meaning": "Meaning 'heavy', 'dull', or 'insensitive'. Often associated with strength and a formidable presence, which can suit a strong, imposing bulldog.",
+    "origin": "Latin",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "bulldog"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067997,
+      "_nanoseconds": 563000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "EYLYm3hdGgXJZOkiXlKD",
     "nameId": "9e942201-ad98-4144-b7d4-8ffcd74a1200",
     "name": "Amara",
@@ -2563,6 +3248,31 @@
     "createdAt": {
       "_seconds": 1755989804,
       "_nanoseconds": 281000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "EYd3tCV44GvXVsW6RPRP",
+    "nameId": "35b57009-4c3b-4136-984e-c9dcc2537814",
+    "name": "Elara",
+    "meaning": "One of Jupiter's moons, named after a figure in Greek mythology. It evokes exploration and discovery, perfect for a curious little creature.",
+    "origin": "Greek",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050148,
+      "_nanoseconds": 305000000
     },
     "generatedBy": "llm"
   },
@@ -2629,6 +3339,23 @@
     "generatedBy": "llm"
   },
   {
+    "id": "Erag1UlpNIq1VCUDWQLg",
+    "nameId": "43937975-3b6c-48e8-9a6f-a69d9b624dcb",
+    "name": "Freya",
+    "meaning": "Lady, noblewoman. Freya is the Norse goddess of love, beauty, and fertility, symbolizing grace and a captivating personality.",
+    "origin": "Norse",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050585,
+      "_nanoseconds": 981000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "F2Xa1jeijbNKJEZGj0Jf",
     "nameId": "eab32ac5-e918-4f90-a7e5-7801f2c3b154",
     "name": "Theophilus",
@@ -2665,6 +3392,31 @@
     "createdAt": {
       "_seconds": 1756015098,
       "_nanoseconds": 856000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "FD6O0CQdJ0OJHndK3NSl",
+    "nameId": "d6af76ff-5b7d-43eb-9ce4-f94756c3cf26",
+    "name": "Fifi",
+    "meaning": "A diminutive of Josephine, often associated with femininity and playfulness. It's a popular, charming name that suits a lively and spirited dog.",
+    "origin": "French",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador",
+      "beagle"
+    ],
+    "nameStyles": [
+      "french",
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069244,
+      "_nanoseconds": 497000000
     },
     "generatedBy": "llm"
   },
@@ -2802,6 +3554,23 @@
     "generatedBy": "llm"
   },
   {
+    "id": "FmLtN4XLgcCy0SvAyw8P",
+    "nameId": "11d1b3d3-e78c-4658-aa99-a746b27c0162",
+    "name": "Aiko",
+    "meaning": "Child of love, beloved child. This name reflects a deep affection and cherished status for the pet.",
+    "origin": "Japanese",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050585,
+      "_nanoseconds": 981000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "Fph5s4HLjzCClc6bBHFR",
     "nameId": "b1982928-d3bb-441e-af04-ab94cc8cc2db",
     "name": "Fleur",
@@ -2821,6 +3590,27 @@
     "createdAt": {
       "_seconds": 1755988919,
       "_nanoseconds": 419000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "FxM9i16sARBKAlQx6XZu",
+    "nameId": "e7d06cbf-44f8-4414-a1b6-c224204e9b9a",
+    "name": "Bella",
+    "meaning": "Beautiful",
+    "origin": "Italian",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021461,
+      "_nanoseconds": 431000000
     },
     "generatedBy": "llm"
   },
@@ -2848,6 +3638,30 @@
     "generatedBy": "llm"
   },
   {
+    "id": "GEiVQtLVPIAI4X4P6aW0",
+    "nameId": "ced99801-5c97-4233-bc56-b84bb6405ecf",
+    "name": "Finnian",
+    "meaning": "Fair; a name with Celtic roots, evoking a sense of adventure and a bright spirit.",
+    "origin": "Irish",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [
+      "playful",
+      "loyal",
+      "friendly"
+    ],
+    "nameStyles": [
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067478,
+      "_nanoseconds": 721000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "GNbDFTCRUtRrewV0flIP",
     "name": "Fleur",
     "meaning": "Meaning 'flower' in French. It is a classic and simple name, evoking beauty, delicacy, and the blossoming nature of spring. It suits a graceful and gentle female cat.",
@@ -2866,6 +3680,29 @@
     "createdAt": {
       "_seconds": 1755876479,
       "_nanoseconds": 973000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "GQkvRAJHQJCtRwKiPBvV",
+    "nameId": "9f66a2e7-89ca-4d5b-9afc-8038d0bf68c3",
+    "name": "Riley",
+    "meaning": "Courageous, valiant. It's an energetic name that suits the playful and spirited nature of a Labrador.",
+    "origin": "Irish, English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069671,
+      "_nanoseconds": 991000000
     },
     "generatedBy": "llm"
   },
@@ -2889,6 +3726,29 @@
     "createdAt": {
       "_seconds": 1755974984,
       "_nanoseconds": 686000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "GqGNK8FFxH35nXTBNElJ",
+    "nameId": "81d5c1a4-4793-42b1-b0ed-debc89335c34",
+    "name": "Buster",
+    "meaning": "A cheerful and energetic name, often associated with strength and a playful spirit, fitting for a robust Labrador.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756068242,
+      "_nanoseconds": 901000000
     },
     "generatedBy": "llm"
   },
@@ -2940,6 +3800,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "HNn5ol1etngiMqAmrWLY",
+    "nameId": "428fd938-aac2-45a8-b360-5a21d6a878e2",
+    "name": "Edmund",
+    "meaning": "Prosperous protector, suggesting a pet that brings joy and is cherished, reflecting a friendly nature.",
+    "origin": "Old English",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050073,
+      "_nanoseconds": 451000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "HQbE9hc4XjWWdbuBggK6",
     "name": "Saoirse",
     "meaning": "Saoirse (pronounced SEER-sha) means 'freedom' or 'liberty.' It can represent the freedom the pet brings to your heart, the free-spirited nature of the animal, or the freeing of worries through their companionship. It embodies a sense of liberation and joy.",
@@ -2952,6 +3835,29 @@
     "createdAt": {
       "_seconds": 1755846727,
       "_nanoseconds": 80000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "HYVFDLrVKfaDBJr4vuk8",
+    "nameId": "229d0ea7-f8f2-4a28-bbb2-96facfcc33eb",
+    "name": "Fito",
+    "meaning": "Derived from names like Rodolfo or Adolfo, often used as a friendly nickname. It implies liveliness and spirit.",
+    "origin": "Spanish",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "mexican"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019352,
+      "_nanoseconds": 435000000
     },
     "generatedBy": "llm"
   },
@@ -3020,6 +3926,30 @@
     "generatedBy": "llm"
   },
   {
+    "id": "HknVWx6mLB6RXSWoDIsw",
+    "nameId": "6e7d4609-a0ba-489c-8c59-ff0124dd5eaa",
+    "name": "Explorador",
+    "meaning": "Meaning 'explorer'. Similar to Aventurero, this name emphasizes the guinea pig's desire to investigate, roam, and learn about its world, perfectly capturing a curious spirit.",
+    "origin": "Spanish",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "mexican",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019852,
+      "_nanoseconds": 847000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "HmnO717IKdyCdnnal5ud",
     "nameId": "34e4c4d1-9119-499d-ad3e-1e23a08a5f92",
     "name": "Esme",
@@ -3055,6 +3985,31 @@
     "createdAt": {
       "_seconds": 1755876547,
       "_nanoseconds": 588000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "HyKFecbeyZ6PYKS2lB3Z",
+    "nameId": "0e27f27b-95c8-43d2-a275-34ce0c19f60b",
+    "name": "Ferdinand",
+    "meaning": "Meaning 'bold traveler' or 'brave journey'. This classic name lends a touch of distinguished charm to a guinea pig with a bold, inquisitive spirit.",
+    "origin": "Germanic",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050136,
+      "_nanoseconds": 445000000
     },
     "generatedBy": "llm"
   },
@@ -3165,6 +4120,29 @@
     "createdAt": {
       "_seconds": 1755990121,
       "_nanoseconds": 57000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "IC4zUWJTkLlIAnVXpQfl",
+    "nameId": "031648ae-6b6a-45b9-aebf-a89f2ce35657",
+    "name": "Copper",
+    "meaning": "Refers to the reddish-brown color often seen in Labradors, evoking warmth, richness, and a friendly nature.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756068242,
+      "_nanoseconds": 901000000
     },
     "generatedBy": "llm"
   },
@@ -3399,6 +4377,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "IZ0MGflk8sQejPUgfecX",
+    "nameId": "981a5e4e-bcda-4aa4-a984-a27f5f8530fb",
+    "name": "Bramble",
+    "meaning": "A thorny shrub, often found in hedgerows. Evokes a sense of wildness, resilience, and a connection to nature, fitting for an energetic Labrador.",
+    "origin": "English",
+    "petDescription": "A other pet",
+    "petTypes": [
+      "other"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067296,
+      "_nanoseconds": 389000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "Ib8DrdhVAofvS3lZH7Qh",
     "name": "Citlalli",
     "meaning": "Means 'Star'. Represents the bright, shining personality of a friendly and cute guinea pig, suggesting a joyful and radiant presence.",
@@ -3443,6 +4444,46 @@
     "createdAt": {
       "_seconds": 1755983398,
       "_nanoseconds": 755000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "IfNiaUovbUJa7ajsg7nh",
+    "nameId": "ddeb33a7-3138-4ef8-a3cd-bde878c055e9",
+    "name": "Anya",
+    "meaning": "Gracious, merciful. Reflects a pet with a gentle and loving nature.",
+    "origin": "Russian",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021483,
+      "_nanoseconds": 107000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "Irse1KvTchvUKzOcAIQb",
+    "nameId": "f02af2b8-0cf2-4f47-b04a-17b73180cbee",
+    "name": "Jasper",
+    "meaning": "Bringer of treasure; a precious gemstone, often associated with protection and healing, reflecting a rabbit's gentle nature and value to its owner.",
+    "origin": "Persian",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050087,
+      "_nanoseconds": 991000000
     },
     "generatedBy": "llm"
   },
@@ -3495,6 +4536,23 @@
     "generatedBy": "llm"
   },
   {
+    "id": "IwgKjkAmJhCB560gL3uI",
+    "nameId": "2f089f83-1972-4a28-bffd-b06aed30164c",
+    "name": "Celeste",
+    "meaning": "Heavenly, celestial. Suitable for a pet that feels like a gift from above.",
+    "origin": "Latin",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021483,
+      "_nanoseconds": 107000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "Iy8motKczd2S3QbWqENV",
     "nameId": "6bb576ac-660c-4e48-abeb-f9b095833bb8",
     "name": "Lyra",
@@ -3508,6 +4566,29 @@
     "createdAt": {
       "_seconds": 1756015158,
       "_nanoseconds": 560000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "JBeDHdYO5RKzwyf2C5bB",
+    "nameId": "d7232451-e5c3-40da-b2f1-a115a73f51d2",
+    "name": "Arthur",
+    "meaning": "Bear man; derived from the Welsh word 'arth' meaning bear, and 'gwr' meaning man. It evokes strength and nobility, fitting for a regal feline.",
+    "origin": "Welsh",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756066661,
+      "_nanoseconds": 487000000
     },
     "generatedBy": "llm"
   },
@@ -3856,6 +4937,53 @@
     "generatedBy": "llm"
   },
   {
+    "id": "Kvub7iURyDwUQI39DtqW",
+    "nameId": "6f8558ac-0dac-4cdb-afc7-ccef8480f825",
+    "name": "Willow",
+    "meaning": "From the willow tree, known for its grace, flexibility, and resilience, reflecting a rabbit's gentle movements and adaptable, friendly spirit.",
+    "origin": "English",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050087,
+      "_nanoseconds": 992000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "L3w5cxsRAK8Hzpl9nHIR",
+    "nameId": "babf013b-c551-436e-896f-52c3af257b50",
+    "name": "Chispa",
+    "meaning": "Meaning 'spark' or 'flash'. This name suggests a bright, quick-witted, and energetic personality, often associated with curious and lively pets. It's a lively and memorable choice.",
+    "origin": "Spanish",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "mexican",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019852,
+      "_nanoseconds": 846000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "L5dbLSK6UU6vagZERnQn",
     "nameId": "dbed3489-ce2a-4963-9b6a-cf325ec9f1e9",
     "name": "Anya",
@@ -4108,6 +5236,51 @@
     "generatedBy": "llm"
   },
   {
+    "id": "M2s2U5CcbiJnxbVByvQ6",
+    "nameId": "9e92b21b-f875-4e97-bb0c-dafe0c3cba53",
+    "name": "Charlie",
+    "meaning": "Free man",
+    "origin": "Germanic",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021461,
+      "_nanoseconds": 432000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "M5gq65mORota3VzT0Dsq",
+    "nameId": "fa742fe3-ce17-4581-8961-c52d915d46f8",
+    "name": "Sabio",
+    "meaning": "Translates to 'wise' or 'knowledgeable'. While a guinea pig may not be literally wise, this name can symbolize its thoughtful observation and keen understanding of its environment, often a trait of curious animals.",
+    "origin": "Spanish",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "mexican",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019852,
+      "_nanoseconds": 846000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "M7EJyyDGeA7B52JK9C9z",
     "name": "Brise",
     "meaning": "Means 'breeze' in French. A gentle and calming name for a cat with a soft demeanor or a light, airy presence. It suggests tranquility and grace.",
@@ -4301,6 +5474,53 @@
     "generatedBy": "llm"
   },
   {
+    "id": "MiCvkPBjIvhGMlkcFcYk",
+    "nameId": "f33bda53-fafb-4b3c-a856-8d200e47ffc4",
+    "name": "Jasper",
+    "meaning": "Means 'treasurer' or 'keeper of the hidden'. Often associated with the gemstone of the same name, known for its protective and grounding qualities. Reflects a cat's curiosity in discovering hidden things.",
+    "origin": "Persian",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069765,
+      "_nanoseconds": 81000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "Mk1HCgI0GkbEGwsMcCiN",
+    "nameId": "327c50bd-3027-49c6-8b96-dd766bf9822b",
+    "name": "Anya",
+    "meaning": "Gracious, merciful; a simple yet elegant name that conveys kindness and warmth.",
+    "origin": "Russian",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [
+      "playful",
+      "loyal",
+      "friendly"
+    ],
+    "nameStyles": [
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067478,
+      "_nanoseconds": 721000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "MkynPgwpKAyZKtDnucPo",
     "name": "Amara",
     "meaning": "In Sanskrit, Amara means 'immortal' or 'eternal.' Given the wonderful nature of the pet, this name suggests that their positive impact will be long-lasting and cherished, almost immortal in the owner's memory.",
@@ -4313,6 +5533,27 @@
     "createdAt": {
       "_seconds": 1755846727,
       "_nanoseconds": 79000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "NCZgKulTMaSdsricvaM5",
+    "nameId": "5e424118-3735-4544-a243-3284638b2421",
+    "name": "Max",
+    "meaning": "Greatest",
+    "origin": "Latin",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021461,
+      "_nanoseconds": 431000000
     },
     "generatedBy": "llm"
   },
@@ -4359,6 +5600,29 @@
     "createdAt": {
       "_seconds": 1755978214,
       "_nanoseconds": 447000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "NsRZ1Bsncg7Rps3MO108",
+    "nameId": "8b3423f3-c4ed-4041-b057-d76dc282a02d",
+    "name": "Cobalt",
+    "meaning": "A vibrant blue color, often associated with the sky or deep water. Symbolizes depth, loyalty, and a clear, bright spirit, reflecting a Labrador's dependable nature.",
+    "origin": "English (from the element name)",
+    "petDescription": "A other pet",
+    "petTypes": [
+      "other"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067296,
+      "_nanoseconds": 389000000
     },
     "generatedBy": "llm"
   },
@@ -4455,6 +5719,31 @@
     "generatedBy": "llm"
   },
   {
+    "id": "OLAp04H7EQiBMyFwXTrr",
+    "nameId": "71bb1a28-1eb3-4315-8025-356722f05110",
+    "name": "Remy",
+    "meaning": "Derived from 'remy' meaning 'oarsman' or 'he who rows', but popularly associated with curiosity and adventure, like the character in Ratatouille.",
+    "origin": "French",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050160,
+      "_nanoseconds": 439000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "OO6g6DBO0wnL96TRF5Y1",
     "name": "Azúcar",
     "meaning": "Means 'sugar'. Implies sweetness and affection, suggesting the dog is a delightful and loving companion, even with his playful energy.",
@@ -4500,6 +5789,31 @@
     "createdAt": {
       "_seconds": 1755979498,
       "_nanoseconds": 979000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "OV8Nx8dCB2gmOmDVI8Ah",
+    "nameId": "01a60153-2ef7-434a-ae5b-a300067f1500",
+    "name": "Gaston",
+    "meaning": "From the Germanic word 'gast' meaning 'guest' or 'stranger'. It evokes a sense of a welcoming and friendly companion, fitting for a popular and sociable dog breed like a Labrador or Beagle.",
+    "origin": "French",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador",
+      "beagle"
+    ],
+    "nameStyles": [
+      "french",
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069244,
+      "_nanoseconds": 495000000
     },
     "generatedBy": "llm"
   },
@@ -4617,6 +5931,27 @@
     "createdAt": {
       "_seconds": 1756017078,
       "_nanoseconds": 259000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "P7luxnagiNAFeXMz9kmm",
+    "nameId": "690e3bb0-3793-4954-9517-94bd6219957f",
+    "name": "Lucy",
+    "meaning": "Light",
+    "origin": "Latin",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021461,
+      "_nanoseconds": 432000000
     },
     "generatedBy": "llm"
   },
@@ -4847,6 +6182,75 @@
     "createdAt": {
       "_seconds": 1756016083,
       "_nanoseconds": 964000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "PvVOt3qXwksoTT2vwtql",
+    "nameId": "7cc8d27f-088d-4043-9fb2-58d769da1337",
+    "name": "Thumper",
+    "meaning": "Refers to the characteristic thumping sound rabbits make with their hind legs, often associated with excitement or alarm. It evokes a sense of playful energy and is a classic, friendly rabbit name.",
+    "origin": "English",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050048,
+      "_nanoseconds": 786000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "Pzg3Qdic7KbiheXTzV6T",
+    "nameId": "a3b2b4d9-29c4-4539-943b-12e00bf4d749",
+    "name": "Eleanor",
+    "meaning": "Means 'bright, shining one'. A regal and classic name that suggests intelligence and an inquisitive nature, like a cat exploring its surroundings with bright eyes.",
+    "origin": "Greek",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069765,
+      "_nanoseconds": 83000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "Q0RIYbcHXFNvf4xABZtT",
+    "nameId": "c90d89e6-8a01-43fb-90a6-08921953198d",
+    "name": "Bijou",
+    "meaning": "Meaning 'jewel' in French, this name evokes preciousness and beauty, suitable for a prized poodle.",
+    "origin": "French",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "poodle"
+    ],
+    "nameStyles": [
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067725,
+      "_nanoseconds": 276000000
     },
     "generatedBy": "llm"
   },
@@ -5085,6 +6489,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "RdD0pAEbPEJigAWnEgEb",
+    "nameId": "63fd5b1a-d11f-4c5d-9f32-ece8c30b6560",
+    "name": "Cooper",
+    "meaning": "Barrel maker. A common and friendly-sounding name often associated with reliability and craftsmanship, fitting for a dependable Labrador.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069671,
+      "_nanoseconds": 991000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "RdZT3Io3G6lW4KZM4ZGd",
     "nameId": "ab691bdc-2e3e-4064-90c0-393812361390",
     "name": "Bartholomew",
@@ -5234,6 +6661,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "SNeyU6r2IMkV1hO4OcdG",
+    "nameId": "bd7cb164-6d82-4bfa-9f2b-d1c088f3a38f",
+    "name": "Orion",
+    "meaning": "A prominent constellation named after a mythical hunter. Represents a keen observer and explorer, fitting for a curious cat.",
+    "origin": "Greek Mythology",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069827,
+      "_nanoseconds": 321000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "SRaiHoQgTAsgRMuCigQ9",
     "nameId": "255c6dd6-8734-4f86-8ee6-43df61929dd6",
     "name": "Alden",
@@ -5253,6 +6703,29 @@
     "createdAt": {
       "_seconds": 1755987809,
       "_nanoseconds": 726000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "SWzDlLDMrHYf0NNV4Guh",
+    "nameId": "cb59b54e-29f1-42a2-96ed-30bb27005c3a",
+    "name": "Caspian",
+    "meaning": "Refers to the Caspian Sea, implying vastness, mystery, and a noble presence, fitting for a dog with a grand demeanor.",
+    "origin": "English/Geographical",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "poodle"
+    ],
+    "nameStyles": [
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067725,
+      "_nanoseconds": 276000000
     },
     "generatedBy": "llm"
   },
@@ -5294,6 +6767,52 @@
     "createdAt": {
       "_seconds": 1755843174,
       "_nanoseconds": 714000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "T1RBy8GzGxuZplBJMtXM",
+    "nameId": "e739100c-ea0f-418a-88f0-c522b9920f75",
+    "name": "Eleanor",
+    "meaning": "Light; derived from the Greek name Helen. It suggests brightness, warmth, and a radiant personality, perfect for a cat that illuminates your life.",
+    "origin": "Greek",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756066661,
+      "_nanoseconds": 488000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "TDXVRrxTSpOTtrKxQ50U",
+    "nameId": "20ac7217-3fe1-49fe-a06b-f1a1ca51df90",
+    "name": "Phineas",
+    "meaning": "Means 'oracle' or 'aphrodite'. A distinguished and somewhat whimsical name, suggesting a wise and perhaps mysterious feline who observes the world with keen interest.",
+    "origin": "Hebrew",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069765,
+      "_nanoseconds": 83000000
     },
     "generatedBy": "llm"
   },
@@ -5488,6 +7007,30 @@
     "generatedBy": "llm"
   },
   {
+    "id": "TyVEGoIa4oyKwrIYXCJc",
+    "nameId": "941adc62-d7d5-4fb2-8280-6a21051e0ccd",
+    "name": "Bodhi",
+    "meaning": "Awakening, enlightenment; associated with the Bodhi tree under which Buddha achieved enlightenment, symbolizing wisdom and peace.",
+    "origin": "Sanskrit",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [
+      "playful",
+      "loyal",
+      "friendly"
+    ],
+    "nameStyles": [
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067478,
+      "_nanoseconds": 721000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "U0WwfMzG0Bwu47vyhIXP",
     "name": "Ayodele",
     "meaning": "Ayodele means 'joy has come home.' This name reflects the joy and happiness that the pet has brought into the household, as if the pet embodies the arrival of joy itself.",
@@ -5527,6 +7070,32 @@
     "generatedBy": "llm"
   },
   {
+    "id": "UJCVjV0W2K882KDfh84V",
+    "nameId": "b03f8ca7-16d4-4160-8f32-727d92aea9f8",
+    "name": "Willow",
+    "meaning": "From the willow tree, symbolizing flexibility, grace, and resilience. It evokes a gentle yet adaptable nature, fitting for a loyal and playful companion.",
+    "origin": "English",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "loyal",
+      "playful"
+    ],
+    "nameStyles": [
+      "english",
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756059450,
+      "_nanoseconds": 815000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "UT2eD7cITGgVmVOOuYWj",
     "nameId": "c3961f1e-76a8-41ac-b565-48594b062174",
     "name": "Beaumont",
@@ -5546,6 +7115,32 @@
     "createdAt": {
       "_seconds": 1756003713,
       "_nanoseconds": 566000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "UUcdHTjwEbjtBJlOjEs2",
+    "nameId": "2f371ae8-55dd-436d-9c86-6c92742dbdc1",
+    "name": "Nova",
+    "meaning": "New. In astronomy, a Nova is a star that suddenly becomes brighter. This name signifies a bright, lively personality that brings new joy.",
+    "origin": "Latin",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "loyal",
+      "playful"
+    ],
+    "nameStyles": [
+      "english",
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756059450,
+      "_nanoseconds": 816000000
     },
     "generatedBy": "llm"
   },
@@ -5585,6 +7180,29 @@
     "createdAt": {
       "_seconds": 1755990320,
       "_nanoseconds": 897000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "Up5yOaRDgGzk321SvThG",
+    "nameId": "38004e41-46b5-4a21-8405-1325a344a024",
+    "name": "Edmund",
+    "meaning": "Prosperous protector; wealthy guardian. This name conveys a sense of strength and a benevolent, watchful nature for the cat.",
+    "origin": "Old English",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756066674,
+      "_nanoseconds": 460000000
     },
     "generatedBy": "llm"
   },
@@ -5651,6 +7269,29 @@
     "createdAt": {
       "_seconds": 1755990121,
       "_nanoseconds": 57000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "V24lnhfMc3dUtmrXidwa",
+    "nameId": "dd9993f6-8c6c-4c04-8114-f3e80e0a9636",
+    "name": "Fifi",
+    "meaning": "A classic and elegant French name, often associated with sophistication and charm, fitting for a refined poodle.",
+    "origin": "French",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "poodle"
+    ],
+    "nameStyles": [
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067725,
+      "_nanoseconds": 276000000
     },
     "generatedBy": "llm"
   },
@@ -5764,6 +7405,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "VDb4Ih6Dw4Hvu1y8Amn3",
+    "nameId": "cbd073c4-3c09-410d-a401-5c08cd105541",
+    "name": "Peter",
+    "meaning": "Meaning 'rock' or 'stone'. Popularized by Beatrix Potter's 'The Tale of Peter Rabbit', it's a timeless, classic name that signifies stability and a gentle, friendly nature, fitting for a beloved pet.",
+    "origin": "Hebrew",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050048,
+      "_nanoseconds": 787000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "VWyDkoMRj5AeEHrDmya4",
     "name": "Lisette",
     "meaning": "A diminutive of 'Élisabeth,' meaning 'pledged to God.' While not directly related to cats, Lisette has a playful and charming sound, representing a devoted and cheerful companion.",
@@ -5782,6 +7446,52 @@
     "createdAt": {
       "_seconds": 1755876479,
       "_nanoseconds": 974000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "VcfjAIPpLVAVGlXPiobO",
+    "nameId": "3a6e3e05-3abb-4589-8831-0da439dd675a",
+    "name": "Churchill",
+    "meaning": "An English surname meaning 'fortress on the chalk hill'. It's famously associated with Sir Winston Churchill, a symbol of British resilience and determination, reflecting the bulldog's steadfast nature.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "bulldog"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067997,
+      "_nanoseconds": 563000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "VileZC4p85VEbqSCqSrv",
+    "nameId": "d1149995-a99a-48fc-b8cd-27951d5a3a22",
+    "name": "Sadie",
+    "meaning": "Princess. A sweet and classic name that conveys a sense of endearment and gentle affection, suitable for a beloved companion.",
+    "origin": "Hebrew (via English)",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069671,
+      "_nanoseconds": 992000000
     },
     "generatedBy": "llm"
   },
@@ -5866,6 +7576,27 @@
     "generatedBy": "llm"
   },
   {
+    "id": "Vy9i4HXz6InDR5hZ97rH",
+    "nameId": "babac1f8-359c-462c-af63-4acf2c851d8d",
+    "name": "Kira",
+    "meaning": "In Persian, it means 'sun' or 'throne.' In Russian, it means 'leader.' It conveys brightness and a lively spirit.",
+    "origin": "Persian/Russian",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "playful"
+    ],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756045617,
+      "_nanoseconds": 793000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "W413SNhtPpYPxTJCOOul",
     "name": "Biyu",
     "meaning": "Meaning 'Jasper'. It is thought to bring safety, luck and health. A wonderful pet who can bring the owner good fortune.",
@@ -5878,6 +7609,29 @@
     "createdAt": {
       "_seconds": 1755846665,
       "_nanoseconds": 793000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "WAvNQMZWf1rF0VCY09zO",
+    "nameId": "75119968-0df5-4d6f-a17e-d6c50d8504c7",
+    "name": "Bunny",
+    "meaning": "A diminutive and affectionate term for rabbit, directly referencing the pet's species. It's a simple, classic, and universally recognized name that conveys sweetness and familiarity.",
+    "origin": "English",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050048,
+      "_nanoseconds": 787000000
     },
     "generatedBy": "llm"
   },
@@ -5947,6 +7701,29 @@
     "createdAt": {
       "_seconds": 1755926428,
       "_nanoseconds": 576000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "WTwawkc61owASeyPuD3G",
+    "nameId": "4602a6c3-9e48-4900-b273-f7c940435553",
+    "name": "Socrates",
+    "meaning": "Wisdom, intellect. Reflects a curious cat's thoughtful nature and desire to understand its surroundings.",
+    "origin": "Ancient Greek",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069827,
+      "_nanoseconds": 320000000
     },
     "generatedBy": "llm"
   },
@@ -6043,6 +7820,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "XJqwCSajfUXDkOByfK9P",
+    "nameId": "996dc99a-b209-4452-8869-39aa50f9425f",
+    "name": "Sterling",
+    "meaning": "Of high quality; pure silver, signifying a rabbit of great worth and a pure, untarnished friendly disposition.",
+    "origin": "English",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050087,
+      "_nanoseconds": 992000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "XU2hMQknQ1KdWCr50QgD",
     "nameId": "a7505160-91a0-4ba5-8b97-ec6be90a0add",
     "name": "Bastien",
@@ -6135,6 +7935,54 @@
     "generatedBy": "llm"
   },
   {
+    "id": "XmwadhMJhwsQCb6ynlTt",
+    "nameId": "13195892-7b4c-494c-b098-32e1a49732d2",
+    "name": "Cosmo",
+    "meaning": "Meaning 'order' or 'universe'. This name suggests a sense of wonder and exploration, fitting for a curious guinea pig who might seem to be discovering their world.",
+    "origin": "Greek",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050136,
+      "_nanoseconds": 445000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "XuR6w9FKwdx4pdgD38C0",
+    "nameId": "30f015ac-86de-488e-bff1-475c9e397a8a",
+    "name": "Garnet",
+    "meaning": "A deep red gemstone, symbolizing protection, vitality, and passion. Represents a dog with a warm heart and energetic spirit.",
+    "origin": "English (from the gemstone name)",
+    "petDescription": "A other pet",
+    "petTypes": [
+      "other"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067296,
+      "_nanoseconds": 389000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "XvuDqEcw8erYPgzbiOGN",
     "nameId": "2efe55a3-0c2b-46a0-8f79-e24fd47a7a40",
     "name": "Barnaby",
@@ -6182,6 +8030,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "Y2yxTGuNZB3nUf680KcZ",
+    "nameId": "fa963dbc-9da6-4083-a545-11a08dd8f627",
+    "name": "Sterling",
+    "meaning": "Meaning 'of high quality' or 'pure silver', this name signifies excellence, purity, and a valuable companion, ideal for a distinguished poodle.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "poodle"
+    ],
+    "nameStyles": [
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067725,
+      "_nanoseconds": 276000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "YUyr0gwRkl3L27MTMyuS",
     "nameId": "dbaba7ef-a108-4b14-8731-322ececf0689",
     "name": "Finnian",
@@ -6225,6 +8096,31 @@
     "createdAt": {
       "_seconds": 1755977748,
       "_nanoseconds": 82000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "YiGAhtUYAsH5FZB7eZlz",
+    "nameId": "cec6ab34-ccd3-436b-81e2-761805e98a3a",
+    "name": "Thea",
+    "meaning": "Meaning 'goddess'. A short, classic, and elegant name that can represent the preciousness and divinity of a beloved pet.",
+    "origin": "Greek",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050148,
+      "_nanoseconds": 305000000
     },
     "generatedBy": "llm"
   },
@@ -6518,6 +8414,23 @@
     "generatedBy": "llm"
   },
   {
+    "id": "ZrPfB7DoXQYI700qWRUI",
+    "nameId": "eb1df8da-2cd1-422a-b738-39548fb0516c",
+    "name": "Evander",
+    "meaning": "Good man/warrior (Greek: Euandros). Evander refers to a heroic figure, suggesting a pet with a noble spirit and strong, positive presence.",
+    "origin": "Scottish/Greek",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050585,
+      "_nanoseconds": 981000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "ZtTzzTWxGExGqWdqRtuj",
     "nameId": "fac2639d-8300-4db4-aff3-1e50d8dd1de8",
     "name": "Amélie",
@@ -6579,6 +8492,50 @@
     "createdAt": {
       "_seconds": 1755990107,
       "_nanoseconds": 213000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "a2qnTbtSOHoXrVCIpXH0",
+    "nameId": "41b04b3e-fbbf-4e17-ac03-7e481ee3f200",
+    "name": "Bodhi",
+    "meaning": "Meaning 'enlightenment' or 'awakening.' This name suggests a joyful and aware companion, bringing happiness.",
+    "origin": "Sanskrit",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "playful"
+    ],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756045617,
+      "_nanoseconds": 793000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "a4QS3FV4lMjRmGM2TtYg",
+    "nameId": "1ff1f777-0a86-4e83-bd47-ef11049a8a15",
+    "name": "Cooper",
+    "meaning": "An occupational name meaning 'barrel maker'. It has a friendly and approachable sound, fitting for a companionable Golden Retriever.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "golden_Retriever"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019096,
+      "_nanoseconds": 371000000
     },
     "generatedBy": "llm"
   },
@@ -6715,6 +8672,78 @@
     "generatedBy": "llm"
   },
   {
+    "id": "apN7EcGBCtyvNF6lF0Om",
+    "nameId": "710ec983-9bb0-4e46-97ac-95024ec82428",
+    "name": "Fletcher",
+    "meaning": "An occupational surname meaning 'arrow maker'. Implies precision, focus, and a swift, purposeful movement, suitable for a dog with a keen hunting instinct.",
+    "origin": "English",
+    "petDescription": "A other pet",
+    "petTypes": [
+      "other"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067296,
+      "_nanoseconds": 389000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "asihoSWmogcPqJGbOYbq",
+    "nameId": "6c75cbae-add4-4f89-a850-b5782fb90171",
+    "name": "Juniper",
+    "meaning": "Named after the evergreen shrub. It evokes a sense of natural curiosity and resilience, a lovely, slightly whimsical name for a small explorer.",
+    "origin": "Latin",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050136,
+      "_nanoseconds": 445000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "bAjcDz0AdASglWZym1hC",
+    "nameId": "176b1386-3c93-428d-8d9f-3b8c4b49219f",
+    "name": "Curioso",
+    "meaning": "A direct translation of 'curious', reflecting the guinea pig's inquisitive nature. It's a simple yet fitting name that highlights a key personality trait.",
+    "origin": "Spanish",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "mexican",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019852,
+      "_nanoseconds": 845000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "bFW2hXlwgzBB5ogX2C8o",
     "nameId": "916637a4-cbf0-47a6-86e5-238d8ffbf8b0",
     "name": "Pipkin",
@@ -6781,6 +8810,54 @@
     "createdAt": {
       "_seconds": 1756018757,
       "_nanoseconds": 609000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "bUdkbOKKU5RtUfphRhmu",
+    "nameId": "ff1fcc4c-83eb-41c3-aa19-b3e6bd3a157b",
+    "name": "Pipkin",
+    "meaning": "A small seed or pip, often used affectionately to refer to something small and lively, fitting for a curious guinea pig.",
+    "origin": "English",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050160,
+      "_nanoseconds": 439000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "ba3pAv7yVeJmdVqM7jSo",
+    "nameId": "85edd3aa-2a99-4224-b349-96230e666141",
+    "name": "Bartholomew",
+    "meaning": "Means 'son of Talmai' or 'son of the furrow'. A classic, distinguished name that evokes a sense of exploration and discovery, fitting for a curious cat.",
+    "origin": "Aramaic",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069765,
+      "_nanoseconds": 82000000
     },
     "generatedBy": "llm"
   },
@@ -6868,6 +8945,29 @@
     "createdAt": {
       "_seconds": 1755982983,
       "_nanoseconds": 181000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "c17mIRlxrCbEd6G6BGzm",
+    "nameId": "f2c2b688-3fee-4f93-a06c-c73feb174431",
+    "name": "Duke",
+    "meaning": "A noble and distinguished title, suggesting a loyal, dignified, and well-mannered companion, suitable for a proud Labrador.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756068242,
+      "_nanoseconds": 901000000
     },
     "generatedBy": "llm"
   },
@@ -6996,6 +9096,52 @@
     "generatedBy": "llm"
   },
   {
+    "id": "cw4V0QDprn6prn5GrEbU",
+    "nameId": "730585af-4b0b-4be4-90b9-81e591638c9f",
+    "name": "Felix",
+    "meaning": "Lucky or successful, a classic name that implies good fortune and happiness, aligning with a delightful and friendly rabbit.",
+    "origin": "Latin",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050073,
+      "_nanoseconds": 451000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "cxdorCxndYrYYAhkkzxe",
+    "nameId": "f4cd6d69-a5c3-4bcd-b8e2-529c7e19c5a1",
+    "name": "Sunny",
+    "meaning": "Evokes a bright, cheerful disposition and a warm personality, mirroring the affectionate and joyful nature of a Labrador.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756068242,
+      "_nanoseconds": 901000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "d8ND7NW0GvDvZmFdAQP6",
     "name": "Lisette",
     "meaning": "A diminutive of 'Élisabeth' (Elizabeth), meaning 'my God is abundance' or 'pledged to God.' Lisette has a charming and playful sound, suitable for a cat with a sweet disposition. It suggests a sense of cherished value.",
@@ -7064,6 +9210,27 @@
     "generatedBy": "llm"
   },
   {
+    "id": "dIx1ILfKTdFisLkr0Hn5",
+    "nameId": "615f69bd-e27f-422a-a5ef-a07b631d0104",
+    "name": "Buddy",
+    "meaning": "Friend",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021461,
+      "_nanoseconds": 432000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "dLQ1eHK9jRUQG4ttyh51",
     "name": "Fleur",
     "meaning": "Means 'flower' in French. It is a classic and elegant name that reflects the small and delicate nature of the cat. It evokes beauty and grace, fitting for a female pet.",
@@ -7107,6 +9274,29 @@
     "createdAt": {
       "_seconds": 1755846082,
       "_nanoseconds": 219000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "dQFbk7e1LabQZmrYxxpm",
+    "nameId": "e68b83a3-aa69-4b40-abdd-5f4e034574ac",
+    "name": "Winifred",
+    "meaning": "White; fair; blessed reconciliation. This name suggests a gentle, perhaps fair-colored cat with a peaceful disposition.",
+    "origin": "Welsh",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756066674,
+      "_nanoseconds": 459000000
     },
     "generatedBy": "llm"
   },
@@ -7358,6 +9548,32 @@
     "createdAt": {
       "_seconds": 1755873361,
       "_nanoseconds": 685000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "eSIzHjv7n6XbFgWTsYfP",
+    "nameId": "125d85a9-bd63-4ba3-b2d6-6adb40c3a999",
+    "name": "Jasper",
+    "meaning": "Treasurer. Also a type of gemstone, symbolizing protection and grounding. It suggests a valuable and steadfast friend.",
+    "origin": "Persian",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "loyal",
+      "playful"
+    ],
+    "nameStyles": [
+      "english",
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756059450,
+      "_nanoseconds": 816000000
     },
     "generatedBy": "llm"
   },
@@ -7731,6 +9947,31 @@
     "generatedBy": "llm"
   },
   {
+    "id": "fbsJhkqVffsAfpwQtyj4",
+    "nameId": "d89472b6-26d0-49b1-beec-7dc290c0a46f",
+    "name": "Remy",
+    "meaning": "Derived from the Latin 'Remigius', meaning 'oarsman'. It implies someone who guides or navigates, suggesting a loyal and dependable companion who leads the way on adventures.",
+    "origin": "French",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador",
+      "beagle"
+    ],
+    "nameStyles": [
+      "french",
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069244,
+      "_nanoseconds": 497000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "fkPlRTpMyIqgIfK6BdUi",
     "nameId": "80916937-beee-4cdc-b08d-47abb3136d25",
     "name": "Noisette",
@@ -7774,6 +10015,53 @@
     "createdAt": {
       "_seconds": 1755979154,
       "_nanoseconds": 339000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "fotcQhfiOutkLkQwgcvK",
+    "nameId": "37db1d88-db19-4016-bd40-e005df8ad961",
+    "name": "Elara",
+    "meaning": "A lover of Zeus, and a moon of Jupiter. A name with a celestial and romantic feel, implying a beloved and shining presence.",
+    "origin": "Greek Mythology",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [
+      "playful",
+      "loyal",
+      "friendly"
+    ],
+    "nameStyles": [
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067493,
+      "_nanoseconds": 861000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "fpalRl4ggzmtEslqLzhL",
+    "nameId": "6eb70dfe-a0f2-49b9-bb3a-ff47a52d6314",
+    "name": "Hudson",
+    "meaning": "Named after the Hudson River, it evokes strength, reliability, and a sense of adventure, fitting for an energetic Labrador.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067271,
+      "_nanoseconds": 592000000
     },
     "generatedBy": "llm"
   },
@@ -7840,6 +10128,31 @@
     "generatedBy": "llm"
   },
   {
+    "id": "g3F8lNUTyoajs702m2sP",
+    "nameId": "fffa0826-d75f-48d1-ba00-a2b56c81e114",
+    "name": "Clover",
+    "meaning": "Represents good luck and prosperity, and also evokes images of fields where a curious guinea pig might explore.",
+    "origin": "English",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050160,
+      "_nanoseconds": 439000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "gPoSiPqWMXH76b7TpyNn",
     "nameId": "03bbc84d-a915-4db6-9d1e-5339417156ab",
     "name": "Roux",
@@ -7880,6 +10193,75 @@
     "generatedBy": "llm"
   },
   {
+    "id": "geTvX9guDNeLIhShqxHk",
+    "nameId": "6d18d771-5272-4d4b-83e8-a9d9b759e08e",
+    "name": "Barnaby",
+    "meaning": "Son of encouragement; son of prophecy. A warm and friendly name, suggesting a cat that brings joy and comfort.",
+    "origin": "Aramaic",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756066674,
+      "_nanoseconds": 460000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "ghSh9BbjlrgrBcvqMxmM",
+    "nameId": "2f830d88-964d-4f7b-811d-b8a2b86ea457",
+    "name": "Sebastian",
+    "meaning": "Venerable, respected; from the Greek name Esebios. It carries an air of dignity and sophistication, suitable for a distinguished feline.",
+    "origin": "Greek",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756066661,
+      "_nanoseconds": 488000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "gj0alDMEnRjAmRDsm6WV",
+    "nameId": "b9248d15-24fb-44f5-8858-0d8c8d59e33e",
+    "name": "Riley",
+    "meaning": "Meaning 'valiant' or 'courageous', it reflects the brave and spirited nature often found in Labradors.",
+    "origin": "Irish (anglicized from Ó Raghallaigh)",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067271,
+      "_nanoseconds": 593000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "glWQeROsoV7l3tELEGHt",
     "nameId": "c61fa3ec-8c7f-4774-8b7c-ee701b38ab4d",
     "name": "Indra",
@@ -7914,6 +10296,75 @@
     "createdAt": {
       "_seconds": 1755990602,
       "_nanoseconds": 802000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "gpHcehDFMOlKtJFwTriN",
+    "nameId": "e913cea4-2865-4564-9e20-2cbb1fbff556",
+    "name": "Buddy",
+    "meaning": "Friend. A universally popular and endearing name that highlights a dog's playful and companionable nature.",
+    "origin": "English",
+    "petDescription": "He is active and always hungry",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "playful"
+    ],
+    "nameStyles": [
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021428,
+      "_nanoseconds": 649000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "guxk8nw83eMvNgujAhuS",
+    "nameId": "5267416c-e8a5-4fb9-8843-66bb96dc4be5",
+    "name": "Armani",
+    "meaning": "Named after the renowned fashion designer Giorgio Armani, suggesting style, luxury, and impeccable taste, perfect for a stylish poodle.",
+    "origin": "Italian",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "poodle"
+    ],
+    "nameStyles": [
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067725,
+      "_nanoseconds": 276000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "h1EQ92tzQZuJ6AB69PSr",
+    "nameId": "004fc678-9c19-40b0-9167-f910d0576085",
+    "name": "Athena",
+    "meaning": "Goddess of wisdom, warfare, and crafts. Symbolizes intelligence and strategic curiosity.",
+    "origin": "Ancient Greek",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069827,
+      "_nanoseconds": 320000000
     },
     "generatedBy": "llm"
   },
@@ -7962,6 +10413,29 @@
     "createdAt": {
       "_seconds": 1756016418,
       "_nanoseconds": 41000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "hCGauo9kjgwCKyztzPrQ",
+    "nameId": "a30c9fc0-b783-4d4d-aba5-76dd3dc077be",
+    "name": "Scout",
+    "meaning": "Implies an adventurous, curious, and alert dog, perfect for a Labrador that loves exploring and is always ready for a new quest.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756068242,
+      "_nanoseconds": 901000000
     },
     "generatedBy": "llm"
   },
@@ -8071,6 +10545,31 @@
     "generatedBy": "llm"
   },
   {
+    "id": "hzBW4p0krUHzLf53BI7S",
+    "nameId": "41a4cd67-105b-4cca-86f7-838b09f9f2d8",
+    "name": "Bijou",
+    "meaning": "Meaning 'jewel' or 'gem'. This name suggests a precious and cherished pet, highlighting the affectionate nature of a family dog.",
+    "origin": "French",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador",
+      "beagle"
+    ],
+    "nameStyles": [
+      "french",
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069244,
+      "_nanoseconds": 497000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "i44S0fYzDvbYTWgdcGXe",
     "nameId": "6baf1c86-50f8-4a2a-bf16-e6207a5515f9",
     "name": "Jebediah",
@@ -8090,6 +10589,55 @@
     "createdAt": {
       "_seconds": 1755975108,
       "_nanoseconds": 468000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "i4Lh6v6LOYx4aGbkiQnQ",
+    "nameId": "51889166-0c4c-487b-9331-14e6919007bf",
+    "name": "Kairo",
+    "meaning": "The opportune moment; the right place. Represents a perfect fit and a cherished time, ideal for a beloved pet.",
+    "origin": "Greek",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [
+      "playful",
+      "loyal",
+      "friendly"
+    ],
+    "nameStyles": [
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067493,
+      "_nanoseconds": 861000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "iAoi8nNGxL6WRmX7aInG",
+    "nameId": "b930a5fc-3e9c-4ecc-86d9-c575453ede89",
+    "name": "Flicker",
+    "meaning": "Suggests quick, darting movements and a spark of curiosity, reflecting a guinea pig's inquisitive nature.",
+    "origin": "English",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050160,
+      "_nanoseconds": 439000000
     },
     "generatedBy": "llm"
   },
@@ -8345,6 +10893,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "jRpnqn8PW86JLmVUe3In",
+    "nameId": "c4d0500e-51dd-47ea-8747-b59ec98d766b",
+    "name": "Rocky",
+    "meaning": "From the rocky region. This name suggests resilience and a robust, active spirit, perfect for a playful dog with a big appetite.",
+    "origin": "English",
+    "petDescription": "He is active and always hungry",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "playful"
+    ],
+    "nameStyles": [
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021428,
+      "_nanoseconds": 649000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "jSrH9dDKRi2rDZUqyST0",
     "nameId": "9d61e40e-0528-47eb-b8e2-a4e46c972b69",
     "name": "Neo",
@@ -8489,6 +11060,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "k6xscvoKL7KvMKaUsqd9",
+    "nameId": "1001c992-6fb3-45da-87d9-7cb6dcb05e8a",
+    "name": "Buster",
+    "meaning": "A diminutive of 'Bartholomew', but commonly used as a standalone nickname implying a robust, energetic, and perhaps slightly mischievous character. It's a classic, strong-sounding name for a bulldog.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "bulldog"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067997,
+      "_nanoseconds": 563000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "k6yKZTPMdRxoelrCNlUZ",
     "nameId": "2797de08-7aff-4973-910c-95044a577604",
     "name": "Daisy",
@@ -8580,6 +11174,29 @@
     "createdAt": {
       "_seconds": 1755980153,
       "_nanoseconds": 90000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "kARasTFDHw3SJNbRxReX",
+    "nameId": "aa9798bd-2c3c-4e44-a8d8-e7939188fcc4",
+    "name": "Goldie",
+    "meaning": "Directly references the dog's golden coat color, evoking richness, warmth, and preciousness.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "golden_Retriever"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019096,
+      "_nanoseconds": 371000000
     },
     "generatedBy": "llm"
   },
@@ -8817,6 +11434,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "lVTDhKRQCOBXPeQTHY5k",
+    "nameId": "2b139d06-1595-488d-93f8-357edf200562",
+    "name": "Amigo",
+    "meaning": "Friend. A perfect name for a loyal canine companion, reflecting the bond between a pet and its owner.",
+    "origin": "Spanish",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "mexican"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019352,
+      "_nanoseconds": 435000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "lZ9jAX9Kq0RppHjsBaG9",
     "nameId": "e32164ce-467a-4d3e-9e08-55a74e6064b1",
     "name": "Asher",
@@ -8953,6 +11593,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "mBv0b56WzRPyHtzJDWai",
+    "nameId": "6491a0f3-de63-4e4b-8e27-9e27915d7ef9",
+    "name": "Jasper",
+    "meaning": "Meaning 'treasurer' or 'bringer of treasure'. It is also the name of a semi-precious gemstone, often associated with protection and grounding. This classic name suggests a precious and cherished companion.",
+    "origin": "Persian",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050048,
+      "_nanoseconds": 787000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "mEHTfx6apibbdQ4Uc6ya",
     "nameId": "f7026ff4-2f0b-406b-9882-554ce95dbf3f",
     "name": "Étoile",
@@ -9058,6 +11721,29 @@
     "createdAt": {
       "_seconds": 1756016718,
       "_nanoseconds": 154000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "mUZr341IB7m2WRnNPkze",
+    "nameId": "8a0ab6c8-98d3-465a-9ca6-bbd3a7a10ed5",
+    "name": "Reginald",
+    "meaning": "Wise ruler; counsel of the king. It evokes a sense of dignified leadership and intelligence, fitting for a discerning feline.",
+    "origin": "Germanic",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756066674,
+      "_nanoseconds": 459000000
     },
     "generatedBy": "llm"
   },
@@ -9322,6 +12008,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "ndANjq8lwuqOnEQzonxb",
+    "nameId": "5e3d7068-cf91-48d8-a88b-67c052b83b6c",
+    "name": "Scout",
+    "meaning": "To listen or explore. This name suggests curiosity and a love for adventure, common traits in Labradors.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069671,
+      "_nanoseconds": 992000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "ney5JKneMZiJXKVUWXYj",
     "nameId": "401b3c6f-4eaa-40ed-b342-aff39e87aec4",
     "name": "Milo",
@@ -9391,6 +12100,23 @@
     "createdAt": {
       "_seconds": 1755844113,
       "_nanoseconds": 194000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "njEyFPYZrV7rM7E3dXTq",
+    "nameId": "c7b2756b-512c-4641-95c2-4c7983c7a7d6",
+    "name": "Seraphina",
+    "meaning": "Fiery ones, angels. Suggests a pet with a bright, energetic, and divine presence.",
+    "origin": "Hebrew",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021483,
+      "_nanoseconds": 107000000
     },
     "generatedBy": "llm"
   },
@@ -9777,6 +12503,52 @@
     "generatedBy": "llm"
   },
   {
+    "id": "p0x5Io8zhXopQLd191ya",
+    "nameId": "58b6421e-985e-4dcb-ab97-87781a79237f",
+    "name": "Reginald",
+    "meaning": "Meaning 'powerful counsel' or 'king's advisor'. It's a distinguished English name that suggests a loyal and commanding presence, fitting for a stately bulldog.",
+    "origin": "Germanic/English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "bulldog"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067997,
+      "_nanoseconds": 563000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "p22MFuIUaYpUht3zNMTI",
+    "nameId": "2a18c8d7-c1dd-4d1f-b873-edbd5b12a681",
+    "name": "Clover",
+    "meaning": "A common plant, often associated with good luck and prosperity, symbolizing the joy and fortune a friendly rabbit brings.",
+    "origin": "English",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050087,
+      "_nanoseconds": 992000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "p8lmfUfR8GavtkC4fwoE",
     "name": "Amélie",
     "meaning": "Derived from the Germanic name Amalia, 'Amélie' means 'work' or 'industrious,' but has evolved to be associated with sweetness and charm. It's a popular French name that exudes grace and a gentle spirit, suiting a kind and endearing female cat.",
@@ -9879,6 +12651,27 @@
     "createdAt": {
       "_seconds": 1755846792,
       "_nanoseconds": 255000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "pjeWYRF5L2b0wHhvDXMr",
+    "nameId": "53c9ddf8-f34f-4783-9268-4cd9702ddc47",
+    "name": "Ragnar",
+    "meaning": "A legendary Viking hero, meaning 'advisor' or 'warrior.' While strong, it can also suggest a spirited and adventurous companion.",
+    "origin": "Norse",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "playful"
+    ],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756045617,
+      "_nanoseconds": 792000000
     },
     "generatedBy": "llm"
   },
@@ -9992,6 +12785,54 @@
     "generatedBy": "llm"
   },
   {
+    "id": "qDfrzetlh9u8Qj59ZS8e",
+    "nameId": "3bfa28c7-c002-4632-b32e-93e711ab607d",
+    "name": "Lucy",
+    "meaning": "Light, evoking a bright, cheerful, and energetic personality, which aligns well with a Labrador's lively spirit.",
+    "origin": "Latin",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069377,
+      "_nanoseconds": 503000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "qKh3HvmjW5km8QCxUcDv",
+    "nameId": "3baab04c-ca0f-4aff-883e-c0b9eba66304",
+    "name": "Lysander",
+    "meaning": "Meaning 'liberator' or 'one who frees'. It's a classic name with a noble sound, suggesting a pet that brings joy and freedom.",
+    "origin": "Greek",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050148,
+      "_nanoseconds": 305000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "qMtcOiLGBII0009jnURD",
     "nameId": "d5635daf-b363-45fe-8615-d702fac8a8ee",
     "name": "Fleuron",
@@ -10058,6 +12899,29 @@
     "createdAt": {
       "_seconds": 1755988919,
       "_nanoseconds": 419000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "qcHgazqAQJbu8kBU4m9T",
+    "nameId": "c15aa30b-e1cc-44a4-a23b-4880baa2f0df",
+    "name": "Barnaby",
+    "meaning": "Son of consolation or encouragement, a gentle and endearing name suitable for a comforting and friendly pet.",
+    "origin": "Aramaic/English",
+    "petDescription": "A rabbit pet",
+    "petTypes": [
+      "rabbit"
+    ],
+    "petCharacteristics": [
+      "friendly"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050073,
+      "_nanoseconds": 450000000
     },
     "generatedBy": "llm"
   },
@@ -10217,6 +13081,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "rFCO76H2btgAGOzVl3He",
+    "nameId": "dcfbaea3-024f-4381-8df7-69fb4c7d4505",
+    "name": "Scout",
+    "meaning": "Implies a sense of adventure, curiosity, and exploration, common traits in active and intelligent breeds like Golden Retrievers.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "golden_Retriever"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019096,
+      "_nanoseconds": 372000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "rXueozktHrMD4Tyu2aiJ",
     "name": "Peluche",
     "meaning": "Means 'Stuffed Animal' or 'Plush'. Directly relates to the comfort and soft texture associated with a cozy bed and a cuddly cat.",
@@ -10356,6 +13243,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "rkqrX3Oo6SuE5caM5lSq",
+    "nameId": "08648bff-fef0-46e4-be78-d12f5bd27d13",
+    "name": "Max",
+    "meaning": "Greatest. A very popular and energetic name that implies a dog who is enthusiastic and always ready for fun and treats.",
+    "origin": "Latin",
+    "petDescription": "He is active and always hungry",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "playful"
+    ],
+    "nameStyles": [
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021428,
+      "_nanoseconds": 649000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "rn48LVSaHaeA0B8D1Zsn",
     "name": "Amadeus",
     "meaning": "Meaning 'love of God'. Suggests a pet that is deeply cherished and represents a gift, embodying wonder and delight.",
@@ -10392,6 +13302,32 @@
     "createdAt": {
       "_seconds": 1755843174,
       "_nanoseconds": 712000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "sCflxEW9nTdD0BZ1yiJR",
+    "nameId": "3f378c43-ff26-47d0-8c94-1815f8a324e5",
+    "name": "Felix",
+    "meaning": "Lucky, successful. A classic name that suggests good fortune and a cheerful disposition, fitting for a playful and beloved cat.",
+    "origin": "Latin",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "loyal",
+      "playful"
+    ],
+    "nameStyles": [
+      "english",
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756059450,
+      "_nanoseconds": 816000000
     },
     "generatedBy": "llm"
   },
@@ -10456,6 +13392,31 @@
     "createdAt": {
       "_seconds": 1755989947,
       "_nanoseconds": 72000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "srFHTiB2SZLyTjbZv7Vd",
+    "nameId": "9f6d7445-a287-4e4d-96af-3bd78c672239",
+    "name": "Orion",
+    "meaning": "A prominent constellation named after a mythical giant hunter. It symbolizes guidance and a sense of wonder, fitting for a curious guinea pig.",
+    "origin": "Greek",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "unique",
+      "popular",
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050148,
+      "_nanoseconds": 305000000
     },
     "generatedBy": "llm"
   },
@@ -10529,6 +13490,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "tJLUpQu95VKjMAn1zzAP",
+    "nameId": "45dcbd0b-b16b-4006-bead-22ceb619683d",
+    "name": "Linden",
+    "meaning": "Named after the linden tree, known for its beauty and association with tranquility and protection. Suggests a gentle, comforting presence and a strong, grounding nature.",
+    "origin": "English",
+    "petDescription": "A other pet",
+    "petTypes": [
+      "other"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067296,
+      "_nanoseconds": 389000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "tJcYAeQ7yR3NQpztIxSg",
     "nameId": "7e7cbe13-08a7-48db-be94-3b534263b8ac",
     "name": "Raina",
@@ -10542,6 +13526,23 @@
     "createdAt": {
       "_seconds": 1755978466,
       "_nanoseconds": 459000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "tWBdgxi2uggDToLHutyB",
+    "nameId": "8e0798d0-4cfd-4d3f-8e28-9625de31985f",
+    "name": "Kairo",
+    "meaning": "The opportune moment. Represents a pet that arrived at the perfect time.",
+    "origin": "Greek",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756021483,
+      "_nanoseconds": 107000000
     },
     "generatedBy": "llm"
   },
@@ -10609,6 +13610,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "tpyH5K7jVxLSM5fDMlPL",
+    "nameId": "63b75c4e-cb98-4ddd-87f0-bacfe42b79b0",
+    "name": "Jasper",
+    "meaning": "Meaning 'treasurer' and associated with a type of quartz, it suggests a precious, grounding, and dependable pet.",
+    "origin": "Persian",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067271,
+      "_nanoseconds": 593000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "u7YRHl7CsBBsKktX5YAg",
     "nameId": "1cbadec6-11d8-4ec2-beb3-668e25a869d0",
     "name": "Anya",
@@ -10667,6 +13691,70 @@
     "createdAt": {
       "_seconds": 1755992093,
       "_nanoseconds": 264000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "uJOpXHMayBF4tsmAiRug",
+    "nameId": "d6d74210-b8a0-4e8b-a6b0-400ebb995b42",
+    "name": "Bodhi",
+    "meaning": "Enlightenment, awakening. This name suggests a pet that brings wisdom, peace, and a sense of profound understanding to its owner's life.",
+    "origin": "Sanskrit",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [],
+    "nameStyles": [],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756050585,
+      "_nanoseconds": 982000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "uLnUNKnYUCrb2xO5257n",
+    "nameId": "572dbf04-685b-4541-a894-3c00aa121ea4",
+    "name": "Aventurero",
+    "meaning": "Meaning 'adventurer', this name suits a guinea pig that loves to explore its surroundings and discover new things. It evokes a sense of bravery and curiosity.",
+    "origin": "Spanish",
+    "petDescription": "A guinea pig pet",
+    "petTypes": [
+      "guinea pig"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "mexican",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019852,
+      "_nanoseconds": 846000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "uPtcABQGkxHgR7Co8w9l",
+    "nameId": "0a35327d-d9f6-41e8-984a-9308efb69ee8",
+    "name": "Sadie",
+    "meaning": "Princess, a name that conveys a sense of regality and affection, suitable for a cherished family pet.",
+    "origin": "Hebrew",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069377,
+      "_nanoseconds": 503000000
     },
     "generatedBy": "llm"
   },
@@ -10759,6 +13847,29 @@
     "createdAt": {
       "_seconds": 1755876536,
       "_nanoseconds": 790000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "udPVwL5td5fjyY3JvvPC",
+    "nameId": "a437cdde-d53e-4df6-885b-50825300c044",
+    "name": "Hunter",
+    "meaning": "One who hunts. A classic, strong name that reflects the Labrador's heritage as a gundog, bred for retrieving game.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069671,
+      "_nanoseconds": 992000000
     },
     "generatedBy": "llm"
   },
@@ -10876,6 +13987,29 @@
     "createdAt": {
       "_seconds": 1756018757,
       "_nanoseconds": 607000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "vRk6tUfy87d1sVz8RUCX",
+    "nameId": "e3d9b481-9f64-44e5-b669-1280a08bfc84",
+    "name": "Archie",
+    "meaning": "Short for Archibald, meaning 'truly brave' or 'bold'. Suggests a confident and adventurous spirit, which can manifest as curiosity.",
+    "origin": "Germanic",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069827,
+      "_nanoseconds": 321000000
     },
     "generatedBy": "llm"
   },
@@ -11054,6 +14188,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "vyOgoSJ4cDfuQrvSsXVw",
+    "nameId": "999b4841-fe20-47ef-8510-10006620bfdf",
+    "name": "Coco",
+    "meaning": "Refers to the coconut, a tropical fruit. Also used as a playful and sweet nickname, often associated with warmth and happiness.",
+    "origin": "Spanish/Indigenous",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "mexican"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019352,
+      "_nanoseconds": 435000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "wB3N81oV2FmWvYe6LcYI",
     "nameId": "6dfba0ec-b558-4f6c-a39a-08f4587f7c09",
     "name": "Kaiyo",
@@ -11216,6 +14373,32 @@
     "generatedBy": "llm"
   },
   {
+    "id": "xKxdCpk93fI7sKVr4mit",
+    "nameId": "99a32d93-2292-4109-adba-b298fb74e403",
+    "name": "Leo",
+    "meaning": "Lion. This name reflects a cat's regal nature and its playful, lion-like \"pounce\" during play.",
+    "origin": "Latin",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "loyal",
+      "playful"
+    ],
+    "nameStyles": [
+      "english",
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756059450,
+      "_nanoseconds": 815000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "xLOeuTD2IE0uHSW5iXpA",
     "nameId": "13aada56-78d1-4529-87cd-5bf1f26be31b",
     "name": "Raina",
@@ -11281,6 +14464,53 @@
     "createdAt": {
       "_seconds": 1755876547,
       "_nanoseconds": 588000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "xMqabIggHwKrvoia5LjI",
+    "nameId": "1059ebd5-39b5-4784-b891-87a2d6daca2d",
+    "name": "Caspian",
+    "meaning": "Refers to the Caspian Sea, evoking a sense of adventure, vastness, and depth. Suggests a loyal and wide-ranging spirit.",
+    "origin": "Geographic (Caspian Sea)",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [
+      "playful",
+      "loyal",
+      "friendly"
+    ],
+    "nameStyles": [
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067493,
+      "_nanoseconds": 861000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "xQ5FdVoStpBOymj8yW1y",
+    "nameId": "5bd882b4-7390-4a4a-b10b-e6c86ca9514b",
+    "name": "Cooper",
+    "meaning": "Refers to a barrel maker, suggesting a sturdy and dependable nature, fitting for a Labrador's build and temperament.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069377,
+      "_nanoseconds": 503000000
     },
     "generatedBy": "llm"
   },
@@ -11373,6 +14603,31 @@
     "createdAt": {
       "_seconds": 1755975108,
       "_nanoseconds": 466000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "xdi2KX6wbTllU4xaxote",
+    "nameId": "81680455-a201-43e6-ba6a-054ec8134fd2",
+    "name": "Auguste",
+    "meaning": "From the Latin 'Augustus', meaning 'great' or 'venerable'. This name conveys a sense of nobility and dignity, suitable for a dog with a distinguished presence and gentle demeanor.",
+    "origin": "French",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador",
+      "beagle"
+    ],
+    "nameStyles": [
+      "french",
+      "popular"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756069244,
+      "_nanoseconds": 498000000
     },
     "generatedBy": "llm"
   },
@@ -11591,6 +14846,30 @@
     "generatedBy": "llm"
   },
   {
+    "id": "yvr3JBNT0DfdiXawXGHV",
+    "nameId": "96b79a1e-9c0f-4e0a-92d7-8970df726cc8",
+    "name": "Arlo",
+    "meaning": "Fortified, protected; between the hills. A friendly and approachable name that suggests a grounded and secure companion.",
+    "origin": "Germanic",
+    "petDescription": "A wonderful pet",
+    "petTypes": [],
+    "petCharacteristics": [
+      "playful",
+      "loyal",
+      "friendly"
+    ],
+    "nameStyles": [
+      "popular",
+      "unique"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067493,
+      "_nanoseconds": 861000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "z7I06UPX18Q1G2zCR3F5",
     "name": "Bijou",
     "meaning": "Means 'jewel' or 'gem'. This name suggests that the cat is precious and valuable, a beautiful treasure to be cherished. Its short and sweet sound is fitting for a small feline.",
@@ -11611,6 +14890,29 @@
     "createdAt": {
       "_seconds": 1755843174,
       "_nanoseconds": 713000000
+    },
+    "generatedBy": "llm"
+  },
+  {
+    "id": "zA5DTViqKTNkYWUQ4NBC",
+    "nameId": "d4e977ae-a4b1-4233-a287-cbd0669ba6d5",
+    "name": "Cooper",
+    "meaning": "An occupational surname meaning 'barrel maker', it suggests craftsmanship, sturdiness, and a friendly, approachable nature.",
+    "origin": "English",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "labrador"
+    ],
+    "nameStyles": [
+      "english"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756067271,
+      "_nanoseconds": 593000000
     },
     "generatedBy": "llm"
   },
@@ -11742,6 +15044,29 @@
     "generatedBy": "llm"
   },
   {
+    "id": "zqojEBSJe73G8Hx6pjht",
+    "nameId": "140ad2a7-fc41-4038-acd6-d9c515176814",
+    "name": "Chico",
+    "meaning": "Boy, small one. A common and affectionate term in Mexican culture.",
+    "origin": "Spanish",
+    "petDescription": "A dog pet",
+    "petTypes": [
+      "dog"
+    ],
+    "petCharacteristics": [
+      "beagle"
+    ],
+    "nameStyles": [
+      "mexican"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": {
+      "_seconds": 1756019352,
+      "_nanoseconds": 433000000
+    },
+    "generatedBy": "llm"
+  },
+  {
     "id": "zxvO7x0J0RYLKr8Wsvta",
     "nameId": "137f21b1-7bf5-475f-b6ec-ac181fea1ed2",
     "name": "Bear",
@@ -11767,103 +15092,98 @@
     "generatedBy": "llm"
   },
   {
-    "id": "a16faec8-bd6a-41b5-9125-96f626f2e33c",
-    "name": "Bartholomew",
-    "meaning": "Son of Talmai. A traditional, strong English name evoking a sense of loyalty and steadfastness, fitting for a sturdy bulldog.",
-    "origin": "Aramaic",
-    "petDescription": "A dog pet",
+    "id": "4602a6c3-9e48-4900-b273-f7c940435553",
+    "name": "Socrates",
+    "meaning": "Wisdom, intellect. Reflects a curious cat's thoughtful nature and desire to understand its surroundings.",
+    "origin": "Ancient Greek",
+    "petDescription": "A cat pet",
     "petTypes": [
-      "dog"
+      "cat"
     ],
     "petCharacteristics": [
-      "bulldog"
+      "curious"
     ],
     "nameStyles": [
-      "english",
       "classic"
     ],
     "numberOfImagesAttached": 0,
-    "createdAt": "2025-08-24T06:59:21.906Z",
+    "createdAt": "2025-08-24T21:10:28.896Z",
     "generatedBy": "llm-local"
   },
   {
-    "id": "29172a73-48ee-47cc-b2c5-9f4e8d5aa708",
-    "name": "Clarence",
-    "meaning": "Clear, bright. A classic English royal name, suggesting a dignified and noble presence, suitable for a distinguished bulldog.",
-    "origin": "Latin",
-    "petDescription": "A dog pet",
+    "id": "004fc678-9c19-40b0-9167-f910d0576085",
+    "name": "Athena",
+    "meaning": "Goddess of wisdom, warfare, and crafts. Symbolizes intelligence and strategic curiosity.",
+    "origin": "Ancient Greek",
+    "petDescription": "A cat pet",
     "petTypes": [
-      "dog"
+      "cat"
     ],
     "petCharacteristics": [
-      "bulldog"
+      "curious"
     ],
     "nameStyles": [
-      "english",
       "classic"
     ],
     "numberOfImagesAttached": 0,
-    "createdAt": "2025-08-24T06:59:21.906Z",
+    "createdAt": "2025-08-24T21:10:28.896Z",
     "generatedBy": "llm-local"
   },
   {
-    "id": "c3db7aad-a2fc-4937-a931-e15d1f91ffb4",
-    "name": "Edmund",
-    "meaning": "Prosperous protector. A historically significant English name that conveys strength and a protective nature, ideal for a bulldog's demeanor.",
-    "origin": "Old English",
-    "petDescription": "A dog pet",
+    "id": "bd7cb164-6d82-4bfa-9f2b-d1c088f3a38f",
+    "name": "Orion",
+    "meaning": "A prominent constellation named after a mythical hunter. Represents a keen observer and explorer, fitting for a curious cat.",
+    "origin": "Greek Mythology",
+    "petDescription": "A cat pet",
     "petTypes": [
-      "dog"
+      "cat"
     ],
     "petCharacteristics": [
-      "bulldog"
+      "curious"
     ],
     "nameStyles": [
-      "english",
       "classic"
     ],
     "numberOfImagesAttached": 0,
-    "createdAt": "2025-08-24T06:59:21.906Z",
+    "createdAt": "2025-08-24T21:10:28.896Z",
     "generatedBy": "llm-local"
   },
   {
-    "id": "25a6db0f-c1e1-448f-b385-caf2a027abf0",
-    "name": "Reginald",
-    "meaning": "King's advisor. A regal and classic English name, implying wisdom and a commanding yet gentle personality, fitting for a bulldog.",
+    "id": "7ea9bb59-8dfd-4738-bd31-c8a87b819155",
+    "name": "Cleo",
+    "meaning": "Short for Cleopatra, meaning 'glory of the father'. Evokes regality and a sharp, inquisitive mind often associated with ancient Egyptian rulers.",
+    "origin": "Egyptian",
+    "petDescription": "A cat pet",
+    "petTypes": [
+      "cat"
+    ],
+    "petCharacteristics": [
+      "curious"
+    ],
+    "nameStyles": [
+      "classic"
+    ],
+    "numberOfImagesAttached": 0,
+    "createdAt": "2025-08-24T21:10:28.896Z",
+    "generatedBy": "llm-local"
+  },
+  {
+    "id": "e3d9b481-9f64-44e5-b669-1280a08bfc84",
+    "name": "Archie",
+    "meaning": "Short for Archibald, meaning 'truly brave' or 'bold'. Suggests a confident and adventurous spirit, which can manifest as curiosity.",
     "origin": "Germanic",
-    "petDescription": "A dog pet",
+    "petDescription": "A cat pet",
     "petTypes": [
-      "dog"
+      "cat"
     ],
     "petCharacteristics": [
-      "bulldog"
+      "curious"
     ],
     "nameStyles": [
-      "english",
       "classic"
     ],
     "numberOfImagesAttached": 0,
-    "createdAt": "2025-08-24T06:59:21.906Z",
-    "generatedBy": "llm-local"
-  },
-  {
-    "id": "783dc99b-541a-4dfa-a04f-61e3cb069135",
-    "name": "Barnaby",
-    "meaning": "Son of encouragement. A friendly and approachable English name with a cheerful connotation, suggesting a good-natured and reliable companion.",
-    "origin": "Aramaic/English",
-    "petDescription": "A dog pet",
-    "petTypes": [
-      "dog"
-    ],
-    "petCharacteristics": [
-      "bulldog"
-    ],
-    "nameStyles": [
-      "english",
-      "classic"
-    ],
-    "numberOfImagesAttached": 0,
-    "createdAt": "2025-08-24T06:59:21.906Z",
+    "createdAt": "2025-08-24T21:10:28.896Z",
     "generatedBy": "llm-local"
   }
 ]
