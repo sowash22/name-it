@@ -326,35 +326,37 @@ export async function POST(request: NextRequest) {
     let names;
     let wasFallback = false;
     let finalSource = ''
-    let finalError = ''
+    const finalError = ''
 
 
     // use DB if env var is set
     if (useDBData) {
+      // let names = []
       console.log('ℹ️ Using DBdata (configured via USE_DB_DATA=true)');
 
       try {
         // Try to read from database first 
         names = await readNamesFromDatabase(body)
+         // If no names found in database, fall back to mock data
+        if (names.length === 0) {
+          console.log('ℹ️ No names found in database, using local data');
+          names = generateNamesFromLocalData(body);
+          wasFallback = true;
+          finalSource = 'local'
+        } else {
+          console.log('ℹ️ Using names from database');
+          finalSource = 'db'
+        }
       }
       catch (error) {
         const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         console.log('ℹ️ Using DB to generate names failed - falling back to local data', errorMessage);
-        throw new Error('ℹ️ Using DB to generate names failed - falling back to local data');
-      }
-      
-      // If no names found in database, fall back to mock data
-      if (names.length === 0) {
-        console.log('ℹ️ No names found in database, using local data');
+        // throw new Error('ℹ️ Using DB to generate names failed - falling back to local data');
         names = generateNamesFromLocalData(body);
         wasFallback = true;
         finalSource = 'local'
-      } else {
-        console.log('ℹ️ Using names from database');
+        await new Promise(resolve => setTimeout(resolve, 1000));
       }
-
-      finalSource = 'db'
-      await new Promise(resolve => setTimeout(resolve, 1000));
     } 
     
     // use llm/agent
@@ -368,11 +370,31 @@ export async function POST(request: NextRequest) {
         finalSource = 'agent'
 
       } catch(error) {
-        console.log('ℹ️ Name generation failed - falling back to local mock data', error instanceof Error ? error.message : JSON.stringify(error));
-        names = generateNamesFromLocalData(body)
-        wasFallback = true
-        finalSource = 'local'
-        finalError = error instanceof Error ? error.message : JSON.stringify(error)
+          console.log('ℹ️ Name generation failed - falling back to db data', error instanceof Error ? error.message : JSON.stringify(error));
+
+          try {
+            // Try to read from database first 
+            names = await readNamesFromDatabase(body)
+            finalSource = 'db'
+          }
+          catch (error) {
+            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+            console.log('ℹ️ Using DB to generate names failed - falling back to local data', errorMessage);
+            names = generateNamesFromLocalData(body);
+            wasFallback = true;
+            finalSource = 'local'
+          }
+          
+          // If no names found in database, fall back to mock data
+          if (names.length === 0) {
+            console.log('ℹ️ No names found in database, using local data');
+            names = generateNamesFromLocalData(body);
+            wasFallback = true;
+            finalSource = 'local'
+          } else {
+            console.log('ℹ️ Using names from database');
+          }
+
       }
     }
 
