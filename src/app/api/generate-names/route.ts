@@ -1,8 +1,7 @@
 import { MockNameData, mockNamesByType } from '@/lib/mock';
 import { NextRequest, NextResponse } from 'next/server';
-import { v4 as uuidv4 } from 'uuid'; // make sure to install uuid package
-
-import { GoogleGenAI } from '@google/genai';
+import { v4 as uuidv4 } from 'uuid';
+import { GoogleGenAI, Type } from '@google/genai';
 import { db } from '@/lib/firebaseAdmin';
 
 interface GenerateNamesRequest {
@@ -11,7 +10,7 @@ interface GenerateNamesRequest {
   petCharacteristics?: string[];
   nameStyles?: string[];
   uploadedImages?: string[];
-  previosulyGeneratedNames?: string[];
+  previouslyGeneratedNames?: string[];
 }
 
 interface PetName {
@@ -21,471 +20,362 @@ interface PetName {
   origin?: string;
 }
 
-// Function to save names to Firebase database
-async function saveNamesToDatabase(names: PetName[], requestData: GenerateNamesRequest): Promise<void> {
-  try {
-    const batch = db.batch();
-    
-    names.forEach((name) => {
-      const docRef = db.collection('names').doc();
-      batch.set(docRef, {
-        nameId: name.id || '',
-        name: name.name,
-        meaning: name.meaning,
-        origin: name.origin,
-        petDescription: requestData.petDescription,
-        petTypes: requestData.petTypes || [],
-        petCharacteristics: requestData.petCharacteristics || [],
-        nameStyles: requestData.nameStyles || [],
-        numberOfImagesAttached: requestData.uploadedImages?.length,
-        createdAt: new Date(),
-        generatedBy: 'llm'
-      });
-    });
-    
-    await batch.commit();
-    console.log(`✅ Successfully saved ${names.length} names to database`);
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.error('❌ Failed to save names to database:', errorMessage);
-    // Don't throw error here - we still want to return names to user
-  }
+interface GenerationResult {
+  names: PetName[];
+  source: 'llm' | 'database' | 'local';
+  fallback: boolean;
 }
 
-// Function to read names from Firebase database
-async function readNamesFromDatabase(requestData: GenerateNamesRequest): Promise<PetName[]> {
-  try {
-    console.log('ℹ️ Reading names from database...');
-    
-    let query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData> = db.collection('names');
-    
-    // Firestore only allows one ARRAY_CONTAINS filter per query
-    // We'll use the most specific filter first, then filter results in memory
-    let primaryFilter: string | null = null;
-    let primaryValues: string[] = [];
-    
-    // Determine which filter to use as the primary Firestore query
-    if (requestData.petTypes && requestData.petTypes.length > 0) {
-      primaryFilter = 'petTypes';
-      primaryValues = requestData.petTypes;
-    } else if (requestData.nameStyles && requestData.nameStyles.length > 0) {
-      primaryFilter = 'nameStyles';
-      primaryValues = requestData.nameStyles;
-    } else if (requestData.petCharacteristics && requestData.petCharacteristics.length > 0) {
-      primaryFilter = 'petCharacteristics';
-      primaryValues = requestData.petCharacteristics;
-    }
-    
-    // Apply the primary filter if we have one
-    if (primaryFilter && primaryValues.length > 0) {
-      query = query.where(primaryFilter, 'array-contains-any', primaryValues);
-    }
-    
-    // Add limit and order by creation date (most recent first)
-    // Increase limit since we'll filter more in memory
-    const baseLimit = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
-    query = query.orderBy('createdAt', 'desc').limit(baseLimit * 3); // Get more results to filter from
-    
-    const snapshot = await query.get();
-    
-    if (snapshot.empty) {
-      console.log('ℹ️ No matching names in database');
-      return [];
-    }
-    
-    // Filter results in memory based on all criteria
-    let filteredNames: PetName[] = [];
-    
-    snapshot.docs.forEach((doc: FirebaseFirestore.QueryDocumentSnapshot<FirebaseFirestore.DocumentData>) => {
-      const data = doc.data();
-      
-      // Check if this document matches all our criteria
-      let matches = true;
-      
-      // Check petTypes (if not already filtered by Firestore)
-      if (requestData.petTypes && requestData.petTypes.length > 0 && primaryFilter !== 'petTypes') {
-        const docPetTypes = data.petTypes || [];
-        if (!requestData.petTypes.some(type => docPetTypes.includes(type))) {
-          matches = false;
-        }
-      }
-      
-      // Check petCharacteristics (if not already filtered by Firestore)
-      if (matches && requestData.petCharacteristics && requestData.petCharacteristics.length > 0 && primaryFilter !== 'petCharacteristics') {
-        const docCharacteristics = data.petCharacteristics || [];
-        if (!requestData.petCharacteristics.some(char => docCharacteristics.includes(char))) {
-          matches = false;
-        }
-      }
-      
-      // Check nameStyles (if not already filtered by Firestore)
-      if (matches && requestData.nameStyles && requestData.nameStyles.length > 0 && primaryFilter !== 'nameStyles') {
-        const docStyles = data.nameStyles || [];
-        if (!requestData.nameStyles.some(style => docStyles.includes(style))) {
-          matches = false;
-        }
-      }
-      
-      if (matches) {
-        filteredNames.push({
-          id: doc.id,
-          name: data.name,
-          meaning: data.meaning || '',
-          origin: data.origin || ''
-        });
-      }
-    });
-    
-    // Sort by creation date and limit to requested amount
-    filteredNames.sort((a, b) => {
-      const aDoc = snapshot.docs.find(doc => doc.id === a.id);
-      const bDoc = snapshot.docs.find(doc => doc.id === b.id);
-      if (aDoc && bDoc) {
-        return bDoc.data().createdAt?.toDate?.() - aDoc.data().createdAt?.toDate?.() || 0;
-      }
-      return 0;
-    });
-    
-    filteredNames = filteredNames.slice(0, baseLimit);
-    
-    console.log(`✅ Found ${filteredNames.length} names in database after filtering`);
-    return filteredNames;
-    
-  } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.error('❌ Failed to read names from database:', errorMessage);
-    return [];
-  }
-}
+class NameGenerator {
+  private geminiApiKey: string;
+  private ai: GoogleGenAI;
 
-const geminiApiKey = process.env.GEMINI_API_KEY;
-
-const ai = new GoogleGenAI({
-  apiKey: geminiApiKey,
-});
-
-async function generateNamesWithLLMGoogle(request: GenerateNamesRequest): Promise<PetName[]> {
-  
-  if (!geminiApiKey) {
-    throw new Error('Gemini API key is not initialized. Check your GEMINI_API_KEY environment variable.');
+  constructor() {
+    this.geminiApiKey = process.env.GEMINI_API_KEY || '';
+    this.ai = new GoogleGenAI({ apiKey: this.geminiApiKey });
   }
 
-  // Define the JSON schema for structured response
-  const jsonSchema = {
-    type: "object",
-    properties: {
-      names: {
-        type: "array",
-        items: {
-          type: "object",
-          properties: {
-            name: { type: "string" },
-            origin: { type: "string" },
-            meaning: { type: "string" }
-          },
-          required: ["name", "origin", "meaning"]
-        }
+  async generateNames(request: GenerateNamesRequest): Promise<GenerationResult> {
+    // Clean and validate request
+    const cleanRequest = this.validateRequest(request);
+    
+    // Try LLM first (primary method)
+    try {
+      console.log('🤖 Attempting LLM generation');
+      const names = await this.generateWithLLM(cleanRequest);
+      await this.saveToDatabase(names, cleanRequest);
+      return { names, source: 'llm', fallback: false };
+    } catch (error) {
+      console.log('❌ LLM failed:', error instanceof Error ? error.message : 'Unknown error');
+    }
+
+    // Fallback to database
+    try {
+      console.log('🗄️ Attempting database retrieval');
+      const names = await this.getFromDatabase(cleanRequest);
+      if (names.length > 0) {
+        return { names, source: 'database', fallback: true };
       }
-    },
-    required: ["names"]
-  };
+    } catch (error) {
+      console.log('❌ Database failed:', error instanceof Error ? error.message : 'Unknown error');
+    }
 
-  const prompt = `Generate ${process.env.NEXT_PUBLIC_TOP_NAMES || '5'} unique and meaningful pet names based on the following criteria:
-${request.petDescription ? `Description: ${request.petDescription}` : ''}
-${request.petTypes && request.petTypes.length > 0 ? `Pet type: ${request.petTypes.join(', ')}` : ''}
-${request.petCharacteristics && request.petCharacteristics.length > 0 ? `Pet characteristics: ${request.petCharacteristics.join(', ')}` : ''}
-${request.nameStyles && request.nameStyles.length > 0 ? `Name style: ${request.nameStyles.join(', ')}` : ''}
+    // Final fallback to local mock data
+    console.log('📁 Using local mock data');
+    const names = this.generateFromLocalData(cleanRequest);
+    return { names, source: 'local', fallback: true };
+  }
 
-For each name, provide:
-1. The name itself
-2. Its cultural or linguistic origin
-3. The meaning or symbolism behind the name
+  private validateRequest(request: GenerateNamesRequest): GenerateNamesRequest {
+    const cleaned = { ...request };
+    
+    // Ensure we have a description
+    if (!cleaned.petDescription?.trim()) {
+      cleaned.petDescription = cleaned.petTypes?.length 
+        ? `A ${cleaned.petTypes.join(', ')} pet` 
+        : 'A wonderful pet';
+    }
 
-Return the response as valid JSON following this exact schema:
-${JSON.stringify(jsonSchema)}
+    return cleaned;
+  }
 
-Ensure each name:
-- Is memorable and unique
-- Has cultural or historical significance
-- Reflects the pet's characteristics
-- Is easy to pronounce
-- Has a positive meaning or association
+  private async generateWithLLM(request: GenerateNamesRequest): Promise<PetName[]> {
+    if (!this.geminiApiKey) {
+      throw new Error('Gemini API key not configured');
+    }
 
+    const nameCount = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
+    const prompt = this.buildPrompt(request, nameCount);
 
+   
+    const model = process.env.GOOGLE_MODEL || 'gemini-2.5-flash-lite'
+    console.log('ℹ️ Using model', model);
+    console.log('ℹ️ Using prompt', prompt);
 
-${request.previosulyGeneratedNames && request.previosulyGeneratedNames.length > 0 ? `These are already generated for the user so dont repeat them in any case. Previously generated names: ${request.previosulyGeneratedNames.join(', ')}` : ''}
-`;
-
-  try {    
-    const config = {
-      generationConfig: {
-        temperature: 0.7,
+    const result = await this.ai.models.generateContent({
+      model,
+      contents: prompt,
+      config: {
+        temperature: 0.9,
         maxOutputTokens: 1024,
         responseMimeType: 'application/json',
-        responseSchema: jsonSchema
-      },
-      systemInstruction: "You are a creative pet name generator that responds with detailed, meaningful name suggestions in structured JSON format. Each name should include its cultural origin and meaning."
-    };
+        responseSchema: {
+          type: Type.ARRAY,
+          items: {
+            type: Type.OBJECT,
+            properties: {
+              name: {
+                type: Type.STRING,
+              },
+              origin: {
+                type: Type.STRING,
+              },
+              meaning: {
+                type: Type.STRING,
+              }
+            },
+            propertyOrdering: ["name", "origin", "meaning"]
+          }
+        },
+        systemInstruction: "You are a creative pet name generator that responds with detailed, meaningful name suggestions in structured JSON format."
+      }
+    });
 
-    const contents = [
-      {
-        role: 'user',
-        parts: [
-          {
-            text: prompt,
-          },
-        ],
-      },
+    const response = result.text;
+    if (!response) {
+      throw new Error('No response from Gemini API');
+    }
+
+    const parsedResponse =  this.parseGeminiResponse(response, nameCount);
+    console.log(`✅ Model Generated ${parsedResponse.length} names from LLM`);
+    return parsedResponse
+  }
+
+  private buildPrompt(request: GenerateNamesRequest, nameCount: number): string {
+    const parts = [
+      `Generate ${nameCount} unique and meaningful pet names based on the following criteria:`,
+      request.petDescription ? `Description: ${request.petDescription}` : '',
+      request.petTypes?.length ? `Pet type: ${request.petTypes.join(', ')}` : '',
+      request.petCharacteristics?.length ? `Pet characteristics: ${request.petCharacteristics.join(', ')}` : '',
+      request.nameStyles?.length ? `Name style: ${request.nameStyles.join(', ')}` : '',
+      '',
+      'For each name, provide:',
+      '1. The name itself',
+      '2. Its cultural or linguistic origin',
+      '3. The meaning or symbolism behind the name',
+      '',
+      'Ensure each name:',
+      '- Is memorable and unique',
+      '- Has cultural or historical significance',
+      '- Reflects the pet\'s characteristics',
+      '- Is easy to pronounce',
+      '- Has a positive meaning or association'
     ];
 
-    console.log('ℹ️ Calling Gemini API for name generation');
-    const result = await ai.models.generateContent({
-      model: process.env.GOOGLE_MODEL || 'gemini-2.0-flash-exp',
-      config,
-      contents
-    });
-    
-    if (!result?.candidates?.[0]?.content?.parts?.[0]?.text) {
-      console.log('❌ No response received from Gemini API');
-      throw new Error('No response text received from Gemini API');
+    if (request.previouslyGeneratedNames?.length) {
+      parts.push('', `Avoid these previously generated names: ${request.previouslyGeneratedNames.join(', ')}`);
     }
-    
-    const response = result.candidates[0].content.parts[0].text;
+    const prompt = parts.filter(Boolean).join('\n');
+    return prompt
+  }
 
+  private parseGeminiResponse(response: string, nameCount: number): PetName[] {
     try {
-      // Clean up the response to remove markdown code blocks
-      const cleanResponse = response.replace(/```json\n?|\n?```/g, '').trim();
-      const parsedResponse = JSON.parse(cleanResponse);
-      const parsedNames = parsedResponse.names;
+      const parsedResponse = JSON.parse(response);
       
-      // With structured response, the format should be guaranteed, but add basic validation
-      if (!Array.isArray(parsedNames)) {
-        console.log('❌ Invalid response structure - missing names array');
-        throw new Error('Invalid response structure');
+      if (!Array.isArray(parsedResponse)) {
+        throw new Error('Invalid response structure - expected array');
       }
 
-      // Validate that each name has required properties
-      const validNames = parsedNames.filter(nameData => 
-        nameData && 
-        typeof nameData.name === 'string' && 
-        typeof nameData.origin === 'string' && 
-        typeof nameData.meaning === 'string'
-      );
-
-      if (validNames.length === 0) {
-        console.log('❌ No valid names found in API response');
-        throw new Error('No valid names in response');
-      }
-
-      const names = validNames
-        .slice(0, parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10))
-        .map((nameData) => ({
-          id: uuidv4(), // new field`,
+      const validNames = parsedResponse
+        .filter(nameData => 
+          nameData && 
+          typeof nameData.name === 'string' && 
+          typeof nameData.origin === 'string' && 
+          typeof nameData.meaning === 'string'
+        )
+        .slice(0, nameCount)
+        .map(nameData => ({
+          id: uuidv4(),
           name: nameData.name,
           meaning: nameData.meaning,
           origin: nameData.origin
         }));
 
-      console.log(`✅ Generated ${names.length} names from Gemini API`);
-      return names;
+      if (validNames.length === 0) {
+        throw new Error('No valid names in response');
+      }
 
+      return validNames;
     } catch {
-      console.log('❌ Failed to parse Gemini API response - invalid JSON structure');
-      throw new Error('Failed to parse structured JSON response from Gemini');
+      throw new Error('Failed to parse LLM response');
     }
+  }
 
-  } catch (error) {
-    console.log(`❌ Gemini API call failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
-    throw error;
+  private async saveToDatabase(names: PetName[], request: GenerateNamesRequest): Promise<void> {
+    try {
+      const batch = db.batch();
+      
+      names.forEach(name => {
+        const docRef = db.collection('names').doc();
+        batch.set(docRef, {
+          nameId: name.id,
+          name: name.name,
+          meaning: name.meaning,
+          origin: name.origin,
+          petDescription: request.petDescription,
+          petTypes: request.petTypes || [],
+          petCharacteristics: request.petCharacteristics || [],
+          nameStyles: request.nameStyles || [],
+          numberOfImagesAttached: request.uploadedImages?.length || 0,
+          createdAt: new Date(),
+          generatedBy: 'llm'
+        });
+      });
+      
+      await batch.commit();
+      console.log(`✅ Saved ${names.length} names to database`);
+    } catch (error) {
+      console.error('❌ Failed to save to database:', error instanceof Error ? error.message : 'Unknown error');
+      // Don't throw - saving is not critical
+    }
+  }
+
+  private async getFromDatabase(request: GenerateNamesRequest): Promise<PetName[]> {
+    const nameCount = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
+    let query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData> = db.collection('names');
+    
+    // Apply the most specific filter
+    const filters = [
+      { field: 'petTypes', values: request.petTypes },
+      { field: 'nameStyles', values: request.nameStyles },
+      { field: 'petCharacteristics', values: request.petCharacteristics }
+    ];
+    
+    const primaryFilter = filters.find(f => f.values && f.values.length > 0);
+    if (primaryFilter) {
+      query = query.where(primaryFilter.field, 'array-contains-any', primaryFilter.values);
+    }
+    
+    query = query.orderBy('createdAt', 'desc').limit(nameCount * 3);
+    const snapshot = await query.get();
+    
+    if (snapshot.empty) {
+      return [];
+    }
+    
+    // Filter results in memory for additional criteria
+    const filteredNames = snapshot.docs
+      .map(doc => ({
+        doc,
+        data: doc.data(),
+        matches: this.calculateMatches(doc.data(), request, filters.filter(f => f !== primaryFilter))
+      }))
+      .filter(item => item.matches > 0)
+      .sort((a, b) => b.matches - a.matches || (b.data.createdAt?.toDate?.() || 0) - (a.data.createdAt?.toDate?.() || 0))
+      .slice(0, nameCount)
+      .map(item => ({
+        id: item.doc.id,
+        name: item.data.name,
+        meaning: item.data.meaning || '',
+        origin: item.data.origin || ''
+      }));
+
+    return filteredNames;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  private calculateMatches(data: any, request: GenerateNamesRequest, additionalFilters: any[]): number {
+    let matches = 1; // Base match since it passed primary filter
+    
+    additionalFilters.forEach(filter => {
+      if (filter.values && filter.values.length > 0) {
+        const docValues = data[filter.field] || [];
+        if (filter.values.some((value: string) => docValues.includes(value))) {
+          matches++;
+        }
+      }
+    });
+    
+    return matches;
+  }
+
+  private generateFromLocalData(request: GenerateNamesRequest): PetName[] {
+    const nameCount = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
+    
+    // Collect names from pet types
+    let namePool: MockNameData[] = [];
+    request.petTypes?.forEach(type => {
+      if (mockNamesByType[type]) {
+        namePool.push(...mockNamesByType[type]);
+      }
+    });
+    
+    // Fallback to 'other' if no names collected
+    if (namePool.length === 0) {
+      namePool = mockNamesByType.other || [];
+    }
+    
+    // Score names based on matches
+    const scored = namePool.map(nameData => ({
+      ...nameData,
+      score: this.scoreLocalName(nameData, request)
+    }));
+    
+    // Sort by score, then randomly within same score
+    scored.sort((a, b) => b.score - a.score || Math.random() - 0.5);
+    
+    return scored.slice(0, nameCount).map((nameData, index) => ({
+      id: `local-${Date.now()}-${index}`,
+      name: nameData.name,
+      meaning: nameData.meaning,
+      origin: nameData.origin
+    }));
+  }
+
+  private scoreLocalName(nameData: MockNameData, request: GenerateNamesRequest): number {
+    const text = `${nameData.name} ${nameData.meaning}`.toLowerCase();
+    const description = request.petDescription?.toLowerCase() || '';
+    let score = 0;
+    
+    // Match description
+    if (description && text.includes(description)) score += 2;
+    
+    // Match name styles
+    if (request.nameStyles?.some(style => text.includes(style.toLowerCase()))) {
+      score += 1;
+    }
+    
+    // Match characteristics
+    const characteristicKeywords: Record<string, string[]> = {
+      'white': ['white', 'light', 'bright', 'pure', 'snow', 'cloud'],
+      'brown': ['brown', 'earth', 'wood', 'warm', 'coffee', 'chocolate'],
+      'small': ['small', 'tiny', 'little', 'mini', 'petite', 'delicate'],
+      'big': ['big', 'large', 'huge', 'giant', 'strong', 'mighty']
+    };
+    
+    request.petCharacteristics?.forEach(characteristic => {
+      const keywords = characteristicKeywords[characteristic] || [];
+      if (keywords.some(keyword => text.includes(keyword))) {
+        score += 1;
+      }
+    });
+    
+    return score;
   }
 }
-
 
 export async function POST(request: NextRequest) {
   try {
     const body: GenerateNamesRequest = await request.json();
-
-    console.log('ℹ️ Received request');
-    console.log('ℹ️ Pet Type : ' + JSON.stringify(body.petTypes));
-    console.log('ℹ️ Pet characteristics : ' + JSON.stringify(body.petCharacteristics));
-    console.log('ℹ️ Pet Description: ' + JSON.stringify(body.petDescription));
-    console.log('ℹ️ Name Styles : ' + JSON.stringify(body.nameStyles));
-    console.log('ℹ️ Uploaded files : ' + JSON.stringify(body.uploadedImages?.length || 0));
-    console.log('ℹ️ Previously generated names : ' + body.previosulyGeneratedNames);
     
-    // Validate required fields
-    if (!body.petDescription || !body.petDescription.trim()) {
-          // If no description, use a default or generate names based on pet types only
-    body.petDescription = body.petTypes && body.petTypes.length > 0 
-      ? `A ${body.petTypes.join(', ')} pet` 
-      : 'A wonderful pet';
-    }
+    console.log('ℹ️ Name generation request received');
+    console.log('ℹ️ Pet Description:', body.petDescription);
+    console.log('ℹ️ Pet Types:', body.petTypes);
+    console.log('ℹ️ Pet Characteristics:', body.petCharacteristics);
+    console.log('ℹ️ Name Styles:', body.nameStyles);
+    console.log('ℹ️ Images:', body.uploadedImages?.length || 0);
+    console.log('ℹ️ PreviouslyGeneratedName:', body.previouslyGeneratedNames?.length ? body.previouslyGeneratedNames.join(',') : 0);
 
-    // Determine whether to use mock data based on environment variables
-    const useDBData = process.env.USE_DB_DATA === 'true';
-    let names;
-    let wasFallback = false;
-    let finalSource = ''
-    const finalError = ''
+    const generator = new NameGenerator();
+    const result = await generator.generateNames(body);
 
+    console.log(`✅ Returning ${result.names.length} names from ${result.source} to client`);
 
-    // use DB if env var is set
-    if (useDBData) {
-      // let names = []
-      console.log('ℹ️ Using DBdata (configured via USE_DB_DATA=true)');
-
-      try {
-        // Try to read from database first 
-        names = await readNamesFromDatabase(body)
-         // If no names found in database, fall back to mock data
-        if (names.length === 0) {
-          console.log('ℹ️ No names found in database, using local data');
-          names = generateNamesFromLocalData(body);
-          wasFallback = true;
-          finalSource = 'local'
-        } else {
-          console.log('ℹ️ Using names from database');
-          finalSource = 'db'
-        }
-      }
-      catch (error) {
-        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-        console.log('ℹ️ Using DB to generate names failed - falling back to local data', errorMessage);
-        // throw new Error('ℹ️ Using DB to generate names failed - falling back to local data');
-        names = generateNamesFromLocalData(body);
-        wasFallback = true;
-        finalSource = 'local'
-        await new Promise(resolve => setTimeout(resolve, 1000));
-      }
-    } 
-    
-    // use llm/agent
-    else {
-      try {
-        console.log('ℹ️ Using LLM to generate names');
-        names = await generateNamesWithLLMGoogle(body);
-
-        // Save names to database
-        await saveNamesToDatabase(names, body);
-        finalSource = 'agent'
-
-      } catch(error) {
-          console.log('ℹ️ Name generation failed - falling back to db data', error instanceof Error ? error.message : JSON.stringify(error));
-
-          try {
-            // Try to read from database first 
-            names = await readNamesFromDatabase(body)
-            finalSource = 'db'
-          }
-          catch (error) {
-            const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-            console.log('ℹ️ Using DB to generate names failed - falling back to local data', errorMessage);
-            names = generateNamesFromLocalData(body);
-            wasFallback = true;
-            finalSource = 'local'
-          }
-          
-          // If no names found in database, fall back to mock data
-          if (names.length === 0) {
-            console.log('ℹ️ No names found in database, using local data');
-            names = generateNamesFromLocalData(body);
-            wasFallback = true;
-            finalSource = 'local'
-          } else {
-            console.log('ℹ️ Using names from database');
-          }
-
-      }
-    }
-
-    console.log(`✅ Returning ${names.length} names to client`);
-    const response = {
+    return NextResponse.json({
       success: true,
-      names: names,
-      count: names.length,
+      names: result.names,
+      count: result.names.length,
       timestamp: new Date().toISOString(),
-      useDB: useDBData || wasFallback,
-      // model: finalSource === 'agent' ? process.env.GOOGLE_MODEL : 'none',
-      fallback: wasFallback,
-      source: process.env.NODE_ENV === 'production' ? '' :  finalSource,
-      error: process.env.NODE_ENV === 'production' ? '' : finalError
-    }
-    return NextResponse.json(response);
+      source: process.env.NODE_ENV === 'production' ? undefined : result.source,
+      fallback: result.fallback
+    });
 
   } catch (error) {
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
-    console.log(`❌ Fatal error in name generation: ${errorMessage}`);
+    console.error('❌ Fatal error:', error instanceof Error ? error.message : 'Unknown error');
     return NextResponse.json(
       { error: 'Failed to generate names' },
       { status: 500 }
     );
   }
-}
-
-// Generate mock names based on predefined data
-function generateNamesFromLocalData(request: {
-  petDescription?: string;
-  petTypes?: string[];
-  nameStyles?: string[];
-  petCharacteristics?: string[];
-}): PetName[] {
-  const { petDescription, petTypes = [], nameStyles = [], petCharacteristics = [] } = request;
-
-  console.log('ℹ️ Generating mock names from local data');
-
-  // Collect names from petTypes
-  let namePool: MockNameData[] = [];
-  petTypes.forEach(type => {
-    if (mockNamesByType[type]) {
-      namePool.push(...mockNamesByType[type]);
-    }
-  });
-
-  // Fallback to 'other' if nothing collected
-  if (namePool.length === 0) {
-    namePool = mockNamesByType.other;
-  }
-
-  const characteristicKeywords = {
-    'white': ['white', 'light', 'bright', 'pure', 'snow', 'cloud'],
-    'brown': ['brown', 'earth', 'wood', 'warm', 'coffee', 'chocolate'],
-    'small': ['small', 'tiny', 'little', 'mini', 'petite', 'delicate'],
-    'big': ['big', 'large', 'huge', 'giant', 'strong', 'mighty']
-  };
-  const descLower = petDescription?.toLowerCase() || '';
-  const stylesLower = (nameStyles || []).map(style => style.toLowerCase());
-
-  // Score each name by how many filters it matches
-  const scored = namePool.map(nameData => {
-    const text = `${nameData.name} ${nameData.meaning}`.toLowerCase();
-    let score = 0;
-
-    // Match petDescription
-    if (descLower && text.includes(descLower)) score += 2;
-
-    // Match name styles
-    if (stylesLower.some(style => text.includes(style))) score += 1;
-
-    // Match any of the pet characteristics
-    if (petCharacteristics && petCharacteristics.length > 0) {
-      petCharacteristics.forEach(characteristic => {
-        const keywords = characteristicKeywords[characteristic as keyof typeof characteristicKeywords] || [];
-        if (keywords.some(k => text.includes(k))) score += 1;
-      });
-    }
-
-    return { ...nameData, _score: score };
-  });
-
-  // Sort by score (desc), then shuffle within same score
-  scored.sort((a, b) => b._score - a._score || Math.random() - 0.5);
-
-  const topNames = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
-
-  return scored.slice(0, topNames).map((nameData, index) => ({
-    id: `name-${Date.now()}-${index}`,
-    name: nameData.name,
-    meaning: nameData.meaning,
-    origin: nameData.origin
-  }));
 }
