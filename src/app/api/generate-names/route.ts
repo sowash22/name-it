@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { MockNameData, mockNamesByType } from '@/lib/mock';
 import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleGenAI, Type } from '@google/genai';
