@@ -1,9 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MockNameData, mockNamesByType } from '@/lib/mock';
 import { NextRequest, NextResponse } from 'next/server';
 import { v4 as uuidv4 } from 'uuid';
 import { GoogleGenAI, Type } from '@google/genai';
 import { db } from '@/lib/firebaseAdmin';
+import fs from 'fs';
+import path from 'path';
 
+
+const localDbPath = path.resolve(process.cwd(), 'localdb.json')
 interface GenerateNamesRequest {
   petDescription?: string;
   petTypes?: string[];
@@ -38,13 +43,23 @@ async function generateNames(request: GenerateNamesRequest): Promise<GenerationR
   try {
     console.log('🤖 Attempting LLM generation');
     const names = await generateWithLLM(cleanRequest);
+    // Always save to Firestore
     await saveToDatabase(names, cleanRequest);
+
+    // If local mode, also save to JSON DB
+    try {
+      // saveto local database in local dev
+      await saveToLocalDatabse(names, cleanRequest);
+    }
+    catch (error) {
+      console.log('❌ Saving to local database failed:', error instanceof Error ? error.message : 'Unknown error');
+    }
     return { names, source: 'llm', fallback: false };
   } catch (error) {
     console.log('❌ LLM failed:', error instanceof Error ? error.message : 'Unknown error');
   }
 
-  // Fallback to database
+  // Fallback to Firestore
   try {
     console.log('🗄️ Attempting database retrieval');
     const names = await getFromDatabase(cleanRequest);
@@ -55,9 +70,9 @@ async function generateNames(request: GenerateNamesRequest): Promise<GenerationR
     console.log('❌ Database failed:', error instanceof Error ? error.message : 'Unknown error');
   }
 
-  // Final fallback to local mock data
-  console.log('📁 Using local mock data');
-  const names = generateFromLocalData(cleanRequest);
+  // Final fallback → Local JSON DB
+  console.log('📁 Using local database fallback');
+  const names = await getFromLocalDatabase(cleanRequest);
   return { names, source: 'local', fallback: true };
 }
 
@@ -208,6 +223,78 @@ async function saveToDatabase(names: PetName[], request: GenerateNamesRequest): 
   }
 }
 
+
+
+async function saveToLocalDatabse(names: PetName[], request: GenerateNamesRequest) {
+  try {
+    // 1. Fetch everything from Firestore
+    const snapshot = await db.collection('names').get();
+    const firestoreRecords = snapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    // 2. Map newly generated names into same format
+    const newRecords = names.map(n => ({
+      ...n,
+      petDescription: request.petDescription,
+      petTypes: request.petTypes || [],
+      petCharacteristics: request.petCharacteristics || [],
+      nameStyles: request.nameStyles || [],
+      numberOfImagesAttached: request.uploadedImages?.length || 0,
+      createdAt: new Date().toISOString(),
+      generatedBy: 'llm-local'
+    }));
+
+    // 3. Merge Firestore + new local records (avoid duplicates by ID)
+    const allRecords = [...firestoreRecords, ...newRecords];
+    const uniqueRecords = Object.values(
+      allRecords.reduce((acc, rec) => {
+        acc[rec.id || uuidv4()] = rec;
+        return acc;
+      }, {} as Record<string, any>)
+    );
+
+    // 4. Write to local JSON file
+    await fs.promises.writeFile(localDbPath, JSON.stringify(uniqueRecords, null, 2));
+    console.log(`✅ Dumped ${uniqueRecords.length} records from Firestore into local database`);
+
+  } catch (err) {
+    console.error('❌ Failed to dump Firestore into local database:', err);
+  }
+}
+
+
+async function getFromLocalDatabase(request: GenerateNamesRequest): Promise<PetName[]> {
+  try {
+    if (!fs.existsSync(localDbPath)) return [];
+
+    const content = await fs.promises.readFile(localDbPath, 'utf-8');
+    const records = JSON.parse(content || '[]');
+
+    const nameCount = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
+
+    // filter in-memory same as Firestore fallback
+    const filtered = records.filter((rec: any) => {
+      if (request.petTypes?.length && !rec.petTypes.some((t: string) => request.petTypes!.includes(t))) return false;
+      if (request.nameStyles?.length && !rec.nameStyles.some((s: string) => request.nameStyles!.includes(s))) return false;
+      if (request.petCharacteristics?.length && !rec.petCharacteristics.some((c: string) => request.petCharacteristics!.includes(c))) return false;
+      return true;
+    });
+
+    return filtered.slice(0, nameCount).map((rec: any) => ({
+      id: rec.id || uuidv4(),
+      name: rec.name,
+      meaning: rec.meaning,
+      origin: rec.origin
+    }));
+  } catch (err) {
+    console.error('❌ Failed to read from local database:', err);
+    return [];
+  }
+}
+
+
 async function getFromDatabase(request: GenerateNamesRequest): Promise<PetName[]> {
   const nameCount = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
   let query: FirebaseFirestore.Query<FirebaseFirestore.DocumentData> = db.collection('names');
@@ -265,70 +352,6 @@ function calculateMatches(data: any, request: GenerateNamesRequest, additionalFi
   });
   
   return matches;
-}
-
-function generateFromLocalData(request: GenerateNamesRequest): PetName[] {
-  const nameCount = parseInt(process.env.NEXT_PUBLIC_TOP_NAMES || '5', 10);
-  
-  // Collect names from pet types
-  let namePool: MockNameData[] = [];
-  request.petTypes?.forEach(type => {
-    if (mockNamesByType[type]) {
-      namePool.push(...mockNamesByType[type]);
-    }
-  });
-  
-  // Fallback to 'other' if no names collected
-  if (namePool.length === 0) {
-    namePool = mockNamesByType.other || [];
-  }
-  
-  // Score names based on matches
-  const scored = namePool.map(nameData => ({
-    ...nameData,
-    score: scoreLocalName(nameData, request)
-  }));
-  
-  // Sort by score, then randomly within same score
-  scored.sort((a, b) => b.score - a.score || Math.random() - 0.5);
-  
-  return scored.slice(0, nameCount).map((nameData, index) => ({
-    id: `local-${Date.now()}-${index}`,
-    name: nameData.name,
-    meaning: nameData.meaning,
-    origin: nameData.origin
-  }));
-}
-
-function scoreLocalName(nameData: MockNameData, request: GenerateNamesRequest): number {
-  const text = `${nameData.name} ${nameData.meaning}`.toLowerCase();
-  const description = request.petDescription?.toLowerCase() || '';
-  let score = 0;
-  
-  // Match description
-  if (description && text.includes(description)) score += 2;
-  
-  // Match name styles
-  if (request.nameStyles?.some(style => text.includes(style.toLowerCase()))) {
-    score += 1;
-  }
-  
-  // Match characteristics
-  const characteristicKeywords: Record<string, string[]> = {
-    'white': ['white', 'light', 'bright', 'pure', 'snow', 'cloud'],
-    'brown': ['brown', 'earth', 'wood', 'warm', 'coffee', 'chocolate'],
-    'small': ['small', 'tiny', 'little', 'mini', 'petite', 'delicate'],
-    'big': ['big', 'large', 'huge', 'giant', 'strong', 'mighty']
-  };
-  
-  request.petCharacteristics?.forEach(characteristic => {
-    const keywords = characteristicKeywords[characteristic] || [];
-    if (keywords.some(keyword => text.includes(keyword))) {
-      score += 1;
-    }
-  });
-  
-  return score;
 }
 
 // Main API handler
