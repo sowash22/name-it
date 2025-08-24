@@ -165,7 +165,7 @@ export default function Home() {
         nameStyles,
         petCharacteristics,
         uploadedImages,
-        previosulyGeneratedNames: generatedNames.map((name) => {
+        previouslyGeneratedNames: generatedNames.map((name) => {
           return name?.name || ''
         })
       };
