@@ -264,6 +264,7 @@ class NameGenerator {
     return filteredNames;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   private calculateMatches(data: any, request: GenerateNamesRequest, additionalFilters: any[]): number {
     let matches = 1; // Base match since it passed primary filter
     
