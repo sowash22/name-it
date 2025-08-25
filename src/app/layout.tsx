@@ -42,7 +42,7 @@ export default function RootLayout({
             <footer className="bg-white/50 dark:bg-slate-900/50 backdrop-blur-sm border-t border-slate-200/30 dark:border-slate-700/30 py-4">
               <div className="max-w-4xl mx-auto px-6 text-center">
                 <div className="mt-4 text-xs text-slate-500 dark:text-slate-400">
-                  Passion project made with ❤️ and AI for pet pawrents{" "}
+                  Passion project made with ❤️ and AI for pet paw-rents{" "}
                   <a
                     href="mailto:sowndarya.ashok22@gmail.com"
                     className="font-semibold text-blue-600 dark:text-blue-400 hover:underline hover:text-blue-500 dark:hover:text-blue-300 transition-colors"
