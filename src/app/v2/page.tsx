@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useTheme } from 'next-themes';
 import { Moon, Sun, Mic } from 'lucide-react';
+import { redirect } from 'next/navigation';
 
 interface SpeechRecognitionEvent extends Event {
   results: {
@@ -73,6 +74,9 @@ export default function Home() {
   const { theme, setTheme, resolvedTheme } = useTheme();
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+
+  // todo fix it when ready
+  return redirect(process.env.NEXT_PUBLIC_PAGE_REDIRECT || '/v1');
   
   // Speech recognition setup
   const startListening = () => {
