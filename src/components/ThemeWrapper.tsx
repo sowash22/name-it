@@ -1,37 +1,42 @@
 "use client";
 
 import { ThemeProvider } from "next-themes";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+function TimeBasedThemeSetter({ onThemeReady }: { onThemeReady: (theme: string) => void }) {
+  useEffect(() => {
+    const storedTheme = sessionStorage.getItem("theme");
+
+    let theme: string;
+    if (storedTheme) {
+      theme = storedTheme;
+    } else {
+      const hour = new Date().getHours();
+      theme = hour >= 18 || hour < 6 ? "dark" : "light";
+      sessionStorage.setItem("theme", theme);
+    }
+
+    onThemeReady(theme);
+  }, [onThemeReady]);
+
+  return null;
+}
 
 export default function ThemeWrapper({ children }: { children: React.ReactNode }) {
+  const [theme, setTheme] = useState<string | undefined>(undefined);
+
+  if (!theme) {
+    // Avoid rendering children until theme is known
+    return <TimeBasedThemeSetter onThemeReady={setTheme} />;
+  }
+
   return (
     <ThemeProvider
       attribute="class"
       enableSystem={false}
-      storageKey="session-theme"
-      storageType="sessionStorage"
-      defaultTheme="light" // placeholder to avoid SSR mismatch
+      defaultTheme={theme} // force initial theme
     >
-      <TimeBasedThemeSetter />
       {children}
     </ThemeProvider>
   );
-}
-
-// ⏰ Sets initial theme client-side based on time if user hasn’t chosen
-function TimeBasedThemeSetter() {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { setTheme } = require("next-themes").useTheme();
-
-  useEffect(() => {
-    const saved = sessionStorage.getItem("session-theme");
-    if (saved) return;
-
-    const hour = new Date().getHours();
-    const theme = hour >= 6 && hour < 18 ? "light" : "dark";
-    setTheme(theme);
-    sessionStorage.setItem("session-theme", theme);
-  }, [setTheme]);
-
-  return null;
 }
