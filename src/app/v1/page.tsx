@@ -562,11 +562,8 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      Pick Your Pals 🐾
+                      Pick Your Pal 🐾
                     </label>
-                    <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
-                      Optional
-                    </span>
                   </div>
                   <div className="flex flex-wrap gap-3">
                     {(process.env.NEXT_PUBLIC_PET_TYPES || 'dog:🐕,cat:🐱,other:🐾').split(',').map((item) => {
@@ -575,12 +572,13 @@ export default function Home() {
                         <button
                           key={type}
                           onClick={() => {
-                            if (petTypes.includes(type)) {
-                              setPetTypes(petTypes.filter(t => t !== type));
+                            const isSelected = petTypes.includes(type);
+                            if (isSelected) {
+                              setPetTypes([]);
                               analytics.trackButtonClick('remove_pet_type', type);
                               analytics.trackPageInteraction('remove_pet_type', type);
                             } else {
-                              setPetTypes([...petTypes, type]);
+                              setPetTypes([type]);
                               analytics.trackButtonClick('add_pet_type', type);
                               analytics.trackPageInteraction('add_pet_type', type);
                             }
