@@ -575,10 +575,12 @@ export default function Home() {
                             const isSelected = petTypes.includes(type);
                             if (isSelected) {
                               setPetTypes([]);
+                              setPetCharacteristics([]);
                               analytics.trackButtonClick('remove_pet_type', type);
                               analytics.trackPageInteraction('remove_pet_type', type);
                             } else {
                               setPetTypes([type]);
+                              setPetCharacteristics([]);
                               analytics.trackButtonClick('add_pet_type', type);
                               analytics.trackPageInteraction('add_pet_type', type);
                             }
@@ -608,7 +610,10 @@ export default function Home() {
                     </span>
                   </div>
                   <div className="flex flex-wrap gap-3">
-                    {(process.env.NEXT_PUBLIC_PET_CHARACTERISTICS || 'white:⚪,brown:🟤,small:🔹,big:🔶').split(',').map((item) => {
+                    {((petTypes.includes('dog')
+                        ? process.env.NEXT_PUBLIC_PET_DOGS
+                        : process.env.NEXT_PUBLIC_PET_CHARACTERISTICS) || 'white:⚪,brown:🟤,small:🔹,big:🔶'
+                    ).split(',').map((item) => {
                       const [characteristic, icon] = item.split(':');
                       return (
                         <button
