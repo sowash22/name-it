@@ -49,8 +49,11 @@ async function generateNames(request: GenerateNamesRequest): Promise<GenerationR
 
     // If local mode, also save to JSON DB
     try {
-      // saveto local database in local dev
-      await saveToLocalDatabse(names, cleanRequest);
+      if(process.env.NODE_ENV === 'development') {
+        console.log('🤖 Dumping DB to local DB')
+        // save to local database in local dev
+        await saveToLocalDatabse(names, cleanRequest);
+      }
     }
     catch (error) {
       console.log('❌ Saving to local database failed:', error instanceof Error ? error.message : 'Unknown error');
@@ -117,7 +120,7 @@ async function generateWithLLM(request: GenerateNamesRequest): Promise<GenerateW
 
   // Try each model in sequence
   for (let attempt = -1; attempt < models.length; attempt++) {
-    const currentModel = models[attempt];
+    const currentModel = models[attempt+1];
     
     try {
       console.log(`ℹ️ Attempt ${attempt + 1}/5 - Using model: ${currentModel}`);
