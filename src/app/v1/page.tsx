@@ -208,7 +208,7 @@ export default function Home() {
         sessionStorage.setItem('confetti_shown', 'true')
         setTimeout(() => {
           setShowConfetti(false);
-        }, 5000);
+        }, 7000);
       }
       
       
@@ -494,67 +494,6 @@ export default function Home() {
           </button>
         ) : (
           <>
-            {/* Describe your pet field */}
-            {showDescription && (
-              <div className="mb-10">
-                <div className="flex items-center gap-3 mb-4">
-                  <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                    Tell us what makes them special
-                  </label>
-                  <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
-                    Optional
-                  </span>
-                </div>
-                <div className="relative group">
-                  <textarea
-                    value={petDescription}
-                    onChange={(e) => {
-                      setPetDescription(e.target.value);
-                      // Track when user starts typing (debounced)
-                      if (e.target.value.length === 1) {
-                        analytics.trackPageInteraction('start_typing', 'description');
-                      }
-                    }}
-                    onFocus={() => analytics.trackPageInteraction('focus_field', 'description')}
-                    placeholder="Tell us about their personality, favorite activities, or what makes them special... 🐕"
-                    className="w-full px-6 py-6 pb-16 border-0 rounded-3xl outline-none focus:ring-4 focus:ring-pink-500/20 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 resize-none min-h-[140px] text-base leading-relaxed transition-all duration-300 shadow-xl shadow-pink-500/5 hover:shadow-2xl hover:shadow-pink-500/10 group-focus-within:shadow-2xl group-focus-within:shadow-pink-500/15 border border-white/20 dark:border-slate-700/50"
-                    rows={4}
-                  />
-                  <button
-                    onClick={() => {
-                      if (isListening) {
-                        analytics.trackButtonClick('stop_voice', 'description');
-                        analytics.trackPageInteraction('stop_voice', 'description');
-                        stopListening();
-                      } else {
-                        analytics.trackButtonClick('start_voice', 'description');
-                        analytics.trackPageInteraction('start_voice', 'description');
-                        startListening();
-                      }
-                    }}
-                    className={`absolute right-4 bottom-4 p-3 rounded-2xl transition-all duration-300 shadow-lg transform hover:scale-110 ${
-                      isListening
-                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-purple-500/30 animate-pulse'
-                        : 'bg-gradient-to-r from-slate-200 to-slate-300 dark:from-slate-600 dark:to-slate-700 text-slate-600 dark:text-slate-300 hover:from-pink-200 hover:to-rose-200 dark:hover:from-pink-800 dark:hover:to-rose-800'
-                    }`}
-                    title={isListening ? 'Stop listening' : 'Start voice input'}
-                  >
-                    <Mic className="w-4 h-4" />
-                  </button>
-                  {isListening && (
-                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-3 px-4 py-2 text-sm font-bold bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 text-purple-700 dark:text-purple-300 rounded-2xl border border-purple-200 dark:border-purple-800/50 shadow-xl backdrop-blur-md">
-                      <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
-                        <div className="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
-                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
-                      </div>
-                      <span>Listening...</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-            
             {/* All Toggles Section */}
             {showToggles && (
               <div className="space-y-8 mb-10">
@@ -603,7 +542,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      What describes them? 🎨
+                      What Describes Your Pet? 🎨
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
@@ -612,7 +551,7 @@ export default function Home() {
                   <div className="flex flex-wrap gap-3">
                     {((petTypes.includes('dog')
                         ? process.env.NEXT_PUBLIC_PET_DOGS
-                        : process.env.NEXT_PUBLIC_PET_CHARACTERISTICS) || 'white:⚪,brown:🟤,small:🔹,big:🔶'
+                        : process.env.NEXT_PUBLIC_PET_CHARACTERISTICS) || 'playful:🤸,friendly:🤝,loyal:🐶,curious:🔍,energetic:⚡,affectionate:❤️,intelligent:🧠,protective:🛡️,gentle:🌸,obedient:🎯,male:👨,female:👩'
                     ).split(',').map((item) => {
                       const [characteristic, icon] = item.split(':');
                       return (
@@ -647,7 +586,7 @@ export default function Home() {
                 <div>
                   <div className="flex items-center gap-3 mb-4">
                     <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
-                      Choose Their Name Vibe ✨
+                      Pick Your Pet’s Name Vibe? ✨
                     </label>
                     <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
                       Optional
@@ -682,6 +621,67 @@ export default function Home() {
                       );
                     })}
                   </div>
+                </div>
+              </div>
+            )}
+
+            {/* Describe your pet field */}
+            {showDescription && (
+              <div className="mb-10">
+                <div className="flex items-center gap-3 mb-4">
+                  <label className="text-lg font-bold text-slate-800 dark:text-slate-100">
+                    Tell us what makes your pet special
+                  </label>
+                  <span className="px-3 py-1 text-xs font-bold bg-gradient-to-r from-amber-200 to-orange-200 dark:from-amber-800 dark:to-orange-800 text-amber-700 dark:text-amber-300 rounded-full shadow-sm">
+                    Optional
+                  </span>
+                </div>
+                <div className="relative group">
+                  <textarea
+                    value={petDescription}
+                    onChange={(e) => {
+                      setPetDescription(e.target.value);
+                      // Track when user starts typing (debounced)
+                      if (e.target.value.length === 1) {
+                        analytics.trackPageInteraction('start_typing', 'description');
+                      }
+                    }}
+                    onFocus={() => analytics.trackPageInteraction('focus_field', 'description')}
+                    placeholder="Tell us about your pet personality and favorite activities 🐕"
+                    className="w-full px-6 py-6 pb-16 rounded-3xl outline-none focus:ring-4 focus:ring-pink-500/20 bg-white/80 dark:bg-slate-800/80 backdrop-blur-md text-slate-900 dark:text-white placeholder-slate-500 dark:placeholder-slate-400 resize-none text-base leading-relaxed transition-all duration-300 shadow-xl shadow-pink-500/5 hover:shadow-2xl hover:shadow-pink-500/10 group-focus-within:shadow-2xl group-focus-within:shadow-pink-500/15 border border-white/20 dark:border-slate-700/50"
+                    rows={2}
+                  />
+                  <button
+                    onClick={() => {
+                      if (isListening) {
+                        analytics.trackButtonClick('stop_voice', 'description');
+                        analytics.trackPageInteraction('stop_voice', 'description');
+                        stopListening();
+                      } else {
+                        analytics.trackButtonClick('start_voice', 'description');
+                        analytics.trackPageInteraction('start_voice', 'description');
+                        startListening();
+                      }
+                    }}
+                    className={`absolute right-4 bottom-4 p-3 rounded-2xl transition-all duration-300 shadow-lg transform hover:scale-110 ${
+                      isListening
+                        ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-purple-500/30 animate-pulse'
+                        : 'bg-gradient-to-r from-slate-200 to-slate-300 dark:from-slate-600 dark:to-slate-700 text-slate-600 dark:text-slate-300 hover:from-pink-200 hover:to-rose-200 dark:hover:from-pink-800 dark:hover:to-rose-800'
+                    }`}
+                    title={isListening ? 'Stop listening' : 'Start voice input'}
+                  >
+                    <Mic className="w-4 h-4" />
+                  </button>
+                  {isListening && (
+                    <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex items-center gap-3 px-4 py-2 text-sm font-bold bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/50 dark:to-pink-900/50 text-purple-700 dark:text-purple-300 rounded-2xl border border-purple-200 dark:border-purple-800/50 shadow-xl backdrop-blur-md">
+                      <div className="flex gap-1">
+                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce"></div>
+                        <div className="w-2 h-2 bg-pink-500 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
+                        <div className="w-2 h-2 bg-purple-500 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }}></div>
+                      </div>
+                      <span>Listening...</span>
+                    </div>
+                  )}
                 </div>
               </div>
             )}
@@ -918,6 +918,7 @@ export default function Home() {
                       setNameStyles([]);
                       setPetCharacteristics([]);
                       setUploadedImages([]);
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
                       analytics.trackButtonClick('restart', 'results');
                       analytics.trackPageInteraction('restart_form', 'results');
                       analytics.trackButtonClick('restart_form', 'results');
